@@ -1,10 +1,9 @@
 # How Software and Symbolic AI Work
 
 ## Team and module
-- **Team name:** [Enter official team name]
+- **Team name:** Cangcut
 - **Selected module:** How Software and Symbolic AI Work
-- **Members and GitHub usernames:** [Add each member's roster name, student ID where required, and GitHub username]
-- **Repository URL:** [Paste the actual GitHub repository URL]
+- **Members:** Rafael, Alex, Said, Valiant, Victor
 
 ## Purpose and intended learners
 This learning module introduces beginners to software and explains how symbolic AI represents knowledge and uses explicit rules to reach conclusions. It assumes no prior AI knowledge and uses a small, traceable example rather than advanced mathematics.
