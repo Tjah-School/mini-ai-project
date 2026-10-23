@@ -39,25 +39,30 @@ By the end of this module, learners should be able to:
 ## 5. Topic Sequence
 
 1. The Foundation of Software — Rafael Tjahjono
-2. The Birth of Symbolic AI — Victor Charlie
+2. The Birth of Symbolic AI (Good Old Fashioned AI) — Victor Charlie
 3. How It Works: Mechanics & Examples — Alexander Valentino Lukman
 4. Symbolic AI vs. Modern Machine Learning — Said Aliyev
-5. The Modern Revival: Hybrid AI — Valiant Lim
+5. The Modern Revival: Hybrid AI (Neuro-Symbolic AI) — Valiant Lim
 
 ## 6. Repository Structure
 
-- `README.md`
-- `Project Plan.md`
-- `Markdown Content/`
-  - `0. Module Outline.md`
-  - `1. Software Foundation.md`
-  - `2. Birth of Symbolic AI.md`
-  - `3. How Software and Symbolic AI Work.md`
-  - `4. Symbolic AI vs Machine Learning.md`
-  - `5. Hybrid AI.md`
-  - `Assets/`
-
-Keep existing Study Guide and Presentation folders if they already exist. Add other folders when needed.
+```text
+Software-and-Symbolic-AI/
+├── README.md
+├── Markdown Content/
+│   ├── module_outline.md
+│   ├── 1. The Foundation of Software.md
+│   ├── 2.The Birth of Symbolic AI (Good Old Fashioned AI).md
+│   ├── 3. How It Works: Mechanics & Examples.md
+│   ├── 4. Symbolic AI vs. Modern Machine Learning.md
+│   ├── 5. The Modern Revival: Hybrid AI (Neuro-Symbolic AI).md
+│   └── Assets/
+├── Project Plan/
+├── Study Plan/
+├── Presentation/
+├── Video Tutorials/
+└── Evidence/
+```
 
 ## 7. Quality Assurance
 
@@ -83,11 +88,3 @@ Concise explanations, diagrams, comparison tables, and key examples.
 
 ### Video Tutorial
 Narration, visual demonstrations, step-by-step explanations, and recap questions.
-
-## 10. Remaining Work
-
-- Verify all five topic chapters.
-- Complete peer reviews.
-- Verify factual claims and references.
-- Document actual contributions and meaningful GitHub changes.
-- Prepare the final deliverables and submission evidence.
