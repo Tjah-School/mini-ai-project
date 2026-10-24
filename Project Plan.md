@@ -120,7 +120,7 @@ By the end of this subtopic, a beginner should be able to answer three basic que
 
 ---
 
-## 4. Symbolic AI vs. Modern Machine Learning (Said)
+## 4. Symbolic AI vs. Modern Machine Learning (Rafael)
 
 ### 4.1 Simple Learning Goals
 
