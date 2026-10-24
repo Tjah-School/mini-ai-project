@@ -116,35 +116,6 @@ By the end of this subtopic, a beginner should be able to answer three basic que
 
 ---
 
-# Symbolic AI vs. Modern Machine Learning - Said
-
-## 1. Simple Learning Goals
-
-By the end of this subtopic, a beginner should be able to answer three basic questions:
-
-1. **How do their approaches differ?** Contrast explicit rule-coding (Symbolic) with statistical learning from data (Machine Learning).
-2. **Why is Symbolic AI transparent?** Explain why symbolic decisions are fully explainable while neural networks function as "black boxes."
-3. **Why did Symbolic AI struggle with real-world tasks?** Explain why rigid rules fail when faced with noisy or ambiguous data like computer vision or voice recognition.
-
-## 2. Detailed vs. Brief (Scope Boundaries)
-
-| Topic Area | Deep Focus (Explain in detail) | Quick Intro (1 slide / brief mention) |
-|---|---|---|
-| Paradigm Shift | • Top-down rule programming vs. Bottom-up data learning<br>• Abstract symbols vs. High-dimensional vector embeddings<br>• Zero training data required vs. Big Data dependency | • Symbolic execution speed vs. GPU-heavy ML training<br>• Memory efficiency differences |
-| Strengths & Limitations | • High explainability/auditability vs. "Black Box" predictions<br>• Deterministic accuracy vs. Statistical probability<br>• The Brittleness Problem: Complete failure on edge cases | • The Symbol Grounding Problem: Connecting symbols to reality<br>• The Knowledge Acquisition Bottleneck |
-
-## 3. What to Say in the "Quick Intro" Parts (Brief Intro)
-
-- **The Knowledge Acquisition Bottleneck:** Mention that hand-writing thousands of rules from human experts was extremely slow, expensive, and difficult to maintain.
-- **The Symbol Grounding Problem:** Explain that computers don't know what a word actually means in the real world—they only know how it relates to other symbols in their code.
-- **Data Requirements:** Briefly contrast how symbolic AI needs zero training data (just expert knowledge) while modern machine learning requires millions of data samples to recognize patterns.
-
-## 4. One-Sentence Plan Summary
-
-> "This subtopic compares top-down symbolic logic against bottom-up statistical machine learning, highlighting why symbolic AI excels at transparent reasoning but fails at handling messy, real-world perception."
-
----
-
 # The Modern Revival: Hybrid AI (Neuro-Symbolic AI) - Valiant
 
 ## 1. Simple Learning Goals
