@@ -1,599 +1,325 @@
-# How It Works: Mechanics & Examples 
+# Introduction to Software and Symbolic AI — Stage 1 Project Plan
 
-**Author:** Alexander Valentino Lukman
-**Module:** Software & Symbolic AI
+## Team Information & Work Distribution
 
-## 1. Learning Goals
+| Role | Team Member | Primary Responsibilities | Key Traits & Required Skills |
+|---|---|---|---|
+| CEO / Coordinator | Alexander Valentino Lukman / 吕孙鸿 / 1820262032 | Overall project management, timeline tracking, task delegation, team communication, risk management | Leadership & organization; strategic planning; time management; clear communication |
+| CIO / Repository & Submission Lead | Victor Charlie / 李东财 / 1820262066 | GitHub repository setup, Markdown workflow control, version management, final file submission | Git / GitHub proficiency; file organization; technical diligence; system compliance |
+| Quality Lead | Valiant Lim / 林盛旺 / 1820262320 | Peer review, checking against assignment rubrics, content accuracy verification, proofreading | High attention to detail; critical evaluation; quality assurance; rubric adherence |
+| Visual Design & Video Lead | Said Aliyev / 李叶 / 1820262028 | PPT slide design, video production, audio editing, visual asset creation, recording coordination | Visual aesthetics; slide layout mastery; video/audio editing; creative storytelling |
+| Content Lead | Rafael Tjahjono / 李文明 / 1820262082 | Research direction, core Markdown text drafting, Study Guide layout, scriptwriting, logic verification | Technical writing; research capability; topic structuring; educational clarity |
 
-By the end of this topic, a beginner should be able to:
+### Team Work Distribution Summary
 
-1. Identify the two main components of an expert system: the Knowledge Base and the Inference Engine.
-2. Explain how IF/THEN production rules process input facts to derive logical conclusions.
-3. Describe a historical expert system, such as MYCIN or DENDRAL, and explain the problem it was designed to solve.
-
----
-
-## 2. What Is an Expert System?
-
-An **expert system** is a computer program designed to solve problems in a specialized domain by using stored knowledge and logical reasoning.
-
-Traditional expert systems attempt to reproduce parts of a human expert's decision-making process. Instead of learning every rule from a large dataset, classic rule-based expert systems use knowledge explicitly represented by human experts or knowledge engineers.
-
-A basic expert system has two main components:
-
-### 2.1 Knowledge Base
-
-The **Knowledge Base** stores the facts, rules, and relationships that the system uses to solve problems.
-
-For example, a simple weather-related knowledge base might contain these facts:
-
-- Fact 1: The temperature is above 30°C.
-- Fact 2: The room has poor ventilation.
-
-It might also contain these rules:
-
-- Rule 1: IF the temperature is above 30°C, THEN the room is hot.
-- Rule 2: IF the room is hot AND ventilation is poor, THEN recommend improving ventilation.
-
-The Knowledge Base stores this information so that the system can use it during reasoning.
-
-### 2.2 Inference Engine
-
-The **Inference Engine** is the component responsible for applying rules to available facts to derive conclusions.
-
-Its main tasks include:
-
-1. Checking which rules match the available facts.
-2. Selecting a rule to apply.
-3. Applying the rule.
-4. Adding or producing the resulting conclusion.
-5. Continuing the reasoning process when additional rules can be applied.
-
-The Inference Engine does not need to invent every rule itself. It uses the knowledge represented in the Knowledge Base.
-
-### 2.3 How They Work Together
-
-The Knowledge Base stores the knowledge, while the Inference Engine uses that knowledge to reason.
-
-```text
-       User Input
-           |
-           v
-      Known Facts
-           |
-           v
-+----------------------+
-|   Inference Engine   |
-|                      |
-| 1. Match rules       |
-| 2. Select a rule     |
-| 3. Apply the rule    |
-| 4. Derive a result   |
-+----------------------+
-           |
-           v
-+----------------------+
-|     Knowledge Base   |
-|                      |
-| Facts, Rules, and    |
-| Relationships        |
-+----------------------+
-           |
-           v
-   Conclusion or
-   Recommendation
-```
-
-This is a simplified conceptual diagram. Actual expert-system architectures may differ.
+| Metric | Details |
+|---|---|
+| Workload Principle | Equal substantive contribution from all members; roles represent primary coordination areas, not isolated work silos. |
+| Core Artifacts | All members research and contribute to the shared Markdown foundation, Study Guide, PPT, and Video scripts. |
+| Review Process | Drafts are pushed to GitHub, proofread by the Quality Lead, and finalized by the CIO prior to submission. |
 
 ---
 
-## 3. Production Rules: How IF/THEN Statements Work
+## Project Title / Module Name
 
-A **production rule** is a rule that specifies what conclusion or action follows when certain conditions are satisfied.
+**Introduction to Software and Symbolic AI**
 
-The general structure is:
-
-`IF condition THEN conclusion`
-
-For example:
-
-`IF temperature > 30°C THEN room_status = "hot"`
-
-This rule means that when the temperature is greater than 30°C, the system can infer that the room is hot.
-
-Rules can also contain multiple conditions.
-
-For example:
-
-`IF temperature > 30°C AND ventilation = "poor" THEN recommendation = "improve ventilation"`
-
-Both conditions must be satisfied for this rule to apply.
-
-### 3.1 Worked Example: A Fictional Library Assistant
-
-Imagine a library uses a simple expert system to help determine when a student should contact library staff.
-
-The system has the following facts:
-
-- `book_overdue = true`
-- `renewal_limit_reached = true`
-
-The Knowledge Base contains two rules.
-
-**Rule 1**
-
-`IF book_overdue = true THEN account_needs_attention = true`
-
-**Rule 2**
-
-`IF account_needs_attention = true AND renewal_limit_reached = true THEN recommendation = "contact library staff"`
-
-Let's follow the reasoning process.
-
-**Step 1: Read the initial facts.**
-
-The system knows that the book is overdue and the renewal limit has been reached.
-
-**Step 2: Check Rule 1.**
-
-Rule 1 requires `book_overdue = true`.
-
-This condition is satisfied, so the rule can fire.
-
-The system derives a new fact:
-
-`account_needs_attention = true`
-
-**Step 3: Check Rule 2.**
-
-Rule 2 requires two conditions:
-
-- `account_needs_attention = true`
-- `renewal_limit_reached = true`
-
-Both conditions are now satisfied.
-
-Therefore, Rule 2 can fire.
-
-**Step 4: Produce the conclusion.**
-
-The system recommends:
-
-`contact library staff`
-
-### Final Result
-
-The system derived a recommendation by applying explicit rules to known facts.
-
-Notice that the system did not learn these rules from the example. The rules were provided in advance, and the Inference Engine applied them.
-
-This is the fundamental idea behind many traditional rule-based expert systems.
+**Purpose:** This project creates an interactive learning module that introduces beginners and intermediate students to Symbolic AI, including logic, rules, and knowledge representation. It teaches undergraduate students how to build and use logic-based AI in software systems.
 
 ---
 
-## 4. Forward Chaining and Backward Chaining
+## 1. The Foundation of Software (Rafael)
 
-Expert systems need strategies for applying rules. Two common approaches are **forward chaining** and **backward chaining**.
+### 1.1 Simple Learning Goals
 
-### 4.1 Forward Chaining: Data-Driven Reasoning
+By the end of your lesson, a beginner should be able to answer three basic questions:
 
-Forward chaining begins with known facts and applies rules to derive additional facts or conclusions.
+1. **What is software?** Explain what software is and name the two main types (System like Windows vs. Application like web browsers).
+2. **How does code run?** Explain how human code turns into binary (0s and 1s) so the computer hardware can run it.
+3. **How do programs think?** Show how software uses simple rules (If/Else conditions and Loops) to process inputs into outputs.
 
-The process continues until a goal is reached or no further rules can be applied.
+### 1.2 Detailed vs. Brief (Scope Boundaries)
 
-Using the library example:
-
-1. The system starts with `book_overdue = true`.
-2. Rule 1 fires and derives `account_needs_attention = true`.
-3. The system checks whether the conditions of Rule 2 are satisfied.
-4. Because `renewal_limit_reached = true` is also known, Rule 2 fires.
-5. The system recommends contacting library staff.
-
-Forward chaining is called **data-driven reasoning** because it starts with the available facts.
-
-Its central question is:
-
-**"What conclusions can I derive from the facts I already know?"**
-
-Forward chaining can be useful when a system receives information and needs to determine which conclusions follow from it.
-
-### 4.2 Backward Chaining: Goal-Driven Reasoning
-
-Backward chaining starts with a goal or question and works backward to determine whether the available facts and rules support it.
-
-Suppose the system wants to determine:
-
-`Should the student contact library staff?`
-
-Instead of starting with all the facts and deriving every possible conclusion, it works backward.
-
-1. Identify a rule that can establish the goal.
-2. Determine the conditions required by that rule.
-3. Check whether those conditions are already known.
-4. If a condition is not known, look for another rule that could establish it.
-5. Continue until the required facts are found or the goal cannot be established.
-
-Backward chaining is called **goal-driven reasoning** because the process starts with a particular question.
-
-Its central question is:
-
-**"What must be true for this goal to be supported?"**
-
-### 4.3 Comparison
-
-| Feature | Forward Chaining | Backward Chaining |
+| Topic Area | Deep Focus (Explain in detail) | Quick Intro (1 slide / brief mention) |
 |---|---|---|
-| Starting point | Known facts | A goal or question |
-| Direction | Facts toward conclusions | Goal toward supporting facts |
-| Reasoning style | Data-driven | Goal-driven |
-| Main question | What follows from these facts? | Can this goal be established? |
-| Typical use | Deriving conclusions from incoming information | Checking whether a particular conclusion is supported |
+| Software Basics | Difference between Hardware and Software; System Software vs. Application Software | History of early computers |
+| How Code Works | High-level code → Binary (0s and 1s); simple logic steps (If/Else, Loops) | Deep OS details; hard coding math |
+| Modern Tech | How developers use Git/GitHub | Cloud computing (SaaS); open source vs. paid software |
 
-Both strategies can be useful. The better choice depends on the problem and how the system needs to reason.
+### 1.3 What to Say in the "Quick Intro" Parts (Brief Intro)
+
+Keep these brief topics super simple:
+
+- **How Code Translates:** Mention that code is translated to binary either all at once (Compiled like C++) or line-by-line (Interpreted like Python).
+- **How Software is Built (SDLC):** State that building software follows steps: Plan → Design → Code → Test → Release.
+- **Cloud Software:** Mention that modern software often runs on remote servers through the internet (like Google Docs) instead of installed CDs.
+- **Open Source:** Explain that "open source" means the code is free for anyone to see and improve (like Linux or Python).
+
+### 1.4 One-Sentence Plan Summary for Your Report
+
+> "Our project teaches beginners what software is, how human code turns into computer instructions, and how basic program logic works, while giving a quick high-level overview of how modern software is built and delivered."
 
 ---
 
-## 5. Search Strategies: Depth-First and Breadth-First Search
+## 2. The Birth of Symbolic AI (Good Old-Fashioned AI) (Victor)
 
-Some AI problems require a system to explore multiple possible paths before finding a solution.
+### 2.1 Simple Learning Goals
 
-Two common search strategies are **Depth-First Search (DFS)** and **Breadth-First Search (BFS)**.
+By the end of this subtopic, a beginner should be able to answer three basic questions:
 
-These are search strategies, whereas forward and backward chaining are inference strategies. They are related concepts, but they are not interchangeable.
+1. **What is Symbolic AI?** Explain what Good Old-Fashioned AI (GOFAI) is in plain language.
+2. **What is the Physical Symbol System Hypothesis?** State the foundational idea that human thinking can be reduced to manipulating abstract symbols.
+3. **Why did early AI researchers focus on logic?** Explain why early pioneers believed intelligence was driven by explicit rules and formal reasoning rather than data.
 
-### 5.1 Depth-First Search
+### 2.2 Detailed vs. Brief (Scope Boundaries)
 
-Depth-First Search explores one branch as deeply as possible before returning to explore other branches.
-
-Consider this search tree:
-
-```text
-            A
-          /   \
-         B     C
-        / \   / \
-       D   E F   G
-```
-
-If the system explores children from left to right, DFS may visit:
-
-`A → B → D → E → C → F → G`
-
-The system follows the left branch before moving to the right branch.
-
-**Advantages:**
-- Can use relatively little memory in certain search problems.
-- Can find a solution quickly if the solution lies along the branch explored first.
-
-**Limitations:**
-- May spend a long time exploring an unhelpful branch.
-- Does not generally guarantee the shortest solution.
-
-### 5.2 Breadth-First Search
-
-Breadth-First Search explores all nodes at one level before moving to the next level.
-
-Using the same tree, BFS visits:
-
-`A → B → C → D → E → F → G`
-
-The system explores all immediate children of A before exploring the next level.
-
-**Advantages:**
-- Finds a shallowest solution when searching systematically in an unweighted tree.
-- Does not immediately commit to one deep branch.
-
-**Limitations:**
-- Can require much more memory because it stores nodes waiting to be explored.
-
-### 5.3 Comparison
-
-| Feature | Depth-First Search | Breadth-First Search |
+| Topic Area | Deep Focus (Explain in detail) | Quick Intro (1 slide / brief mention) |
 |---|---|---|
-| Exploration | Goes deeper along one branch | Explores level by level |
-| Memory | Often lower in tree-search settings | Can be considerably higher |
-| Shortest solution | Not generally guaranteed | Finds a shallowest solution in an unweighted tree |
-| Main risk | Exploring an unhelpful branch for too long | Memory consumption |
+| Foundations of GOFAI | Definition of Good Old-Fashioned AI (GOFAI); the Physical Symbol System Hypothesis (Newell & Simon); abstract symbols as representations of real-world concepts | The 1956 Dartmouth Conference (birthplace of AI research); early optimism of 1960s researchers |
+| Historical Trajectory | Dominance of symbolic logic from 1950s to 1980s; shift from theoretical logic to practical expert systems | The first "AI Winter" (funding cuts due to overpromising); philosophical critiques (e.g., Searle's Chinese Room) |
 
-The choice depends on the structure of the search problem and the resources available.
+### 2.3 What to Say in the "Quick Intro" Parts (Brief Intro)
 
----
+- **The Dartmouth Conference:** Mention that symbolic AI began at a famous 1956 summer workshop where researchers believed every aspect of learning and intelligence could be precisely described so a machine could simulate it.
+- **Early Optimism:** Briefly state that early successes in chess and math proofs led scientists to mistakenly believe that human-level intelligence was only a few years away.
+- **The First AI Winter:** Explain that when these early systems failed to scale to real-world complexity, government funding dried up, leading to a period known as an "AI Winter."
 
-## 6. Rule Conflict Resolution
+### 2.4 One-Sentence Plan Summary
 
-Sometimes several rules match the available facts simultaneously.
-
-A system needs a way to determine which rule should fire first. This is known as **rule conflict resolution**.
-
-Common strategies include:
-
-### 6.1 Priority
-
-Rules can be assigned priorities. A rule with a higher priority may be selected before a lower-priority rule.
-
-### 6.2 Specificity
-
-A more specific rule may be preferred over a more general rule.
-
-For example, a rule addressing a particular exception may take precedence over a broad default rule.
-
-### 6.3 Recency
-
-Some systems prioritize rules that use recently added facts.
-
-### 6.4 Rule Order
-
-A system may evaluate rules according to a defined order.
-
-Different expert systems and rule engines can use different strategies.
-
-Conflict resolution matters because the order in which rules fire can affect the reasoning process. The strategy should therefore be documented and tested.
+> "This subtopic teaches beginners how Symbolic AI originated as the first major AI paradigm, driven by the belief that intelligence is achieved through the formal manipulation of symbols and explicit logic."
 
 ---
 
-## 7. Certainty Factors: Reasoning with Uncertainty
+## 3. How It Works: Mechanics & Examples (Alex)
 
-In real-world situations, information is not always complete or certain.
+### 3.1 Simple Learning Goals
 
-For example, a medical expert might consider a symptom to be evidence supporting one possible diagnosis without treating that diagnosis as absolutely certain.
+By the end of this subtopic, a beginner should be able to answer three basic questions:
 
-Some expert systems therefore use methods for representing uncertainty.
+1. **What are the two main components of an Expert System?** Describe the roles of the Knowledge Base and the Inference Engine.
+2. **How do Production Rules work?** Show how software uses IF/THEN statements to process input facts into logical conclusions.
+3. **What is a real-world example of Symbolic AI?** Name a historical expert system (like MYCIN or DENDRAL) and explain what problem it solved.
 
-**MYCIN used certainty factors** as part of its approach to reasoning with uncertain medical evidence.
+### 3.2 Detailed vs. Brief (Scope Boundaries)
 
-A certainty factor represents a degree of support or doubt within a particular framework. It should not automatically be interpreted as an ordinary probability.
-
-For example, saying that a system assigns a certainty factor of 0.8 does not, by itself, establish that the conclusion has an 80% probability of being correct.
-
-The important idea is that an expert system can represent uncertainty instead of treating every conclusion as completely certain.
-
----
-
-## 8. Ontologies and Taxonomy Hierarchies
-
-Expert systems may organize knowledge using structured concepts and relationships.
-
-An **ontology** represents concepts in a domain and defines relationships between them.
-
-A **taxonomy** organizes concepts into categories, often using broader and narrower classes.
-
-For example:
-
-```text
-Vehicle
-  |
-  +-- Car
-        |
-        +-- Electric Car
-        |
-        +-- Petrol Car
-```
-
-In this simplified hierarchy:
-
-- An Electric Car is a type of Car.
-- A Petrol Car is a type of Car.
-- A Car is a type of Vehicle.
-
-These relationships help a system organize information and reuse knowledge.
-
-Real ontologies can represent more complex relationships than simple category hierarchies.
-
----
-
-## 9. Historical Case Study: DENDRAL
-
-**DENDRAL** was an early expert-system project developed in the 1960s.
-
-It helped scientists infer plausible chemical structures from chemical evidence, including mass-spectrometry data.
-
-### 9.1 The Problem
-
-Chemists needed to determine which molecular structures could explain the available experimental evidence.
-
-Many candidate structures could be considered, so the problem required domain knowledge and systematic analysis.
-
-### 9.2 How DENDRAL Worked
-
-At a high level, the system:
-
-1. Received chemical evidence.
-2. Considered candidate molecular structures.
-3. Used domain knowledge and computational search to evaluate possible candidates.
-4. Produced candidate structures for further scientific consideration.
-
-This process illustrates how explicit knowledge can help narrow a complex problem.
-
-### 9.3 Why DENDRAL Matters
-
-DENDRAL demonstrated that an AI system could support specialized scientific work by combining domain knowledge with computational reasoning.
-
-It became an important historical example of knowledge-based AI.
-
-The description above is a simplified overview, not a complete account of DENDRAL's algorithms or chemical assumptions.
-
----
-
-## 10. Historical Case Study: MYCIN
-
-**MYCIN** was developed at Stanford University during the 1970s.
-
-It was designed to assist with diagnosing certain bacterial infections and recommending antimicrobial treatments.
-
-### 10.1 The Problem
-
-Medical decisions can involve incomplete information, laboratory findings, and uncertainty about which organism is responsible for an infection.
-
-MYCIN explored how expert knowledge could be represented as rules and applied to a specific medical domain.
-
-### 10.2 How MYCIN Worked
-
-At a high level:
-
-1. The system received information about a case.
-2. Its Knowledge Base represented medical knowledge using rules.
-3. The Inference Engine evaluated which rules applied to the available information.
-4. The system produced recommendations and represented uncertainty using certainty factors.
-
-### 10.3 Why MYCIN Matters
-
-MYCIN demonstrated how explicit domain knowledge and rule-based inference could be used to support specialized decision-making.
-
-It also illustrated important limitations of expert systems.
-
-Their results depend on the quality of their rules, the information provided, and the boundaries of their knowledge.
-
-MYCIN is a historical research system, not a replacement for clinicians or a current medical tool.
-
-### 10.4 Comparing DENDRAL and MYCIN
-
-| Feature | DENDRAL | MYCIN |
+| Topic Area | Deep Focus (Explain in detail) | Quick Intro (1 slide / brief mention) |
 |---|---|---|
-| Domain | Chemistry | Medical diagnosis and treatment support |
-| Main problem | Inferring candidate chemical structures | Supporting decisions about certain bacterial infections |
-| General approach | Domain knowledge and computational search | Production rules and uncertainty representation |
-| Historical significance | Demonstrated knowledge-based scientific problem-solving | Demonstrated rule-based expert reasoning in medicine |
+| Core Architecture | Knowledge Base: explicit storage of facts and relationships; Inference Engine: the reasoning mechanism that executes rules; IF/THEN production rules in practice | Certainty Factors (adding probabilities to rigid rules); ontologies and taxonomy hierarchies |
+| Search & Execution | Forward Chaining (data-driven: working from facts to goals); Backward Chaining (goal-driven: working from hypotheses to facts) | Depth-first vs. breadth-first search trees; rule conflict resolution strategies |
+| Real-World Examples | DENDRAL (1965): analyzing chemical structures; MYCIN (1970s): diagnosing blood infections and prescribing treatments | PROLOG and LISP programming languages; commercial rule engines like Drools |
 
-Both systems illustrate how symbolic AI can use explicit domain knowledge to address specialized problems.
+### 3.3 What to Say in the "Quick Intro" Parts (Brief Intro)
 
----
+- **Forward vs. Backward Chaining:** Explain that forward chaining starts with known facts to find a result (like diagnosing symptoms), while backward chaining starts with a goal and works backward to verify if facts support it (like proving a theorem).
+- **Certainty Factors:** Mention that expert systems used simple percentage scores (e.g., 80% certainty) to handle uncertain human judgments without complex math.
+- **Symbolic Programming Languages:** Briefly note that languages like LISP and PROLOG were invented specifically to handle symbolic logic rather than standard numerical calculations.
 
-## 11. Symbolic Programming Languages and Rule Engines
+### 3.4 One-Sentence Plan Summary
 
-Several programming languages and tools have been associated with symbolic AI and rule-based systems.
-
-### 11.1 LISP
-
-LISP became influential in AI research because its symbolic data structures and list-processing capabilities suited many AI programs.
-
-### 11.2 PROLOG
-
-PROLOG is a logic programming language in which facts and rules can be queried through logical inference and search.
-
-A simplified PROLOG example is:
-
-```prolog
-human(socrates).
-
-mortal(X) :- human(X).
-```
-
-The first line states that Socrates is human.
-
-The second line states that X is mortal if X is human.
-
-A query can ask:
-
-```prolog
-?- mortal(socrates).
-```
-
-Under these facts and rules, the query succeeds.
-
-### 11.3 Drools
-
-Drools is a modern business rule management system and rule engine.
-
-It allows applications to represent and evaluate rules in a structured way.
-
-For example, a business application might use rules to check eligibility, classify transactions, or evaluate policy conditions.
-
-LISP, PROLOG, and Drools are related to symbolic or rule-based programming, but they are not interchangeable. Each has its own programming model and use cases.
+> "This subtopic teaches beginners the internal mechanics of symbolic systems, demonstrating how Knowledge Bases and Inference Engines process IF/THEN rules through historical examples like MYCIN and DENDRAL."
 
 ---
 
-## 12. Practice Activity
+## 4. Symbolic AI vs. Modern Machine Learning (Said)
 
-A fictional campus help system contains these facts:
+### 4.1 Simple Learning Goals
 
-- `student_has_ID = true`
-- `library_fine_unpaid = true`
+By the end of this subtopic, a beginner should be able to answer three basic questions:
 
-The Knowledge Base contains the following rules.
+1. **How do their approaches differ?** Contrast explicit rule-coding (Symbolic) with statistical learning from data (Machine Learning).
+2. **Why is Symbolic AI transparent?** Explain why symbolic decisions are fully explainable while neural networks function as "black boxes."
+3. **Why did Symbolic AI struggle with real-world tasks?** Explain why rigid rules fail when faced with noisy or ambiguous data like computer vision or voice recognition.
 
-**Rule A**
+### 4.2 Detailed vs. Brief (Scope Boundaries)
 
-`IF student_has_ID = true THEN identity_verified = true`
+| Topic Area | Deep Focus (Explain in detail) | Quick Intro (1 slide / brief mention) |
+|---|---|---|
+| Paradigm Shift | Top-down rule programming vs. bottom-up data learning; abstract symbols vs. high-dimensional vector embeddings; zero training data required vs. Big Data dependency | Symbolic execution speed vs. GPU-heavy ML training; memory efficiency differences |
+| Strengths & Limitations | High explainability/auditability vs. "Black Box" predictions; deterministic accuracy vs. statistical probability; the Brittleness Problem: complete failure on edge cases | The Symbol Grounding Problem: connecting symbols to reality; the Knowledge Acquisition Bottleneck |
 
-**Rule B**
+### 4.3 What to Say in the "Quick Intro" Parts (Brief Intro)
 
-`IF identity_verified = true AND library_fine_unpaid = true THEN refer_to_library_desk = true`
+- **The Knowledge Acquisition Bottleneck:** Mention that hand-writing thousands of rules from human experts was extremely slow, expensive, and difficult to maintain.
+- **The Symbol Grounding Problem:** Explain that computers don't know what a word actually means in the real world—they only know how it relates to other symbols in their code.
+- **Data Requirements:** Briefly contrast how symbolic AI needs zero training data (just expert knowledge) while modern machine learning requires millions of data samples to recognize patterns.
 
-Answer the following questions.
+### 4.4 One-Sentence Plan Summary
 
-1. Which component stores the facts and rules?
-2. Which component applies the rules?
-3. Which rule can fire first?
-4. What conclusion follows after Rule B fires?
-5. If the system uses forward chaining, where does reasoning begin?
-6. If the system uses backward chaining to determine whether the student should be referred to the library desk, where does reasoning begin?
-
-### Explained Answers
-
-**Question 1: Which component stores the facts and rules?**
-
-The Knowledge Base stores the facts and rules.
-
-**Question 2: Which component applies the rules?**
-
-The Inference Engine applies the rules to the available facts.
-
-**Question 3: Which rule can fire first?**
-
-Rule A can fire first because `student_has_ID = true` is already known.
-
-**Question 4: What conclusion follows after Rule B fires?**
-
-Rule A establishes `identity_verified = true`.
-
-Rule B can then match both required conditions:
-
-- `identity_verified = true`
-- `library_fine_unpaid = true`
-
-The system therefore derives:
-
-`refer_to_library_desk = true`
-
-**Question 5: If the system uses forward chaining, where does reasoning begin?**
-
-It begins with the known facts and applies matching rules to derive further conclusions.
-
-**Question 6: If the system uses backward chaining, where does reasoning begin?**
-
-It begins with the goal:
-
-`refer_to_library_desk = true`
-
-The system then works backward to determine whether the facts and rules support that goal.
+> "This subtopic compares top-down symbolic logic against bottom-up statistical machine learning, highlighting why symbolic AI excels at transparent reasoning but fails at handling messy, real-world perception."
 
 ---
 
-## 13. Summary
+## 5. The Modern Revival: Hybrid AI (Neuro-Symbolic AI) (Valiant)
 
-An expert system uses represented knowledge and an inference procedure to solve a specialized problem.
+### 5.1 Simple Learning Goals
 
-The Knowledge Base stores facts, rules, and relationships. The Inference Engine applies rules to available facts to derive conclusions.
+By the end of this subtopic, a beginner should be able to answer three basic questions:
 
-Production rules use IF/THEN statements to connect conditions with conclusions.
+1. **What is Neuro-Symbolic AI?** Explain how hybrid systems combine neural networks with symbolic logic.
+2. **Why do we need both paradigms?** Describe how neural networks handle perception while symbolic logic handles safety, reasoning, and rules.
+3. **Where is Hybrid AI used today?** Give real-world examples such as self-driving cars or LLM guardrails/knowledge graphs.
 
-Forward chaining begins with known facts, while backward chaining begins with a goal.
+### 5.2 Detailed vs. Brief (Scope Boundaries)
 
-Depth-first and breadth-first search provide different ways to explore possible paths. Rule conflict resolution determines which matching rule is applied next.
+| Topic Area | Deep Focus (Explain in detail) | Quick Intro (1 slide / brief mention) |
+|---|---|---|
+| Hybrid Framework | The "Best of Both Worlds" philosophy; System 1 (Fast/Perception/Neural) vs. System 2 (Slow/Reasoning/Symbolic); neural perception fed into symbolic logic engines | Knowledge Graphs (RDF/OWL ontologies in modern web search); Graph Neural Networks (GNNs) |
+| Real-World Applications | Self-driving vehicles: computer vision + deterministic safety rules; generative AI guardrails: LLMs + symbolic validation/RAG; regulated fields (healthcare, law, finance) requiring strict compliance | Formal code verification using symbolic execution; robotics manipulation and path planning |
 
-Certainty factors can represent degrees of support or doubt, while ontologies and taxonomies help organize domain knowledge.
+### 5.3 What to Say in the "Quick Intro" Parts (Brief Intro)
 
-DENDRAL demonstrated the use of expert knowledge in chemical analysis, while MYCIN demonstrated rule-based reasoning for specialized medical decision support.
+- **System 1 vs. System 2 Thinking:** Mention Daniel Kahneman's framework—neural networks act like human intuition (fast, subconscious perception), while symbolic AI acts like deliberate logic (slow, step-by-step reasoning).
+- **Knowledge Graphs in Search:** Briefly state that modern engines like Google search use Knowledge Graphs to connect facts and give accurate answers to explicit queries.
+- **Formal Verification:** Mention that critical software (like aircraft controls) uses symbolic logic to mathematically prove code will never crash under unexpected conditions.
 
-Together, these examples show how symbolic AI uses explicit representations and reasoning procedures to solve narrowly defined problems.
+### 5.4 One-Sentence Plan Summary
 
-## 14. References
+> "This subtopic teaches beginners how modern AI overcomes the limitations of deep learning by pairing neural perception with symbolic logic to create reliable, safe, and explainable hybrid systems."
 
-1. Buchanan, B. G., and Shortliffe, E. H. (Eds.). (1984). *Rule-Based Expert Systems: The MYCIN Experiments of the Stanford Heuristic Programming Project*. Addison-Wesley
+---
 
-2. Russell, S., and Norvig, P. *Artificial Intelligence: A Modern Approach*. Pearson.
+## Clear Purposes of Deliverables
 
-3. Drools documentation: https://docs.drools.org/
+### A. Study Guide
 
-4. SWI-Prolog documentation: https://www.swi-prolog.org/pldoc/
+- **Target Audience:** Beginner and intermediate undergraduate students.
+- **Core Purpose:** Serves as the comprehensive, self-paced reading material and reference handbook for the entire module.
+- **Key Functions:**
+  - Establishes explicit scope boundaries (separating what students must learn in detail vs. brief high-level concepts).
+  - Provides detailed explanations, historical contexts, architecture diagrams, comparison tables (Symbolic vs. Machine Learning), and code/rule walkthroughs.
+  - Includes end-of-chapter reflection questions and the test-bank material for self-assessment.
+
+### B. Lecture Slides
+
+- **Target Audience:** In-class presentation audience / visual learners.
+- **Core Purpose:** Provides structured, visual-first scaffolding during lectures to guide student attention without cognitive overload.
+- **Key Functions:**
+  - Displays high-level diagrams (e.g., Knowledge Base vs. Inference Engine flow, System 1 vs. System 2 architecture, Software SDLC steps).
+  - Highlights core definitions, key contrasts, and real-world case studies (MYCIN, DENDRAL, Self-Driving Guardrails).
+  - Serves as an interactive roadmap for instructor explanations, reducing text density in favor of key takeaways.
+
+### C. Mini-Lecture Videos
+
+- **Target Audience:** Asynchronous learners, remote students, and review-phase students.
+- **Core Purpose:** Delivers short, high-impact bite-sized video walkthroughs (5 minutes each) dedicated to individual core concepts.
+- **Key Functions:**
+  - Breaks down complex abstract logic into digestible, step-by-step visual explanations.
+  - Allows students to pause, rewind, and re-watch foundational concepts (e.g., how code turns into binary, forward vs. backward chaining).
+  - Reinforces real-world application by showing concrete software and AI examples in action.
+
+---
+
+## Mini-Lecture Plan: Core Focus & Concrete Teaching Approach
+
+### Mini-Lecture 1 — How It Works: Mechanics & Examples (Alex)
+
+**Mini-Lecture Title:** Inside an Expert System: Knowledge Base vs. Inference Engine
+
+#### A. Single Important Idea Focus
+
+**Core Concept:** An Expert System separates what the system knows (the Knowledge Base) from how the system reasons (the Inference Engine).
+
+By isolating this single core concept, students learn that Symbolic AI does not mix domain rules with execution logic—allowing non-programmer domain experts (like doctors) to add rules while the engine handles the deduction.
+
+#### B. Concrete Teaching Approach & Step-by-Step Delivery
+
+**1. Hook & Real-World Analogy (1 Minute)**
+
+- **Teaching Strategy:** Concrete Analogy (The Cookbook & The Chef)
+- **Delivery:**
+  - Compare an Expert System to a restaurant kitchen:
+    - **Knowledge Base** = The Recipe Book (contains explicit facts and IF/THEN rules written by expert chefs).
+    - **Inference Engine** = The Chef (follows the rules, reads incoming customer orders/facts, and decides what dish to prepare).
+  - **Key Takeaway:** The chef doesn't rewrite the recipes; they just process incoming orders using the existing recipe book.
+
+**2. Interactive Code/Rule Walkthrough (2 Minutes)**
+
+- **Teaching Strategy:** Worked Example / Trace-Through Demonstration
+- **Delivery:**
+  - Show a simple medical diagnosis rule set on slide:
+    - Rule 1: IF patient has fever AND sore throat THEN suspect Strep Infection.
+    - Rule 2: IF Strep Infection THEN prescribe Antibiotic A.
+  - Walk through Forward Chaining step-by-step with live visual toggles:
+    - Fact Entered: Patient has a fever.
+    - Fact Entered: Patient has a sore throat.
+    - Engine Execution: Match facts to Rule 1 → Infer "Strep Infection" → Trigger Rule 2 → Output "Prescribe Antibiotic A".
+
+**3. Historical Case Connection (1 Minute)**
+
+- **Teaching Strategy:** Real-World Contextualization (MYCIN)
+- **Delivery:**
+  - Briefly highlight MYCIN (1970s) as the historical benchmark that used this exact IF/THEN production rule mechanism to diagnose blood infections and prescribe dosages as accurately as human specialists.
+
+**4. Active Check for Understanding (1 Minute)**
+
+- **Teaching Strategy:** Predict-the-Outcome Prompt
+- **Delivery:**
+  - Present a quick "What If?" scenario to the class: "If a new virus appears, do we need to rebuild the Inference Engine software, or do we just add new rules to the Knowledge Base?"
+  - Explain the answer briefly to solidify the decoupling concept before concluding.
+
+---
+
+### Mini-Lecture 2 — The Foundation of Software (Rafael)
+
+**Mini-Lecture Title:** From Human Code to Computer Logic: What is Software and How It Runs
+
+#### A. Single Important Idea Focus
+
+**Core Concept:** Software is the invisible bridge between human intent and computer hardware, translating human-readable instructions into binary (0s and 1s) and executing them using basic logical rules.
+
+By focusing on this core concept, beginners learn that software isn't magic—it is simply a structured set of instructions that tells hardware what to do step-by-step.
+
+#### B. Concrete Teaching Approach & Step-by-Step Delivery
+
+**1. Hook & Real-World Analogy (1 Minute)**
+
+- **Teaching Strategy:** Concrete Analogy (The Chef and the Instruction Manual)
+- **Delivery:**
+  - Compare computer hardware to a brand-new kitchen filled with appliances, and software to the instruction manual written by a human.
+  - Without the manual (software), the appliances (hardware) just sit there doing nothing. Software gives them purpose and direction.
+
+**2. Walkthrough: From High-Level Code to Binary & Logic (2 Minutes)**
+
+- **Teaching Strategy:** Worked Example / Code Trace-Through
+- **Delivery:**
+  - Show a simple human-readable condition on screen:
+
+    ```python
+    if user_score >= 50:
+        print("Pass")
+    else:
+        print("Fail")
+    ```
+
+  - Explain how this high-level text is translated (either compiled all at once or interpreted line-by-line) into the computer's native language—binary (0s and 1s) representing electric switches turning on and off.
+  - Show how the computer uses this simple If/Else logic to process inputs and generate outputs.
+
+**3. Real-World Context: System vs. Application Software (1 Minute)**
+
+- **Teaching Strategy:** Visual Categorization
+- **Delivery:**
+  - Contrast the two main types of software using a building analogy:
+    - **System Software** (e.g., Windows, macOS, Linux): The foundation, plumbing, and electricity of the building—managing the physical hardware.
+    - **Application Software** (e.g., Web Browsers, Microsoft Word): The furniture and rooms built on top that users actually interact with daily.
+
+**4. Active Check for Understanding (1 Minute)**
+
+- **Teaching Strategy:** Predict-the-Outcome Prompt
+- **Delivery:**
+  - Pose a quick scenario to the class: "If your web browser freezes while watching a video, is that a failure of System Software or Application Software?"
+  - Briefly explain the answer to reinforce the structural boundary between managing hardware and running user programs.
+
+---
+
+## Master Task List
+
+**Master Task List — Introduction to Software and Symbolic AI**
+
+### AI Documentation
+
+| Name / Chinese Name / Student ID | AI Evidence File |
+|---|---|
+| Rafael Tjahjono / 李文明 / 1820262082 | AI Use Evidence \| Rafael Tjahjono |
+| Alexander Valentino Lukman / 吕孙鸿 / 1820262032 | AI USE EVIDENCE ALEX |
+| Said Aliyev / 1820262028 / 李叶 | AI USE EVIDENCE |
+| Valiant Lim / 林盛旺 / 1820262320 | AI Evidence - Valiant |
