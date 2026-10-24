@@ -54,8 +54,7 @@ Software-and-Symbolic-AI/
 │   ├── 1. The Foundation of Software.md
 │   ├── 2.The Birth of Symbolic AI (Good Old Fashioned AI).md
 │   ├── 3. How It Works: Mechanics & Examples.md
-│   ├── 4. Symbolic AI vs. Modern Machine Learning.md
-│   ├── 5. The Modern Revival: Hybrid AI (Neuro-Symbolic AI).md
+│   ├── 4. The Modern Revival: Hybrid AI (Neuro-Symbolic AI).md
 │   └── Assets/
 ├── Project Plan/
 ├── Study Plan/
