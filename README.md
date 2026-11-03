@@ -50,7 +50,7 @@ By the end of this module, learners should be able to:
 Software-and-Symbolic-AI/
 ├── README.md
 ├── Markdown Content/
-│   ├── module_outline.md
+│   ├── 0. Module Outline.md
 │   ├── 1. Software.md
 │   ├── 2. Algorithm and Data Structure.md
 │   ├── 3. Symbolic AI.md
