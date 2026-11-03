@@ -29,20 +29,47 @@ All members are expected to contribute substantively to the shared learning mate
 
 By the end of this module, learners should be able to:
 
-1. Explain the difference between hardware and software.
-2. Describe how programs execute instructions.
-3. Explain symbolic AI and its historical foundations.
-4. Describe how expert systems use knowledge bases, inference engines, and production rules.
-5. Compare symbolic AI with modern machine learning.
-6. Explain the purpose and limitations of hybrid AI.
+**Software**
+- Explain software layers and abstraction
+- Describe how the OS manages processes and memory
+- Compare AOT, interpreted and JIT execution
+- Apply software engineering basics (SDLC, Agile, testing)
+- Write basic SQL
+- Explain cloud models, licenses and Git
+
+**Algorithms**
+- Define algorithms and compare efficiency with Big-O
+- Use iteration, recursion and memoization
+- Compare sorting and searching methods
+- Use arrays, linked lists, stacks and queues
+- Explain trees, BSTs and traversals
+- Run BFS and DFS on graphs
+
+**Symbolic AI**
+- Explain Symbolic AI, its history and the AI winters
+- Use propositional and predicate logic
+- Compare knowledge representation methods
+- Explain rule-based and expert systems
+- Compare search methods for planning
+- Describe symbolic NLP and its limits
+- Weigh strengths and limits, and explain neuro-symbolic AI
 
 ## 5. Topic Sequence
 
-1. The Foundation of Software — Rafael Tjahjono
-2. The Birth of Symbolic AI (Good Old Fashioned AI) — Victor Charlie
-3. How It Works: Mechanics & Examples — Alexander Valentino Lukman
-4. Symbolic AI vs. Modern Machine Learning — Said Aliyev
-5. The Modern Revival: Hybrid AI (Neuro-Symbolic AI) — Valiant Lim
+**1: Software**  
+1.1 Software foundations and abstraction layers  
+1.2 Operating systems: processes and memory  
+1.3 Programming languages and how code runs  
+
+**2. Algorithms and Data Structure**  
+2.1 Algorithms: features, representation and efficiency  
+2.2 Iteration and recursion  
+2.3 Sorting and searching  
+
+**3. Symbolic AI**  
+3.1 What is Symbolic AI? Concepts and history  
+3.2 Propositional logic  
+3.3 Predicate (first-order) logic
 
 ## 6. Repository Structure
 
