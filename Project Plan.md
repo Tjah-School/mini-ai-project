@@ -1,325 +1,228 @@
-# Introduction to Software and Symbolic AI — Stage 1 Project Plan
+# **Cangcut — Project Plan**
 
-## Team Information & Work Distribution
+# **A. Team Information and Responsibilities**
 
-| Role | Team Member | Primary Responsibilities | Key Traits & Required Skills |
-|---|---|---|---|
-| CEO / Coordinator | Alexander Valentino Lukman / 吕孙鸿 / 1820262032 | Overall project management, timeline tracking, task delegation, team communication, risk management | Leadership & organization; strategic planning; time management; clear communication |
-| CIO / Repository & Submission Lead | Victor Charlie / 李东财 / 1820262066 | GitHub repository setup, Markdown workflow control, version management, final file submission | Git / GitHub proficiency; file organization; technical diligence; system compliance |
-| Quality Lead | Valiant Lim / 林盛旺 / 1820262320 | Peer review, checking against assignment rubrics, content accuracy verification, proofreading | High attention to detail; critical evaluation; quality assurance; rubric adherence |
-| Visual Design & Video Lead | Said Aliyev / 李叶 / 1820262028 | PPT slide design, video production, audio editing, visual asset creation, recording coordination | Visual aesthetics; slide layout mastery; video/audio editing; creative storytelling |
-| Content Lead | Rafael Tjahjono / 李文明 / 1820262082 | Research direction, core Markdown text drafting, Study Guide layout, scriptwriting, logic verification | Technical writing; research capability; topic structuring; educational clarity |
+## **A1. Team members and roles**
 
-### Team Work Distribution Summary
+| Role | Team member (roster name / student ID) | Primary responsibilities | Key traits and skills (strengths / skills to develop) |
+| :---- | :---- | :---- | :---- |
+| CEO / Coordinator | **Alexander Valentino Lukman** 吕孙鸿 1820262032 | Overall project management, timeline tracking, task delegation, team communication, risk management | Leadership and organization Strategic planning Time management Clear communication |
+| CIO / Repository & Submission Lead | **Victor Charlie** 李东财 1820262066 | GitHub repository setup, Markdown workflow control, version management, final file submission | Git / GitHub proficiency File organization Technical diligence System compliance |
+| Quality Lead | **Valiant Lim** 林盛旺 1820262320 | Peer review, checking against assignment rubrics, content accuracy verification, proofreading | High attention to detail Critical evaluation Quality assurance Rubric adherence |
+| Visual Design & Video Lead | **Said Aliyev** 李叶 1820262028 | PPT slide design, video production, audio editing, visual asset creation, recording coordination | Visual aesthetics Slide layout mastery Video/audio editing Creative storytelling |
+| Content Lead | **Rafael Tjahjono** 李文明 1820262082 | Research direction, core Markdown text drafting, Study Guide layout, scriptwriting, logic verification | Technical writing Research capability Topic structuring Educational clarity |
 
-| Metric | Details |
-|---|---|
-| Workload Principle | Equal substantive contribution from all members; roles represent primary coordination areas, not isolated work silos. |
-| Core Artifacts | All members research and contribute to the shared Markdown foundation, Study Guide, PPT, and Video scripts. |
-| Review Process | Drafts are pushed to GitHub, proofread by the Quality Lead, and finalized by the CIO prior to submission. |
+## **A2. How we use strengths and share the workload fairly**
 
----
+**Principle.** Every member makes an equal, substantive contribution. Roles describe primary coordination duties, not exclusive areas of work. Everyone studies the whole module, writes and reviews content, and must be able to explain the team's core content.
 
-## Project Title / Module Name
+> * **Content is split into 16 content units** (Table A3), so every member owns 2–4 units of research, Markdown drafting, test-bank questions and slides, whichever role they hold.  
+> * **Roles add coordination work on top**: the CEO tracks the schedule, the CIO controls the repository and submissions, the Quality Lead runs review, the Visual Lead leads design and video, and the Content Lead leads the Markdown standard and scripts. The units were sized so that members with heavier coordination duties own fewer or smaller units.  
+> * **Every unit has an author and a different reviewer**, so each member also reviews others' work. Contribution is evidenced by GitHub commits, pull requests, review comments and personal logs.  
+> * **Topic leads** keep each topic consistent: Rafael (Software), Valiant (Algorithms & Data Structures), Alex (Symbolic AI). We rebalance if the task list shows uneven load (see risks in Section D).
 
-**Introduction to Software and Symbolic AI**
+## **A3. Content units, owners and reviewers**
 
-**Purpose:** This project creates an interactive learning module that introduces beginners and intermediate students to Symbolic AI, including logic, rules, and knowledge representation. It teaches undergraduate students how to build and use logic-based AI in software systems.
+| Unit | Content (source slides) | Topic | Owner | Reviewer | Size |
+| :---- | :---- | :---- | :---- | :---- | :---- |
+| S1 | System vs. application software; operating systems (evolution, process and memory management) (chap3, slide 2\) | 1\. Software | Rafael | Said | Medium |
+| S2 | Programming languages: evolution, categories, features (chap3, slide 2\) | 1\. Software | Rafael | Said | Medium |
+| S3 | Software engineering: process models, modularity, quality assurance (chap3, slide 2\) | 1\. Software | Victor | Rafael | Medium |
+| S4 | Databases: database models, relational databases, SQL (chap3, slide 2\) | 1\. Software | Said | Victor | Medium |
+| A1 | Algorithms: features, representation (chap3, slide 3\) | 2\. Algorithms & Data Structures | Valiant | Victor | Small |
+| A2 | Basic algorithms (sorting, searching); iteration and recursion (chap3, slide 3\) | 2\. Algorithms & Data Structures | Valiant | Victor | Medium |
+| A3 | Linear data structures: arrays, records, linked lists, stacks, queues (chap3, slide 3\) | 2\. Algorithms & Data Structures | Said | Valiant | Medium |
+| A4 | Non-linear data structures: trees, binary trees, graphs (chap3, slide 3\) | 2\. Algorithms & Data Structures | Said | Valiant | Medium |
+| Y1 | Introduction to Symbolic AI; propositional and predicate logic, inference rules (chap4, slides 3–20) | 3\. Symbolic AI | Victor | Alex | Large |
+| Y2 | Knowledge representation: logic, semantic networks, frames/scripts, rules, ontologies (chap4, slides 21–28) | 3\. Symbolic AI | Alex | Valiant | Medium |
+| Y3 | Rule-based and expert systems: production rules, forward/backward chaining, conflict resolution, certainty factors, DENDRAL and MYCIN, LISP/PROLOG/Drools (chap4, slides 29–32; draft “How It Works: Mechanics & Examples”) | 3\. Symbolic AI | Alex | Valiant | Medium (+ mini lecture) |
+| Y4 | Planning and problem solving: state space, uninformed/informed/adversarial/local search (chap4, slides 33–40) | 3\. Symbolic AI | Valiant | Said | Medium |
+| Y5 | Symbolic NLP: grammars, semantics, rule-based processing, applications (chap4, slides 41–49) | 3\. Symbolic AI | Rafael | Alex | Medium |
 
----
+# **B. Project Scope and Learning Goals**
 
-## 1. The Foundation of Software (Rafael)
+## **B1. Target learners and assumed background**
 
-### 1.1 Simple Learning Goals
+Our learners are first- or second-year undergraduate students (beginner to intermediate) taking an introductory computing/AI course. We assume:
 
-By the end of your lesson, a beginner should be able to answer three basic questions:
+> * everyday experience using computers, apps and the internet;  
+> * basic school-level mathematics and reasoning (true/false, simple algebra, sets);  
+> * **no** prior programming, data structure or AI knowledge. Short code and pseudocode examples are introduced step by step (Python-style pseudocode).
 
-1. **What is software?** Explain what software is and name the two main types (System like Windows vs. Application like web browsers).
-2. **How does code run?** Explain how human code turns into binary (0s and 1s) so the computer hardware can run it.
-3. **How do programs think?** Show how software uses simple rules (If/Else conditions and Loops) to process inputs into outputs.
+Terminology is defined at first use, and every abstract idea is paired with an everyday example (e.g., a recipe for an algorithm, a stack of plates for a stack).
 
-### 1.2 Detailed vs. Brief (Scope Boundaries)
+## **B2. Learning goals**
 
-| Topic Area | Deep Focus (Explain in detail) | Quick Intro (1 slide / brief mention) |
-|---|---|---|
-| Software Basics | Difference between Hardware and Software; System Software vs. Application Software | History of early computers |
-| How Code Works | High-level code → Binary (0s and 1s); simple logic steps (If/Else, Loops) | Deep OS details; hard coding math |
-| Modern Tech | How developers use Git/GitHub | Cloud computing (SaaS); open source vs. paid software |
+After using our materials, a beginner should be able to:
 
-### 1.3 What to Say in the "Quick Intro" Parts (Brief Intro)
+| Topic | Learners should be able to… |
+| :---- | :---- |
+| 1\. Software | **Explain** the difference between system and application software and give examples (e.g., UNIX, a messaging app such as Weixin). **Describe** what an operating system does (processes, memory) and **compare** programming-language categories (low/high level, compiled/interpreted). **Explain** how software is built (development process models, modularity, quality assurance) and **describe** what a relational database and a basic SQL query (SELECT … FROM … WHERE) do. |
+| 2\. Algorithms & Data Structures | **Define** an algorithm, list its key features and **represent** one with pseudocode or a flowchart. **Trace by hand** linear search, binary search and a simple sort, and **compare** iteration with recursion on a small example (e.g., factorial). **Choose and justify** a data structure (array, record, linked list, stack, queue, tree, graph) for a simple problem and **trace** push/pop, enqueue/dequeue and a breadth-first traversal. |
+| 3\. Symbolic AI | **Explain** what Symbolic AI (GOFAI) is in plain language, including its benefits and limitations. **Represent** simple knowledge with propositional/predicate logic, semantic networks, frames and IF–THEN rules, and **apply** modus ponens/modus tollens. **Trace** forward chaining in a small rule-based system, and **explain** the roles of the knowledge base, inference engine and user interface. **Describe** planning and problem solving as searching over a state space. **Explain** the Physical Symbol System Hypothesis and why early AI relied on logic. **Contrast** Symbolic AI with machine learning (transparency vs. brittleness and data needs), and describe what neuro-symbolic (hybrid) AI is and why it combines both. |
 
-Keep these brief topics super simple:
+## **B3. Content outline**
 
-- **How Code Translates:** Mention that code is translated to binary either all at once (Compiled like C++) or line-by-line (Interpreted like Python).
-- **How Software is Built (SDLC):** State that building software follows steps: Plan → Design → Code → Test → Release.
-- **Cloud Software:** Mention that modern software often runs on remote servers through the internet (like Google Docs) instead of installed CDs.
-- **Open Source:** Explain that "open source" means the code is free for anyone to see and improve (like Linux or Python).
+| Topic | Major topics and subtopics |
+| :---- | :---- |
+| 1\. Software (S1–S4) | What is Software? Software overview: system software vs. application software; examples (add Cloud Software and SaaS) Operating systems: evolution, process management, memory management; case study: UNIX Programming languages: evolution, categories, key features, compiled vs. interpreted Software engineering: development  process models, modularity, quality assurance Databases: database models, relational databases, SQL basics |
+| 2\. Algorithms & Data Structures (A1–A4) | Algorithms: definition, features, representation (pseudocode, flowchart) Basic algorithms: searching (linear, binary), sorting (e.g., bubble, selection) Iteration and recursion Linear data structures: arrays, records, linked lists, stacks, queues Non-linear data structures: trees, binary trees, graphs; breadth-first search as a worked example |
+| 3\. Symbolic AI (Y1–Y8) | Introduction: GOFAI, example rule (fever AND cough AND difficulty breathing → pneumonia), applications, benefits, limitations Foundations and history: Physical Symbol System Hypothesis, why early researchers focused on logic, the 1956 Dartmouth Conference, early programs (Logic Theorist, GPS, LISP, ELIZA, SHRDLU), early optimism, the first AI Winter, the Chinese Room and symbol grounding, legacy Logic and reasoning: propositions, AND/OR/NOT, implication, logical equivalences, modus ponens/tollens; predicates, quantifiers and inference Knowledge representation: logic-based, semantic networks, frames and scripts, production rules, ontologies Rule-based and expert systems: condition–action rules, knowledge base, inference engine, user interface; forward and backward chaining, rule conflict resolution, certainty factors, ontologies; case studies DENDRAL and MYCIN; LISP, PROLOG and Drools Planning and problem solving: state space, actions, goal; uninformed (BFS, DFS, uniform-cost), informed (A\*, greedy), adversarial (minimax), local search Symbolic NLP: syntax (formal grammars), semantics, rule-based processing, applications Symbolic AI vs. modern machine learning: top-down rules vs. bottom-up data learning, symbols vs. vector embeddings, data and compute trade-offs, explainability vs. the black box, brittleness, the knowledge acquisition bottleneck, the symbol grounding problem Hybrid (neuro-symbolic) AI: why it is called a modern revival, how neural and symbolic parts are integrated, comparison with traditional AI, applications (healthcare, robotics, language models, finance, science), advantages and limitations |
 
-### 1.4 One-Sentence Plan Summary for Your Report
+## 
 
-> "Our project teaches beginners what software is, how human code turns into computer instructions, and how basic program logic works, while giving a quick high-level overview of how modern software is built and delivered."
+## 
 
----
+## **B4. Scope boundaries**
 
-## 2. The Birth of Symbolic AI (Good Old-Fashioned AI) (Victor)
+| Topic | Detailed explanation (examples, traces, activities) | Brief introduction (1 slide / short paragraph) |
+| :---- | :---- | :---- |
+| 1\. Software | System vs. application software What an OS does: process and memory management (concepts) Language categories; compiled vs. interpreted Development process models, modularity, QA basics Relational tables and basic SQL queries | History and evolution of operating systems and languages Advanced OS internals (scheduling algorithms, paging details) Other database models, normalization, advanced SQL |
+| 2\. Algorithms & Data Structures | Algorithm features and representation Linear/binary search; one or two simple sorts Iteration vs. recursion Array, linked list, stack, queue, binary tree, graph basics and their typical operations | Complexity (Big-O): intuition only Efficient sorts (merge, quick sort): idea only Balanced trees, hash tables, graph shortest-path algorithms |
+| 3\. Symbolic AI | What Symbolic AI is; benefits and limitations Propositional logic, modus ponens/tollens; predicates and quantifiers at a working level Knowledge representation methods and their trade-offs Expert systems: knowledge base vs. inference engine; forward and backward chaining; DENDRAL and MYCIN case studies Search for planning: BFS, DFS, A\* The Physical Symbol System Hypothesis and why early AI used logic Symbolic AI vs. machine learning: explainability, brittleness, data needs What neuro-symbolic AI is and why it combines both approaches | Formal proof rules for quantifiers (instantiation/generalization details) Ontologies in depth Adversarial and local search (minimax, hill climbing) Symbolic NLP: grammar, sentiment analysis, question answering, retrieval (overview only) Dartmouth 1956, early programs (Logic Theorist, GPS, ELIZA, SHRDLU), the first AI Winter, the Chinese Room Certainty factors, rule conflict resolution, LISP/PROLOG/Drools Neuro-symbolic integration approaches and application examples (overview only) |
 
-### 2.1 Simple Learning Goals
+## **B5. Uncertainties to discuss with the teacher**
 
-By the end of this subtopic, a beginner should be able to answer three basic questions:
+> * Is the expected depth for predicate logic (quantifier inference rules) “explain and apply simple cases”, or only an overview?  
+> * Should code examples use a specific language (we propose Python-style pseudocode), and is Big-O complexity expected or optional?  
+> * Is the amount of Symbolic NLP and adversarial/local search we plan as brief coverage appropriate?  
+> * Which topics are on the mini-lecture topic menu, and may we use our proposed topic?
 
-1. **What is Symbolic AI?** Explain what Good Old-Fashioned AI (GOFAI) is in plain language.
-2. **What is the Physical Symbol System Hypothesis?** State the foundational idea that human thinking can be reduced to manipulating abstract symbols.
-3. **Why did early AI researchers focus on logic?** Explain why early pioneers believed intelligence was driven by explicit rules and formal reasoning rather than data.
+# **C. Planned Learning Resources and Mini Lecture**
 
-### 2.2 Detailed vs. Brief (Scope Boundaries)
+## **C1. Shared Markdown content (the single source of truth)**
 
-| Topic Area | Deep Focus (Explain in detail) | Quick Intro (1 slide / brief mention) |
-|---|---|---|
-| Foundations of GOFAI | Definition of Good Old-Fashioned AI (GOFAI); the Physical Symbol System Hypothesis (Newell & Simon); abstract symbols as representations of real-world concepts | The 1956 Dartmouth Conference (birthplace of AI research); early optimism of 1960s researchers |
-| Historical Trajectory | Dominance of symbolic logic from 1950s to 1980s; shift from theoretical logic to practical expert systems | The first "AI Winter" (funding cuts due to overpromising); philosophical critiques (e.g., Searle's Chinese Room) |
+All teaching content is first written and verified in Markdown in the GitHub repository. The Study Guide, slides, test bank and video scripts are derived from it.
 
-### 2.3 What to Say in the "Quick Intro" Parts (Brief Intro)
+> * **Structure:** /content/01-software, /content/02-algorithms-data-structures, /content/03-symbolic-ai; one file per unit (e.g., s1-system-and-application-software.md), plus /glossary.md, /references.md and /assets for diagrams.  
+> * **Standard unit template:** header (unit ID, author, reviewer, version, “used in” list for study guide/slides/video/test bank) → learning goals → key terms → explanation in plain language → worked example → activity / check-your-understanding → common mistakes → references.  
+> * **Versions:** v0.x \= draft, v1.0 \= reviewed and frozen for production, v2.0 \= final after Stage 3 revisions.
 
-- **The Dartmouth Conference:** Mention that symbolic AI began at a famous 1956 summer workshop where researchers believed every aspect of learning and intelligence could be precisely described so a machine could simulate it.
-- **Early Optimism:** Briefly state that early successes in chess and math proofs led scientists to mistakenly believe that human-level intelligence was only a few years away.
-- **The First AI Winter:** Explain that when these early systems failed to scale to real-world complexity, government funding dried up, leading to a period known as an "AI Winter."
+## **C2. Study Guide and Test Bank**
 
-### 2.4 One-Sentence Plan Summary
+> * **Purpose:** self-paced reading and reference for the whole module.  
+> * **Structure:** how to use this guide → three parts (Software, Algorithms & Data Structures, Symbolic AI), each with a short map, one chapter per unit (goals, explanation, worked example, summary box), cross-links between topics (e.g., graph traversal ↔ search in AI), glossary and references.  
+> * **Study and practice:** each chapter ends with “check yourself” questions and a mini exercise (e.g., trace a binary search, write a rule, trace forward chaining).  
+> * **Test bank:** at least 8 items per unit: multiple-choice, short-answer and trace/apply questions. Every item has a correct answer, a short explanation and a tag for the learning goal it tests. Items are written by the unit owner and checked by the Quality Lead. The quiz and practice questions already in the Symbolic AI drafts (Y3, Y6) are reused as starting items.
 
-> "This subtopic teaches beginners how Symbolic AI originated as the first major AI paradigm, driven by the belief that intelligence is achieved through the formal manipulation of symbols and explicit logic."
+## **C3. PPT Slides**
 
----
+> * About 12–15 slides per topic: one key idea per slide, minimal text, consistent template designed by the Visual Lead; speaker notes link back to the Markdown unit.  
+> * **Planned diagrams and worked examples:** software layers (hardware → OS → applications); compile vs. interpret flow; development process model diagram; relational table with a SQL query result; step-by-step binary search and bubble sort; linked list pointer diagram; stack/queue animations; tree and graph drawings with BFS order; truth tables; semantic network; knowledge base \+ inference engine \+ user interface diagram; search tree for BFS/DFS/A\*.
 
-## 3. How It Works: Mechanics & Examples (Alex)
+## **C4. Video Tutorials**
 
-### 3.1 Simple Learning Goals
+Six short tutorials (about 4–6 minutes each) for topics that benefit from narration and step-by-step demonstration:
 
-By the end of this subtopic, a beginner should be able to answer three basic questions:
+| \# | Tutorial | Why narration/demo helps |
+| :---- | :---- | :---- |
+| V1 | What happens when you run a program? (source code → translation → OS → hardware) | A process that is easier to follow as an animated sequence |
+| V2 | Relational databases and your first SQL query | Screen demonstration of a table and query results |
+| V3 | Searching and sorting step by step | Learners watch each comparison and swap happen; can pause and predict |
+| V4 | Stacks, queues and linked lists in action | Visual pointer and push/pop animation |
+| V5 | BFS vs. DFS on a tree/graph | Order of visiting is clearer when animated; links data structures to AI search |
+| V6 | Forward chaining in a rule-based system | Trace of facts matching rules is best shown step by step |
 
-1. **What are the two main components of an Expert System?** Describe the roles of the Knowledge Base and the Inference Engine.
-2. **How do Production Rules work?** Show how software uses IF/THEN statements to process input facts into logical conclusions.
-3. **What is a real-world example of Symbolic AI?** Name a historical expert system (like MYCIN or DENDRAL) and explain what problem it solved.
+Scripts are written from the Markdown units; slides are reused as visuals so that content stays consistent.
 
-### 3.2 Detailed vs. Brief (Scope Boundaries)
+## **C5. Live Mini Lecture**
 
-| Topic Area | Deep Focus (Explain in detail) | Quick Intro (1 slide / brief mention) |
-|---|---|---|
-| Core Architecture | Knowledge Base: explicit storage of facts and relationships; Inference Engine: the reasoning mechanism that executes rules; IF/THEN production rules in practice | Certainty Factors (adding probabilities to rigid rules); ontologies and taxonomy hierarchies |
-| Search & Execution | Forward Chaining (data-driven: working from facts to goals); Backward Chaining (goal-driven: working from hypotheses to facts) | Depth-first vs. breadth-first search trees; rule conflict resolution strategies |
-| Real-World Examples | DENDRAL (1965): analyzing chemical structures; MYCIN (1970s): diagnosing blood infections and prescribing treatments | PROLOG and LISP programming languages; commercial rule engines like Drools |
+| Item | Plan |
+| :---- | :---- |
+| Proposed topic | **Inside an expert system: how does a rule-based system reach a conclusion?** (Knowledge base vs. inference engine, with forward chaining.) \[confirm against the official topic menu\] |
+| Focused question | How can a program “reason” without learning from data? Answer: facts \+ IF–THEN rules \+ an engine that applies them. |
+| Why it is important | It shows the core idea of Symbolic AI, uses logic, rules and knowledge representation from Y1–Y3, and gives learners a transparent, explainable example that contrasts with data-driven AI. |
+| Initial teaching idea | **Hook / analogy (1 min):** recipe book \= knowledge base; chef \= inference engine. **Worked example (3 min):** rule “IF fever AND cough AND difficulty breathing THEN pneumonia suspected” (from our course slides); add facts one by one and trace which rule fires. **Audience activity (2 min):** predict-the-outcome: “A new rule is needed. Do we change the engine or add a rule to the knowledge base?” (poll / show of hands). **Wrap-up (1 min):** one-sentence takeaway and link to the Study Guide and video V6. |
+| Presenter / backup | Alexander (presenter, owner of Y3); all members rehearse and can present. Backup topic: “How do BFS and DFS find a path?” (Valiant). |
 
-### 3.3 What to Say in the "Quick Intro" Parts (Brief Intro)
+## **C6. How the three resources support one another**
 
-- **Forward vs. Backward Chaining:** Explain that forward chaining starts with known facts to find a result (like diagnosing symptoms), while backward chaining starts with a goal and works backward to verify if facts support it (like proving a theorem).
-- **Certainty Factors:** Mention that expert systems used simple percentage scores (e.g., 80% certainty) to handle uncertain human judgments without complex math.
-- **Symbolic Programming Languages:** Briefly note that languages like LISP and PROLOG were invented specifically to handle symbolic logic rather than standard numerical calculations.
+The **Markdown content** is the common foundation: the Study Guide expands it for independent study, the slides condense it into visuals for classroom teaching, and the videos narrate its hardest step-by-step processes for review. The **test bank** is tagged to the same learning goals, so learners can move from reading to watching to practising. The **mini lecture** reuses one Markdown unit, its slides and its video, so it also tests whether our materials work in front of a real audience. A correction to the Markdown is traced to every resource that uses it (see D6).
 
-### 3.4 One-Sentence Plan Summary
+# **D. Workflow, Schedule and Coordination**
 
-> "This subtopic teaches beginners the internal mechanics of symbolic systems, demonstrating how Knowledge Bases and Inference Engines process IF/THEN rules through historical examples like MYCIN and DENDRAL."
+## **D1. Stage deadlines and internal deadlines**
 
----
+| Stage | Official deadline | Internal deadline(s) | Main outputs |
+| :---- | :---- | :---- | :---- |
+| Stage 1 | Oct 24, 2026 | Oct 19: plan draft complete Oct 20–22: review and corrections Oct 23: submitted by Submission Lead | Approved project plan, task list, repository, concept lists and pilot Markdown units |
+| Stage 2 | Nov 7, 2026 | Oct 30: Markdown v1.0 (all 16 units) reviewed and frozen Nov 3: slides, Study Guide, test bank first versions Nov 4–5: rehearsals and consistency review Nov 6: submitted | First versions of Study Guide, test bank, slides, video(s), and live mini lecture |
+| Stage 3 | Nov 28, 2026 | Nov 18: all corrections applied to all deliverables Nov 22–24: videos and polish done Nov 25: final review Nov 26: submitted | Revised and final deliverables, final logs and documentation |
 
-## 4. Symbolic AI vs. Modern Machine Learning (Rafael)
+Live class presentation dates follow the announced class schedule; rehearsals are placed before them.
 
-### 4.1 Simple Learning Goals
+## **D2. How members study and investigate the content**
 
-By the end of this subtopic, a beginner should be able to answer three basic questions:
+> * Each member starts from the course slides (Chap 3 and Chap 4\) for their units, then uses at least two additional reliable sources (textbook, university course notes, official documentation). Sources are recorded in /references.md.  
+> * Each owner writes a concept list, and then gives a 10-minute peer briefing so that everyone understands all topics, not only their own.  
+> * Case materials (e.g., UNIX, a familiar app, a BFS example) from the course's sample learning materials are used as concrete examples.
 
-1. **How do their approaches differ?** Contrast explicit rule-coding (Symbolic) with statistical learning from data (Machine Learning).
-2. **Why is Symbolic AI transparent?** Explain why symbolic decisions are fully explainable while neural networks function as "black boxes."
-3. **Why did Symbolic AI struggle with real-world tasks?** Explain why rigid rules fail when faced with noisy or ambiguous data like computer vision or voice recognition.
+## **D3. Markdown development and checking**
 
-### 4.2 Detailed vs. Brief (Scope Boundaries)
+> * Draft (author) → self-check against the template → peer review by the assigned reviewer → Quality Lead checks accuracy and rubric alignment → Content Lead checks terminology and consistency across topics → **content freeze at v1.0**.  
+> * Full production (slides, videos, test bank) starts for a unit only after its Markdown is v1.0. A pilot unit for each topic (T16–T18) tests the workflow before scaling up.
 
-| Topic Area | Deep Focus (Explain in detail) | Quick Intro (1 slide / brief mention) |
-|---|---|---|
-| Paradigm Shift | Top-down rule programming vs. bottom-up data learning; abstract symbols vs. high-dimensional vector embeddings; zero training data required vs. Big Data dependency | Symbolic execution speed vs. GPU-heavy ML training; memory efficiency differences |
-| Strengths & Limitations | High explainability/auditability vs. "Black Box" predictions; deterministic accuracy vs. statistical probability; the Brittleness Problem: complete failure on edge cases | The Symbol Grounding Problem: connecting symbols to reality; the Knowledge Acquisition Bottleneck |
+## **D4. GitHub use and contribution tracking**
 
-### 4.3 What to Say in the "Quick Intro" Parts (Brief Intro)
+> * One repository with the structure in C1. Work happens on branches named by task (e.g., unit-y3-draft); changes go to main only through a pull request reviewed by someone other than the author.  
+> * GitHub Issues and a GitHub Projects board hold the task list; commit messages and pull requests mention the task ID (e.g., “T16: draft S1 translation section”).  
+> * Commit history, pull requests and review comments are our contribution evidence; each member also keeps a personal log. The CIO checks regularly that everyone's contributions are visible.
 
-- **The Knowledge Acquisition Bottleneck:** Mention that hand-writing thousands of rules from human experts was extremely slow, expensive, and difficult to maintain.
-- **The Symbol Grounding Problem:** Explain that computers don't know what a word actually means in the real world—they only know how it relates to other symbols in their code.
-- **Data Requirements:** Briefly contrast how symbolic AI needs zero training data (just expert knowledge) while modern machine learning requires millions of data samples to recognize patterns.
+## **D5. Communication, meetings and peer review**
 
-### 4.4 One-Sentence Plan Summary
+> * Team chat group for daily coordination; one 30–45 minute meeting twice a week (plus a short check-in before each deadline), with notes saved in /docs/meetings.  
+> * Review requests are posted as pull requests with a due date; reviewers respond within 48 hours. Disagreements are settled in the next meeting by the topic lead and CEO.
 
-> "This subtopic compares top-down symbolic logic against bottom-up statistical machine learning, highlighting why symbolic AI excels at transparent reasoning but fails at handling messy, real-world perception."
+## **D6. Making sure corrections reach every deliverable**
 
----
+> * Corrections are made in Markdown first. Each correction is a GitHub issue labelled “correction” that lists the unit and its “used in” items (Study Guide, test bank, slides, video script/video).  
+> * The issue gets a checklist with one box per affected deliverable and can be closed only when all boxes are ticked and the Quality Lead has verified them. A change log in the repository records what changed and why.
 
-## 5. The Modern Revival: Hybrid AI (Neuro-Symbolic AI) (Valiant)
+## **D7. Testing, rehearsal and feedback**
 
-### 5.1 Simple Learning Goals
+> * Mini lecture: script and activity finished by Nov 3; rehearsal 1 (timed, team feedback) Nov 4; rehearsal 2 with one or two people outside the team to test the activity Nov 5\.  
+> * Test bank and exercises: a person outside the unit owner solves them to check clarity and answer keys.  
+> * Videos and slides: draft screening by at least two other members, using a short feedback checklist (accuracy, clarity, pacing, readability). Teacher and peer feedback after Stage 2 goes into the issue list for Stage 3\.
 
-By the end of this subtopic, a beginner should be able to answer three basic questions:
+## **D8. Main risks and responses**
 
-1. **What is Neuro-Symbolic AI?** Explain how hybrid systems combine neural networks with symbolic logic.
-2. **Why do we need both paradigms?** Describe how neural networks handle perception while symbolic logic handles safety, reasoning, and rules.
-3. **Where is Hybrid AI used today?** Give real-world examples such as self-driving cars or LLM guardrails/knowledge graphs.
+| Risk | Early sign | Response |
+| :---- | :---- | :---- |
+| Scope too large (16 units, three topics) | Units not at v0.x by internal deadline | Keep brief topics brief; Content Lead and topic lead cut or reduce detail; ask the teacher if unclear |
+| Uneven workload | Task list or commits show some members overloaded or inactive | Weekly check of the Projects board by CEO; reassign tasks or pair members |
+| Unfamiliar tools (Git/GitHub, video editing, SQL demo) | Members stuck or avoiding the tool | CIO runs a short Git session; Visual Lead shares a video template; pairing on first use |
+| Content errors or inconsistencies between topics | Reviewer finds mistakes; terms differ across files | Reviewer plus Quality Lead check; glossary; consistency review before each deadline |
+| Delays or exam clashes | Task not “in progress” 3 days before deadline | Early notice in chat; internal deadlines set 1–2 days before official ones; backup person per unit |
+| Over-reliance on AI or AI errors | Unverified claims, unclear explanations | Verify AI output against course slides and sources; record AI use; every member must be able to explain what was submitted |
+| Mini lecture runs overtime | Timed rehearsal over limit | Cut content to one example and one activity; practise with a timer |
 
-### 5.2 Detailed vs. Brief (Scope Boundaries)
+# **E. Master Task List**
 
-| Topic Area | Deep Focus (Explain in detail) | Quick Intro (1 slide / brief mention) |
-|---|---|---|
-| Hybrid Framework | The "Best of Both Worlds" philosophy; System 1 (Fast/Perception/Neural) vs. System 2 (Slow/Reasoning/Symbolic); neural perception fed into symbolic logic engines | Knowledge Graphs (RDF/OWL ontologies in modern web search); Graph Neural Networks (GNNs) |
-| Real-World Applications | Self-driving vehicles: computer vision + deterministic safety rules; generative AI guardrails: LLMs + symbolic validation/RAG; regulated fields (healthcare, law, finance) requiring strict compliance | Formal code verification using symbolic execution; robotics manipulation and path planning |
+[Master Task List - Introduction to Software and Symbolic AI](https://docs.google.com/spreadsheets/u/0/d/1tA46ZVVZuWtVgIuuV7opHbw1nkgHvL28NNQzwHOvJtY/edit)
 
-### 5.3 What to Say in the "Quick Intro" Parts (Brief Intro)
+# **F. AI documentation**
 
-- **System 1 vs. System 2 Thinking:** Mention Daniel Kahneman's framework—neural networks act like human intuition (fast, subconscious perception), while symbolic AI acts like deliberate logic (slow, step-by-step reasoning).
-- **Knowledge Graphs in Search:** Briefly state that modern engines like Google search use Knowledge Graphs to connect facts and give accurate answers to explicit queries.
-- **Formal Verification:** Mention that critical software (like aircraft controls) uses symbolic logic to mathematically prove code will never crash under unexpected conditions.
+Significant AI assistance used in planning and task breakdown is recorded in each member's AI evidence file, following Section 6 of the Shared Assignment Rules. Members can explain and justify every part of this plan.
 
-### 5.4 One-Sentence Plan Summary
+| Name / Chinese name / Student ID | AI evidence file |
+| :---- | :---- |
+| Rafael Tjahjono / 李文明 / 1820262082 | [AI Use Evidence \| Rafael Tjahjono](https://docs.google.com/document/u/0/d/1kTyab4VeZT3CGYrV2u24D2w6-ST9X2PtYYb0Z-nBqmg/edit) |
+| Alexander Valentino Lukman / 吕孙鸿 / 1820262032 | [AI USE EVIDENCE ALEX](https://docs.google.com/document/d/103ptQCPxojI3TY6eEpjjW_ghWJW1KVd8-AaDAGawBEw/edit?usp=sharing) |
+| Victor Charlie / 李东财 / 1820262066 | [AI Evidence - Valiant](https://docs.google.com/document/d/16RjlO0waODmkGdFqqIqd2ojPajHSM5Hi_4_knRHT-1Y/edit?usp=sharing) |
+| Said Aliyev / 李叶 / 1820262028 | [AI USE EVIDENCE](https://docs.google.com/document/d/1LvqSd_UfcM9xChg9PRTuFcVps2HuV8ReHzCJ2Rto-P4/edit?usp=sharing)  |
+| Valiant Lim / 林盛旺 / 1820262320 | [AI use Evidence - Victor](https://docs.google.com/document/d/1QRPjC_VlxVWS89elP_CFVk3QFdZdYzCYPtbyuWgLgIU/edit?tab=t.0) |
 
-> "This subtopic teaches beginners how modern AI overcomes the limitations of deep learning by pairing neural perception with symbolic logic to create reliable, safe, and explainable hybrid systems."
+## 
 
----
+## **Pre-submission checklist**
 
-## Clear Purposes of Deliverables
-
-### A. Study Guide
-
-- **Target Audience:** Beginner and intermediate undergraduate students.
-- **Core Purpose:** Serves as the comprehensive, self-paced reading material and reference handbook for the entire module.
-- **Key Functions:**
-  - Establishes explicit scope boundaries (separating what students must learn in detail vs. brief high-level concepts).
-  - Provides detailed explanations, historical contexts, architecture diagrams, comparison tables (Symbolic vs. Machine Learning), and code/rule walkthroughs.
-  - Includes end-of-chapter reflection questions and the test-bank material for self-assessment.
-
-### B. Lecture Slides
-
-- **Target Audience:** In-class presentation audience / visual learners.
-- **Core Purpose:** Provides structured, visual-first scaffolding during lectures to guide student attention without cognitive overload.
-- **Key Functions:**
-  - Displays high-level diagrams (e.g., Knowledge Base vs. Inference Engine flow, System 1 vs. System 2 architecture, Software SDLC steps).
-  - Highlights core definitions, key contrasts, and real-world case studies (MYCIN, DENDRAL, Self-Driving Guardrails).
-  - Serves as an interactive roadmap for instructor explanations, reducing text density in favor of key takeaways.
-
-### C. Mini-Lecture Videos
-
-- **Target Audience:** Asynchronous learners, remote students, and review-phase students.
-- **Core Purpose:** Delivers short, high-impact bite-sized video walkthroughs (5 minutes each) dedicated to individual core concepts.
-- **Key Functions:**
-  - Breaks down complex abstract logic into digestible, step-by-step visual explanations.
-  - Allows students to pause, rewind, and re-watch foundational concepts (e.g., how code turns into binary, forward vs. backward chaining).
-  - Reinforces real-world application by showing concrete software and AI examples in action.
-
----
-
-## Mini-Lecture Plan: Core Focus & Concrete Teaching Approach
-
-### Mini-Lecture 1 — How It Works: Mechanics & Examples (Alex)
-
-**Mini-Lecture Title:** Inside an Expert System: Knowledge Base vs. Inference Engine
-
-#### A. Single Important Idea Focus
-
-**Core Concept:** An Expert System separates what the system knows (the Knowledge Base) from how the system reasons (the Inference Engine).
-
-By isolating this single core concept, students learn that Symbolic AI does not mix domain rules with execution logic—allowing non-programmer domain experts (like doctors) to add rules while the engine handles the deduction.
-
-#### B. Concrete Teaching Approach & Step-by-Step Delivery
-
-**1. Hook & Real-World Analogy (1 Minute)**
-
-- **Teaching Strategy:** Concrete Analogy (The Cookbook & The Chef)
-- **Delivery:**
-  - Compare an Expert System to a restaurant kitchen:
-    - **Knowledge Base** = The Recipe Book (contains explicit facts and IF/THEN rules written by expert chefs).
-    - **Inference Engine** = The Chef (follows the rules, reads incoming customer orders/facts, and decides what dish to prepare).
-  - **Key Takeaway:** The chef doesn't rewrite the recipes; they just process incoming orders using the existing recipe book.
-
-**2. Interactive Code/Rule Walkthrough (2 Minutes)**
-
-- **Teaching Strategy:** Worked Example / Trace-Through Demonstration
-- **Delivery:**
-  - Show a simple medical diagnosis rule set on slide:
-    - Rule 1: IF patient has fever AND sore throat THEN suspect Strep Infection.
-    - Rule 2: IF Strep Infection THEN prescribe Antibiotic A.
-  - Walk through Forward Chaining step-by-step with live visual toggles:
-    - Fact Entered: Patient has a fever.
-    - Fact Entered: Patient has a sore throat.
-    - Engine Execution: Match facts to Rule 1 → Infer "Strep Infection" → Trigger Rule 2 → Output "Prescribe Antibiotic A".
-
-**3. Historical Case Connection (1 Minute)**
-
-- **Teaching Strategy:** Real-World Contextualization (MYCIN)
-- **Delivery:**
-  - Briefly highlight MYCIN (1970s) as the historical benchmark that used this exact IF/THEN production rule mechanism to diagnose blood infections and prescribe dosages as accurately as human specialists.
-
-**4. Active Check for Understanding (1 Minute)**
-
-- **Teaching Strategy:** Predict-the-Outcome Prompt
-- **Delivery:**
-  - Present a quick "What If?" scenario to the class: "If a new virus appears, do we need to rebuild the Inference Engine software, or do we just add new rules to the Knowledge Base?"
-  - Explain the answer briefly to solidify the decoupling concept before concluding.
-
----
-
-### Mini-Lecture 2 — The Foundation of Software (Rafael)
-
-**Mini-Lecture Title:** From Human Code to Computer Logic: What is Software and How It Runs
-
-#### A. Single Important Idea Focus
-
-**Core Concept:** Software is the invisible bridge between human intent and computer hardware, translating human-readable instructions into binary (0s and 1s) and executing them using basic logical rules.
-
-By focusing on this core concept, beginners learn that software isn't magic—it is simply a structured set of instructions that tells hardware what to do step-by-step.
-
-#### B. Concrete Teaching Approach & Step-by-Step Delivery
-
-**1. Hook & Real-World Analogy (1 Minute)**
-
-- **Teaching Strategy:** Concrete Analogy (The Chef and the Instruction Manual)
-- **Delivery:**
-  - Compare computer hardware to a brand-new kitchen filled with appliances, and software to the instruction manual written by a human.
-  - Without the manual (software), the appliances (hardware) just sit there doing nothing. Software gives them purpose and direction.
-
-**2. Walkthrough: From High-Level Code to Binary & Logic (2 Minutes)**
-
-- **Teaching Strategy:** Worked Example / Code Trace-Through
-- **Delivery:**
-  - Show a simple human-readable condition on screen:
-
-    ```python
-    if user_score >= 50:
-        print("Pass")
-    else:
-        print("Fail")
-    ```
-
-  - Explain how this high-level text is translated (either compiled all at once or interpreted line-by-line) into the computer's native language—binary (0s and 1s) representing electric switches turning on and off.
-  - Show how the computer uses this simple If/Else logic to process inputs and generate outputs.
-
-**3. Real-World Context: System vs. Application Software (1 Minute)**
-
-- **Teaching Strategy:** Visual Categorization
-- **Delivery:**
-  - Contrast the two main types of software using a building analogy:
-    - **System Software** (e.g., Windows, macOS, Linux): The foundation, plumbing, and electricity of the building—managing the physical hardware.
-    - **Application Software** (e.g., Web Browsers, Microsoft Word): The furniture and rooms built on top that users actually interact with daily.
-
-**4. Active Check for Understanding (1 Minute)**
-
-- **Teaching Strategy:** Predict-the-Outcome Prompt
-- **Delivery:**
-  - Pose a quick scenario to the class: "If your web browser freezes while watching a video, is that a failure of System Software or Application Software?"
-  - Briefly explain the answer to reinforce the structural boundary between managing hardware and running user programs.
-
----
-
-## Master Task List
-
-**Master Task List — Introduction to Software and Symbolic AI**
-
-### AI Documentation
-
-| Name / Chinese Name / Student ID | AI Evidence File |
-|---|---|
-| Rafael Tjahjono / 李文明 / 1820262082 | AI Use Evidence \| Rafael Tjahjono |
-| Alexander Valentino Lukman / 吕孙鸿 / 1820262032 | AI USE EVIDENCE ALEX |
-| Said Aliyev / 1820262028 / 李叶 | AI USE EVIDENCE |
-| Valiant Lim / 林盛旺 / 1820262320 | AI Evidence - Valiant |
+☐ Team information complete; every member understands their responsibilities  
+☐ Learning goals describe what beginners can explain or do  
+☐ Outline gives meaningful coverage with a manageable level of detail  
+☐ Study Guide, slides and videos have clear purposes and share the Markdown foundation  
+☐ Mini lecture focuses on one idea with a concrete teaching approach  
+☐ Schedule includes review, production, testing, feedback and revision before each deadline  
+☐ Tasks have outcomes, owners, internal deadlines and statuses  
+☐ Workload is balanced; dependencies and risks are considered  
+☐ Links work and all members have reviewed the plan  
+☐ Significant AI use is documented
