@@ -1,0 +1,718 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Garage Bot Build</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: garage scene + co-builder on the left, the question card on the right; stacks to one column on phones. */
+:root{
+  --bg:#e6e9eb; --panel:#fbfbfa; --panel2:#f1f3f4; --ink:#1c2227; --muted:#56616a; --line:#d0d6da;
+  --accent:#e8621a; --accent-ink:#ffffff; --accent-soft:#fbe3d4;
+  --good:#1b8a4b; --good-soft:#dbf1e3; --bad:#c9372a; --bad-soft:#fae0dc; --warn:#b98600; --warn-soft:#fbf0cf;
+  --wall:#cfd5d8; --board:#c4a57d; --peg:#86694a; --floor:#9aa2a7; --floor2:#8b9398; --wood:#a66d3c; --wood2:#82532b;
+  --metal:#5c6770; --metal2:#39424a; --screen:#0f1f2d; --bp:#1c4c82; --bp-line:#3769a2; --bp-ink:#d7ebff;
+  --rb:#eef2f4; --rb-edge:#2f3b45; --rb-dark:#9ba8b2; --eye-off:#4a5761; --eye-on:#2fd2ff;
+  --code1:#7fd1ff; --code2:#ffd36b; --code3:#9be37f; --pcb:#1f8a4c; --chip:#17251d; --chip-on:#ffd34d;
+  --w1:#e5483a; --w2:#f2c230; --w3:#3b82f6; --w4:#22a35a;
+  --flame1:#ff7a1a; --flame2:#ffd23f; --smoke:#737b80; --boom1:#ffb02e; --boom2:#ff5a1f; --burnt:#3b3431;
+  --skin:#c98e62; --skin2:#e2b08a; --face-ink:#2a1c16; --cap:#11a19d; --cap2:#0b7774; --hood:#33409a; --headset:#22282d; --tear:#43a8ff;
+  --font-d:"Bungee","Arial Black",Impact,sans-serif;
+  --font-b:"Barlow","Segoe UI",system-ui,-apple-system,sans-serif;
+  --font-m:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1316; --panel:#171d22; --panel2:#1d242a; --ink:#e6ebee; --muted:#9aa6af; --line:#2a333a;
+    --accent:#ff7a30; --accent-ink:#1a0d05; --accent-soft:#3a2315;
+    --good:#43c47d; --good-soft:#14301f; --bad:#ff6b5b; --bad-soft:#3a1916; --warn:#f0c040; --warn-soft:#3a3014;
+    --wall:#232b31; --board:#4a3b2a; --peg:#2a2118; --floor:#2e353a; --floor2:#272e33; --wood:#6c482a; --wood2:#52361e;
+    --metal:#4b555d; --metal2:#262e34; --screen:#07111a; --bp:#11335a; --bp-line:#1f4b7a; --bp-ink:#cfe6ff;
+    --rb:#d5dce1; --rb-edge:#0e1317; --rb-dark:#7c8994; --eye-off:#2b353c;
+    --smoke:#545c61; --burnt:#2a2421;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1316; --panel:#171d22; --panel2:#1d242a; --ink:#e6ebee; --muted:#9aa6af; --line:#2a333a;
+  --accent:#ff7a30; --accent-ink:#1a0d05; --accent-soft:#3a2315;
+  --good:#43c47d; --good-soft:#14301f; --bad:#ff6b5b; --bad-soft:#3a1916; --warn:#f0c040; --warn-soft:#3a3014;
+  --wall:#232b31; --board:#4a3b2a; --peg:#2a2118; --floor:#2e353a; --floor2:#272e33; --wood:#6c482a; --wood2:#52361e;
+  --metal:#4b555d; --metal2:#262e34; --screen:#07111a; --bp:#11335a; --bp-line:#1f4b7a; --bp-ink:#cfe6ff;
+  --rb:#d5dce1; --rb-edge:#0e1317; --rb-dark:#7c8994; --eye-off:#2b353c;
+  --smoke:#545c61; --burnt:#2a2421;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{color:var(--ink);font-family:var(--font-b);font-size:16px;line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px 40px}
+.wrap{max-width:1100px;margin:0 auto;display:grid;gap:14px}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,.opt:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* header */
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;justify-content:space-between}
+.brand{font-family:var(--font-d);font-size:1.25rem;letter-spacing:.02em;line-height:1;display:flex;align-items:center;gap:10px}
+.brand .hz{width:30px;height:14px;border-radius:3px;background:repeating-linear-gradient(-45deg,var(--warn) 0 6px,var(--ink) 6px 12px)}
+.tracker{display:flex;gap:8px;flex-wrap:wrap}
+.stg{display:flex;align-items:center;gap:7px;padding:5px 10px;border-radius:999px;background:var(--panel);border:1px solid var(--line);font-size:.8rem;font-weight:600;color:var(--muted)}
+.stg.on{color:var(--ink);border-color:var(--accent)}
+.stg .n{font-family:var(--font-d);font-size:.72rem;color:var(--accent)}
+.dots{display:flex;gap:3px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.dot.act{background:var(--accent)}
+.dot.ok{background:var(--good)}
+.dot.flaw{background:var(--warn)}
+.dot.bad{background:var(--bad)}
+
+.grid{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:900px){
+  .grid{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:start}
+  .left{position:sticky;top:max(12px,env(safe-area-inset-top,0px))}
+}
+.left{display:grid;gap:10px;min-width:0}
+
+/* scene */
+.scene{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--wall)}
+.scene svg{display:block;width:100%;height:auto}
+.stamp{position:absolute;top:12%;right:6%;font-family:var(--font-d);font-size:clamp(1rem,4.6vw,1.6rem);color:var(--bad);border:3px solid var(--bad);
+  padding:2px 10px;border-radius:6px;transform:rotate(-9deg);background:color-mix(in srgb,var(--panel) 75%,transparent);letter-spacing:.04em;pointer-events:none}
+.station{position:absolute;left:10px;top:10px;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  background:color-mix(in srgb,var(--panel) 88%,transparent);color:var(--ink);padding:3px 8px;border-radius:6px;border:1px solid var(--line)}
+
+.caption{display:grid;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.caprow{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.captitle{font-weight:700}
+.chip{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;background:var(--panel2);color:var(--muted)}
+.chip.work{background:var(--accent-soft);color:var(--accent)}
+.chip.paused{background:var(--bad-soft);color:var(--bad)}
+.chip.done{background:var(--good-soft);color:var(--good)}
+.bar{height:10px;border-radius:999px;background:var(--panel2);overflow:hidden;border:1px solid var(--line)}
+.bar i{display:block;height:100%;width:0;background:repeating-linear-gradient(-45deg,var(--accent) 0 8px,color-mix(in srgb,var(--accent) 80%,var(--ink)) 8px 16px)}
+.capsub{font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* co-builder */
+.buddy{display:flex;gap:12px;align-items:flex-start}
+.avatar{flex:0 0 76px;width:76px;height:76px;border-radius:50%;background:var(--panel);border:2px solid var(--line);overflow:hidden}
+.avatar svg{width:100%;height:100%;display:block}
+.bubble{position:relative;flex:1;min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:9px 12px}
+.bubble::before{content:"";position:absolute;left:-8px;top:22px;width:14px;height:14px;background:var(--panel);border-left:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(45deg)}
+.who{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.who b{font-family:var(--font-d);font-size:.85rem;letter-spacing:.03em}
+.emo{font-size:.75rem;font-style:italic;color:var(--accent);font-weight:600}
+.line{margin:2px 0 0;font-weight:600;font-size:1.02rem;text-wrap:pretty}
+.emo-excited .avatar svg{animation:hop .5s ease-out 2}
+.emo-scared .avatar svg{animation:shake .12s linear 8}
+.emo-sad .avatar svg{transform:translateY(3px)}
+@keyframes hop{50%{transform:translateY(-6px)}}
+@keyframes shake{25%{transform:translateX(-2px)}75%{transform:translateX(2px)}}
+
+/* card */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;display:grid;gap:14px;min-width:0}
+.meter{display:grid;gap:5px}
+.meterbar{position:relative;height:12px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);overflow:visible}
+.meterbar i{position:absolute;inset:0 auto 0 0;border-radius:999px;background:var(--good);width:0;transition:width .5s}
+.meterbar .half{position:absolute;top:-4px;bottom:-4px;left:50%;width:2px;background:var(--ink);opacity:.55}
+.meterrow{display:flex;justify-content:space-between;gap:8px;font-size:.82rem;color:var(--muted);flex-wrap:wrap;font-variant-numeric:tabular-nums}
+.qhead{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.pill{font-size:.75rem;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--panel2);color:var(--muted);border:1px solid var(--line)}
+.pill.acc{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.qtext{margin:0;font-size:1.18rem;line-height:1.35;font-weight:600;text-wrap:pretty}
+pre.ctx{margin:0;font-family:var(--font-m);font-size:.8rem;line-height:1.5;background:var(--screen);color:#d8e6f2;padding:12px;border-radius:10px;overflow-x:auto;white-space:pre}
+.ctx.plain{white-space:pre-wrap;font-family:var(--font-b);font-size:.92rem;background:var(--panel2);color:var(--ink);border:1px solid var(--line)}
+.opts{display:grid;gap:8px}
+.opt{display:flex;gap:10px;align-items:flex-start;text-align:left;width:100%;padding:11px 12px;border-radius:11px;border:1.5px solid var(--line);background:var(--panel2);transition:border-color .15s,background .15s}
+.opt:hover:not([disabled]){border-color:var(--accent)}
+.opt .k{flex:0 0 26px;height:26px;border-radius:7px;display:grid;place-items:center;font-family:var(--font-d);font-size:.78rem;background:var(--panel);border:1px solid var(--line)}
+.opt .t{flex:1;min-width:0;padding-top:2px}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+.opt.sel .k{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-soft)}
+.opt.right .k{background:var(--good);color:#fff;border-color:var(--good)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt.wrong .k{background:var(--bad);color:#fff;border-color:var(--bad)}
+.opt[disabled]{cursor:default}
+.btn{border:0;border-radius:11px;padding:12px 18px;font-weight:700;background:var(--accent);color:var(--accent-ink);font-size:1rem}
+.btn[disabled]{opacity:.45;cursor:default}
+.btn.ghost{background:var(--panel2);color:var(--ink);border:1px solid var(--line)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.fb{border-radius:12px;padding:12px;display:grid;gap:4px}
+.fb.ok{background:var(--good-soft)}
+.fb.no{background:var(--bad-soft)}
+.fb h3{margin:0;font-size:1rem}
+.fb.ok h3{color:var(--good)} .fb.no h3{color:var(--bad)}
+.fb p{margin:0;font-size:.92rem}
+.hint{font-size:.85rem;color:var(--muted);margin:0}
+
+/* start + end */
+.h1{font-family:var(--font-d);font-size:clamp(1.4rem,5vw,2rem);line-height:1.05;margin:0;text-wrap:balance}
+.lede{margin:0;color:var(--muted);max-width:60ch}
+.steps{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.steps li{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start}
+.steps .num{font-family:var(--font-d);font-size:.95rem;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+.steps b{display:block}
+.steps span{color:var(--muted);font-size:.9rem}
+.rules{display:grid;gap:6px;padding:12px;border-radius:12px;background:var(--panel2);border:1px solid var(--line);font-size:.9rem}
+.rules p{margin:0}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{border:1.5px solid var(--line);background:var(--panel2);border-radius:10px;padding:8px 12px;font-weight:600}
+.seg button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.seg small{display:block;color:var(--muted);font-weight:500}
+.label{font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.big{font-family:var(--font-d);font-size:2.4rem;line-height:1;font-variant-numeric:tabular-nums}
+.report{width:100%;border-collapse:collapse;font-size:.9rem}
+.report td{padding:7px 4px;border-top:1px solid var(--line);vertical-align:top}
+.report td:nth-child(2){text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.report td:last-child{text-align:right}
+.tag{font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.tag.ok{background:var(--good-soft);color:var(--good)} .tag.flaw{background:var(--warn-soft);color:var(--warn)} .tag.bad{background:var(--bad-soft);color:var(--bad)} .tag.na{background:var(--panel2);color:var(--muted)}
+details{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--panel2)}
+summary{font-weight:700;cursor:pointer}
+.miss{display:grid;gap:3px;padding:8px 0;border-top:1px solid var(--line);font-size:.9rem}
+.miss:first-of-type{border-top:0}
+.miss .a{color:var(--good);font-weight:600}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (prefers-reduced-motion: reduce){
+  .emo-excited .avatar svg,.emo-scared .avatar svg{animation:none}
+  .meterbar i{transition:none}
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><span class="hz" aria-hidden="true"></span>Garage Bot Build</div>
+    <nav class="tracker" id="tracker" aria-label="Build stages"></nav>
+  </header>
+
+  <div class="grid">
+    <section class="left" aria-label="Garage">
+      <div class="scene" id="sceneBox">
+        <svg id="scene" viewBox="0 0 400 230" role="img" aria-label="The garage workshop"></svg>
+        <div class="station" id="station">Garage</div>
+        <div class="stamp" id="stamp" hidden>Postponed</div>
+      </div>
+      <div class="caption">
+        <div class="caprow"><span class="captitle" id="capTitle">Ready to build</span><span class="chip" id="capChip">Waiting</span></div>
+        <div class="bar" aria-hidden="true"><i id="capBar"></i></div>
+        <div class="capsub" id="capSub">Pick a build length and start.</div>
+      </div>
+      <div class="buddy emo-excited" id="buddy">
+        <div class="avatar" id="avatar" aria-hidden="true"></div>
+        <div class="bubble" aria-live="polite">
+          <div class="who"><b>Turbo</b><span class="emo" id="emo">(excited)</span></div>
+          <p class="line" id="line">Yo! You ready to build a robot with me? Let's GOOO!</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="card" aria-live="polite"></section>
+  </div>
+</div>
+
+<script>
+const DATA = [{"s":"sw","t":"1.1 What is Software?","q":"Which of these is system software?","x":"","o":["Google Chrome","Spotify","an NVIDIA GPU driver","Microsoft Word"],"c":[2],"m":false,"n":""},{"s":"sw","t":"1.1 What is Software?","q":"Which statement best separates system from application software?","x":"","o":["system software is free, application software is paid","system software manages hardware and resources, application software performs specific user tasks","application software runs in the background, system software is opened by the user","system software is only for servers"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.1 What is Software?","q":"Which pair is classified correctly?","x":"","o":["Android: application, Firefox: system","macOS: system, Minecraft: application","Linux: application, Spotify: system","iOS: application, Word: system"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.2 Operating Systems","q":"A process waiting for a disk read to finish is in which state?","x":"","o":["running","ready","waiting / blocked","terminated"],"c":[2],"m":false,"n":""},{"s":"sw","t":"1.2 Operating Systems","q":"With the round-robin example above (bursts 5, 3 and 2 ms, quantum 2 ms), which process finishes first?","x":"Round-robin example: P1 needs 5 ms, P2 needs 3 ms, P3 needs 2 ms. They arrive in that order and the time quantum is 2 ms.","o":["P1","P2","P3","all at once"],"c":[2],"m":false,"n":"P1 runs 0-2, P2 2-4, P3 4-6 and is done"},{"s":"sw","t":"1.2 Operating Systems","q":"Which technique keeps only the needed parts of a program in RAM and the rest on disk?","x":"","o":["compilation","virtual memory","normalisation","recursion"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.2 Operating Systems","q":"Which development let many users share one computer interactively by switching the CPU rapidly?","x":"","o":["batch processing","time-sharing","cloud computing","version control"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.2 Operating Systems","q":"Which statement about UNIX is correct?","x":"","o":["single-user only","multi-user, multitasking, and influential on later systems","an application program","a compiler"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.3 How Code Runs : Compiled vs Interpreted","q":"Why must high-level code be translated?","x":"","o":["it is written in a foreign language","CPUs process only binary electrical signals","it is too short","CPUs only understand graphical interfaces"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.3 How Code Runs : Compiled vs Interpreted","q":"Which pair of languages is typically compiled?","x":"","o":["Python and JavaScript","C++ and Rust","HTML and CSS","SQL and Excel formulas"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.3 How Code Runs : Compiled vs Interpreted","q":"The main trade-off of interpreted languages is:","x":"","o":["easier to test instantly, but usually slower raw execution","no syntax errors","larger binaries","cannot use variables"],"c":[0],"m":false,"n":""},{"s":"sw","t":"1.3 How Code Runs : Compiled vs Interpreted","q":"The first stage of a typical compiler, which splits text into tokens, is:","x":"","o":["code generation","lexical analysis","linking","debugging"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.3 How Code Runs : Compiled vs Interpreted","q":"Java is best described as:","x":"","o":["purely interpreted line by line","compiled to bytecode that runs on a virtual machine","assembled directly into one CPU's binary only","never translated"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.4 Programming Language and Program Logic","q":"Which paradigm groups data and the functions that use it into objects?","x":"","o":["object-oriented","logic","assembly","functional only"],"c":[0],"m":false,"n":""},{"s":"sw","t":"1.4 Programming Language and Program Logic","q":"In a 32-bit signed integer holding 2,147,483,647, adding 1 typically causes:","x":"","o":["a faster loop","overflow","a syntax error at compile time only","automatic conversion to text"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.4 Programming Language and Program Logic","q":"IF room_temp > target THEN cool ELSE stop is an example of:","x":"","o":["iteration","selection","recursion","compilation"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.4 Programming Language and Program Logic","q":"Which language generation uses mnemonics such as MOV and ADD?","x":"","o":["machine language","assembly language","4GL","markup"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.4 Programming Language and Program Logic","q":"Which of these is declarative?","x":"","o":["C","SQL","Java","assembly"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.5 Software Engineering","q":"Who developed Git for Linux kernel development?","x":"","o":["Dennis Ritchie","Linus Torvalds","Ken Carson","Erling Haaland"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.5 Software Engineering","q":"A good module design has:","x":"","o":["low cohesion, high coupling","high cohesion, low coupling","high cohesion, high coupling","low cohesion, low coupling"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.5 Software Engineering","q":"Which model puts risk analysis in each loop?","x":"","o":["waterfall","spiral","big bang","prototype-only"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.5 Software Engineering","q":"Which step comes second in the five-step SDLC pipeline?","x":"","o":["Test","Code","Design","Release"],"c":[2],"m":false,"n":""},{"s":"sw","t":"1.5 Software Engineering","q":"A Git branch is mainly used to:","x":"","o":["delete history","develop changes in isolation before merging","compile code","encrypt files"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.6 Cloud Software and Software as a Service","q":"Which is an example of SaaS?","x":"","o":["Google Docs","a local C++ compiler","a USB driver","a BIOS chip"],"c":[0],"m":false,"n":""},{"s":"sw","t":"1.6 Cloud Software and Software as a Service","q":"Which NIST characteristic means provider resources serve many consumers from a shared pool?","x":"","o":["measured service","resource pooling","broad network access","rapid elasticity"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.6 Cloud Software and Software as a Service","q":"In PaaS, the consumer:","x":"","o":["only uses a finished app","deploys their own applications onto the provider's platform","owns the data centre","writes the OS kernel"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.6 Cloud Software and Software as a Service","q":"Which NIST deployment model combines two or more distinct cloud infrastructures?","x":"","o":["private","public","hybrid","offline"],"c":[2],"m":false,"n":""},{"s":"sw","t":"1.6 Cloud Software and Software as a Service","q":"Which is a genuine drawback of SaaS?","x":"","o":["cannot be updated","depends on connectivity and the vendor","cannot be shared","cannot sync data"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.7 Open Source vs Proprietary Software","q":"Which is an open-source example?","x":"","o":["Microsoft Windows","Adobe Photoshop","Linux","none of these"],"c":[2],"m":false,"n":""},{"s":"sw","t":"1.7 Open Source vs Proprietary Software","q":"The Open Source Definition is maintained by:","x":"","o":["the Open Source Initiative","NIST","ISO only","Microsoft"],"c":[0],"m":false,"n":""},{"s":"sw","t":"1.7 Open Source vs Proprietary Software","q":"A permissive licence such as MIT:","x":"","o":["forbids use in commercial products","allows reuse, including in closed products","requires paying the author","bans modification"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.7 Open Source vs Proprietary Software","q":"Which is a typical advantage of proprietary software?","x":"","o":["public code review by anyone","vendor-provided support and accountability","guaranteed zero cost","freedom to fork"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.7 Open Source vs Proprietary Software","q":"Which statement is correct?","x":"","o":["free software and freeware always mean the same","open source is defined by criteria such as free redistribution and access to source","proprietary code is always insecure","open source cannot be used commercially"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.8 Databses and SQL","q":"Which statement retrieves data?","x":"","o":["INSERT","SELECT","DROP","GRANT"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.8 Databses and SQL","q":"A foreign key:","x":"","o":["uniquely identifies its own row","refers to a primary key in another table","encrypts a column","sorts a table"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.8 Databses and SQL","q":"Which query lists names of students older than 20?","x":"","o":["SELECT age FROM Student WHERE name > 20;","SELECT name FROM Student WHERE age > 20;","UPDATE name FROM Student;","DELETE name WHERE age > 20;"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.8 Databses and SQL","q":"GROUP BY course together with COUNT(*) is used to:","x":"","o":["delete courses","count rows per course","rename a table","create an index only"],"c":[1],"m":false,"n":""},{"s":"sw","t":"1.8 Databses and SQL","q":"A transaction that fails half-way should leave the database:","x":"","o":["with half the changes","as if it never ran","locked for ever","deleted"],"c":[1],"m":false,"n":"atomicity"},{"s":"ads","t":"2.1 Algorithms: Definition, Properties and Representation","q":"A procedure for computing 7! is written as: \"while true: multiply the result by the next integer.\" Which algorithm property does it violate most clearly?","x":"","o":["Input","Finiteness","Generality","Definiteness"],"c":[1],"m":false,"n":""},{"s":"ads","t":"2.1 Algorithms: Definition, Properties and Representation","q":"Trace the following pseudocode for a = 48 and b = 18. What does it return?","x":"while b ≠ 0:\n    r ← a mod b\n    a ← b\n    b ← r\nreturn a","o":["6","12","18","36"],"c":[0],"m":false,"n":"48 mod 18 = 12; 18 mod 12 = 6; 12 mod 6 = 0; return 6"},{"s":"ads","t":"2.1 Algorithms: Definition, Properties and Representation","q":"Which form of representation is precise, independent of any programming language, has no standard syntax, and cannot be run directly by a computer?","x":"","o":["Natural language","Flowchart","Pseudocode","A Python program"],"c":[2],"m":false,"n":""},{"s":"ads","t":"2.1 Algorithms: Definition, Properties and Representation","q":"Which flowchart symbol is used to read data or show a result?","x":"","o":["Oval (terminator)","Rectangle (process)","Parallelogram (input/output)","Diamond (decision)"],"c":[2],"m":false,"n":"input/output"},{"s":"ads","t":"2.1 Algorithms: Definition, Properties and Representation","q":"Which of the following are properties that a procedure must have to count as an algorithm?","x":"","o":["Finiteness","Definiteness","It finishes in under one second","Effectiveness","It is written in Python"],"c":[0,1,3],"m":true,"n":""},{"s":"ads","t":"2.2 Efficiency (Big-O) and Searching","q":"The FindMax algorithm makes one comparison per item after the first and stores only a few variables. Which statement gives its time and extra space correctly?","x":"","o":["O(n) time, O(1) extra space","O(n²) time, O(n) extra space","O(log n) time, O(1) extra space","O(n) time, O(n) extra space"],"c":[0],"m":false,"n":""},{"s":"ads","t":"2.2 Efficiency (Big-O) and Searching","q":"Binary search (with mid = (low + high) // 2) looks for 23 in [2, 5, 8, 12, 16, 23, 38, 56, 72, 91] (indexes 0 to 9). How many times does it compare items[mid] with the target before finding it?","x":"","o":["1","2","3","8"],"c":[2],"m":false,"n":"mid = 4 gives 16 < 23, so low = 5; mid = 7 gives 56 > 23, so high = 6; mid = 5 gives 23, found"},{"s":"ads","t":"2.2 Efficiency (Big-O) and Searching","q":"You must search an unsorted list of 1,000 items exactly once. Which approach is cheapest?","x":"","o":["Sort with merge sort, then use binary search","Use linear search directly","Sort with bubble sort, then use binary search","Use binary search directly on the unsorted list"],"c":[1],"m":false,"n":""},{"s":"ads","t":"2.2 Efficiency (Big-O) and Searching","q":"At 10⁹ operations per second and n = 1,000,000, roughly how long do an O(n log n) algorithm and an O(n²) algorithm take?","x":"","o":["About 0.02 seconds and about 17 minutes","About 17 minutes and about 0.02 seconds","About 1 second for both","About 20 seconds and about 1,000 seconds"],"c":[0],"m":false,"n":"2 × 10⁷ operations ≈ 0.02 s; 10¹² operations = 1,000 s ≈ 17 min"},{"s":"ads","t":"2.2 Efficiency (Big-O) and Searching","q":"Which statements about binary search are correct?","x":"","o":["It requires the data to be sorted","Its worst-case time is O(log n)","It works equally well on a linked list, because it only needs the next pointer","Using mid = low + (high - low) // 2 avoids integer overflow in fixed-width languages","It is always better than linear search for a single lookup in unsorted data"],"c":[0,1,3],"m":true,"n":""},{"s":"ads","t":"2.3 Sorting Algorithms","q":"Bubble sort is applied to [5, 2, 4, 1]. What is the list after the first full pass?","x":"","o":["[2, 4, 1, 5]","[1, 2, 4, 5]","[2, 5, 4, 1]","[1, 5, 4, 2]"],"c":[0],"m":false,"n":"[2, 5, 4, 1] → [2, 4, 5, 1] → [2, 4, 1, 5]"},{"s":"ads","t":"2.3 Sorting Algorithms","q":"Insertion sort is applied to [5, 2, 4, 1]. The sorted prefix grows one item at a time (key = a[1] first). What is the list right after the key 4 has been inserted?","x":"","o":["[2, 5, 4, 1]","[2, 4, 5, 1]","[1, 2, 4, 5]","[4, 2, 5, 1]"],"c":[1],"m":false,"n":""},{"s":"ads","t":"2.3 Sorting Algorithms","q":"Why is merge sort O(n log n)?","x":"","o":["It compares every pair of items","The list is halved about log n times, and each level of merging does about n work","It performs n swaps in each of n passes","It builds a heap and extracts the minimum n times"],"c":[1],"m":false,"n":""},{"s":"ads","t":"2.3 Sorting Algorithms","q":"Writing to memory is very expensive on a device, so you want a simple sort that makes at most n − 1 swaps. Which sort fits best?","x":"","o":["Bubble sort","Selection sort","Insertion sort","Merge sort"],"c":[1],"m":false,"n":""},{"s":"ads","t":"2.3 Sorting Algorithms","q":"Which of these sorts are stable (as described in the guide)?","x":"","o":["Bubble sort","Selection sort (usual array version)","Insertion sort","Merge sort","Quick sort (usual version)"],"c":[0,2,3],"m":true,"n":""},{"s":"ads","t":"2.4 Iteration, Recursion, Design Strategies and Limits","q":"How many calls to factorial are made (including the first call and the base-case call) when computing factorial(4)?","x":"def factorial(n):\n    if n == 0:\n        return 1\n    return n * factorial(n - 1)","o":["4","5","6","24"],"c":[1],"m":false,"n":"n = 4, 3, 2, 1, 0"},{"s":"ads","t":"2.4 Iteration, Recursion, Design Strategies and Limits","q":"A recursive function in Python never reaches its base case. What is the typical result?","x":"","o":["An infinite loop that keeps returning values","A stack overflow (a RecursionError in Python)","The function returns 0","The compiler rejects the program"],"c":[1],"m":false,"n":""},{"s":"ads","t":"2.4 Iteration, Recursion, Design Strategies and Limits","q":"Which strategy is described by \"solve overlapping subproblems once and store the answers\"?","x":"","o":["Brute force","Greedy","Dynamic programming","Backtracking"],"c":[2],"m":false,"n":""},{"s":"ads","t":"2.4 Iteration, Recursion, Design Strategies and Limits","q":"Which design strategy do both binary search and merge sort use?","x":"","o":["Divide and conquer","Brute force","Greedy","Dynamic programming"],"c":[0],"m":false,"n":""},{"s":"ads","t":"2.4 Iteration, Recursion, Design Strategies and Limits","q":"Which statements about iteration and recursion are correct?","x":"","o":["Any recursive algorithm can be rewritten with a loop and an explicit stack","Recursion needs extra memory proportional to the depth of the calls","A loop always needs more memory than the equivalent recursion","Recursion is often the clearest way to write tree and divide-and-conquer algorithms","Recursion can never be written as a loop"],"c":[0,1,3],"m":true,"n":""},{"s":"ads","t":"2.5 Arrays, Records and Linked Lists","q":"An array of 4-byte integers starts at address 1000. At which address is a[5] stored?","x":"","o":["1005","1015","1020","1024"],"c":[2],"m":false,"n":"1000 + 5 × 4"},{"s":"ads","t":"2.5 Arrays, Records and Linked Lists","q":"In the list 7 → 12 → 5 → 9, you insert a new node holding 8 after the node holding 12. Which order of steps is safe?","x":"","o":["Set node12.next = new, then set new.next = node5","Set new.next = node5, then set node12.next = new","Delete node 5 first, then link the new node","Either order works equally well"],"c":[1],"m":false,"n":""},{"s":"ads","t":"2.5 Arrays, Records and Linked Lists","q":"Which structure is the best fit when you make frequent insertions and deletions at known positions and rarely need access by index?","x":"","o":["Array","Linked list","Record","Sorted array with binary search"],"c":[1],"m":false,"n":""},{"s":"ads","t":"2.5 Arrays, Records and Linked Lists","q":"After reverse() runs on the list 1 → 2 → 3, what does the list look like?","x":"def reverse(self):\n    prev, cur = None, self.head\n    while cur is not None:\n        nxt = cur.next\n        cur.next = prev\n        prev = cur\n        cur = nxt\n    self.head = prev","o":["1 → 2 → 3 (unchanged)","3 → 2 → 1","2 → 1","3"],"c":[1],"m":false,"n":""},{"s":"ads","t":"2.5 Arrays, Records and Linked Lists","q":"Which statements are correct?","x":"","o":["Arrays scan quickly in order because their items sit side by side in memory","A linked list needs an extra pointer for every node","In a singly linked list with only a head pointer, deleting a given node is O(1)","In a doubly linked list, a known node can be deleted in O(1)","Appending to a dynamic array is O(1) on average (amortized)"],"c":[0,1,3,4],"m":true,"n":""},{"s":"ads","t":"2.6 Stacks and Queues","q":"Starting from an empty stack: push(1), push(2), push(3), pop(), peek(), pop(). What does the last pop() return?","x":"","o":["1","2","3","The stack is empty (underflow)"],"c":[1],"m":false,"n":""},{"s":"ads","t":"2.6 Stacks and Queues","q":"Evaluate the postfix expression 5 3 + 8 2 - * using a stack (for an operator, pop two values, apply it with the earlier-pushed value on the left, and push the result).","x":"","o":["16","40","48","64"],"c":[2],"m":false,"n":"5 + 3 = 8; 8 − 2 = 6; 8 × 6 = 48"},{"s":"ads","t":"2.6 Stacks and Queues","q":"The stack-based balanced() check is run on {[(])}. What happens?","x":"","o":["The text is reported as balanced","A mismatch is found when ] pops (","No mismatch occurs but the stack ends non-empty","Underflow occurs on the very first character"],"c":[1],"m":false,"n":""},{"s":"ads","t":"2.6 Stacks and Queues","q":"Starting from an empty queue: enqueue(A), enqueue(B), enqueue(C), dequeue(), enqueue(D), dequeue(). What does the queue hold (front → rear)?","x":"","o":["B, C, D","C, D","A, D","D"],"c":[1],"m":false,"n":""},{"s":"ads","t":"2.6 Stacks and Queues","q":"Which of these are natural applications of a stack?","x":"","o":["The call stack of function calls","Undo history in an editor","A print spooler serving jobs in arrival order","Backtracking in a maze","CPU scheduling in arrival order"],"c":[0,1,3],"m":true,"n":""},{"s":"ads","t":"2.7 Trees, Binary Trees and Binary Search Trees","q":"In the tree shown above, what is the in-order traversal?","x":"Binary search tree built by inserting 8, 3, 10, 1, 6, 14, 4, 7, 13:\n\n          8\n        /   \\\n       3     10\n      / \\      \\\n     1   6      14\n        / \\     /\n       4   7   13","o":["8, 3, 1, 6, 4, 7, 10, 14, 13","1, 3, 4, 6, 7, 8, 10, 13, 14","1, 4, 7, 6, 3, 13, 14, 10, 8","8, 3, 10, 1, 6, 14, 4, 7, 13"],"c":[1],"m":false,"n":""},{"s":"ads","t":"2.7 Trees, Binary Trees and Binary Search Trees","q":"For the same tree (root 8), what is the pre-order traversal?","x":"Binary search tree built by inserting 8, 3, 10, 1, 6, 14, 4, 7, 13:\n\n          8\n        /   \\\n       3     10\n      / \\      \\\n     1   6      14\n        / \\     /\n       4   7   13","o":["8, 3, 1, 6, 4, 7, 10, 14, 13","1, 3, 4, 6, 7, 8, 10, 13, 14","1, 4, 7, 6, 3, 13, 14, 10, 8","8, 3, 10, 1, 6, 14, 4, 7, 13"],"c":[0],"m":false,"n":""},{"s":"ads","t":"2.7 Trees, Binary Trees and Binary Search Trees","q":"Keys 1, 2, 3, 4, 5 are inserted, in this order, into an empty plain BST. What is the result?","x":"","o":["A perfect tree of height 2","A degenerate (skewed) tree of height 4, in which search costs O(n)","A balanced tree of height 3","A tree of height 1"],"c":[1],"m":false,"n":""},{"s":"ads","t":"2.7 Trees, Binary Trees and Binary Search Trees","q":"In the tree shown above, node 3 (with children 1 and 6) is deleted. Which key takes its place, according to the \"two children\" rule?","x":"Binary search tree built by inserting 8, 3, 10, 1, 6, 14, 4, 7, 13:\n\n          8\n        /   \\\n       3     10\n      / \\      \\\n     1   6      14\n        / \\     /\n       4   7   13","o":["1","4","6","7"],"c":[1],"m":false,"n":"the in-order successor: the smallest key in 3's right subtree"},{"s":"ads","t":"2.7 Trees, Binary Trees and Binary Search Trees","q":"A perfect binary tree has height 3 (counting edges, root at height 0). Which statements are correct?","x":"","o":["It has 15 nodes","It has 8 leaves","It has 16 nodes","Every node has 0 or 2 children","Its height is n − 1, where n is the number of nodes"],"c":[0,1,3],"m":true,"n":"2⁴ − 1 = 15 nodes, 2³ = 8 leaves"},{"s":"ads","t":"2.8 Heaps, Graphs and Choosing a Data Structure","q":"A complete binary tree is stored in an array (indexes from 0). Where are the children of the node at index 3?","x":"","o":["Indexes 6 and 7","Indexes 7 and 8","Indexes 4 and 5","Indexes 3 and 4"],"c":[1],"m":false,"n":"2 × 3 + 1 = 7 and 2 × 3 + 2 = 8"},{"s":"ads","t":"2.8 Heaps, Graphs and Choosing a Data Structure","q":"What is printed?","x":"from collections import deque\ngraph = {\"A\": [\"B\", \"C\"], \"B\": [\"A\", \"D\"],\n         \"C\": [\"A\", \"E\"], \"D\": [\"B\"], \"E\": [\"C\"]}\n\ndef bfs(start):\n    visited, order = {start}, []\n    queue = deque([start])\n    while queue:\n        node = queue.popleft()\n        order.append(node)\n        for nb in graph[node]:\n            if nb not in visited:\n                visited.add(nb)\n                queue.append(nb)\n    return order\n\nprint(bfs(\"A\"))","o":["['A', 'B', 'D', 'C', 'E']","['A', 'B', 'C', 'D', 'E']","['A', 'C', 'B', 'E', 'D']","['E', 'D', 'C', 'B', 'A']"],"c":[1],"m":false,"n":""},{"s":"ads","t":"2.8 Heaps, Graphs and Choosing a Data Structure","q":"An operating system must repeatedly pick the task with the highest priority from a collection that changes constantly. Which structure is best?","x":"","o":["Heap (priority queue)","Plain array searched linearly each time","Stack","Record"],"c":[0],"m":false,"n":""},{"s":"ads","t":"2.8 Heaps, Graphs and Choosing a Data Structure","q":"A road network has 10,000 intersections and about 15,000 roads. Which representation is more suitable, and why?","x":"","o":["Adjacency matrix, because edge lookup is O(1) and the graph is dense","Adjacency list, because the graph is sparse and the list needs only O(V + E) space","Adjacency matrix, because it uses less memory for sparse graphs","Neither; graphs cannot be stored in memory"],"c":[1],"m":false,"n":""},{"s":"ads","t":"2.8 Heaps, Graphs and Choosing a Data Structure","q":"Which pairings of need and structure agree with the guide?","x":"","o":["Undo history → stack","Printer jobs served in arrival order → stack","Folder hierarchy → tree","Social-network connections → graph","Ordered data with fast search and insert → balanced binary search tree"],"c":[0,2,3,4],"m":true,"n":""},{"s":"sai","t":"3.1 Introduction, History and How Symbolic AI Works","q":"Which list names the three main parts of a symbolic AI system?","x":"","o":["Knowledge base, inference engine, interface","Training set, neural network, optimizer","Compiler, linker, debugger","Sensor, actuator, battery"],"c":[0],"m":false,"n":""},{"s":"sai","t":"3.1 Introduction, History and How Symbolic AI Works","q":"Which is the main reason funding for expert systems collapsed in the late 1980s (\"AI winter\")?","x":"","o":["They were too easy to explain","They were costly to maintain and brittle outside their narrow domain","They could not use logic","There was no programming language for them"],"c":[1],"m":false,"n":""},{"s":"sai","t":"3.1 Introduction, History and How Symbolic AI Works","q":"A system holds the rule IF fever AND cough AND difficulty breathing THEN possible pneumonia. The user reports all three symptoms, and the system adds \"possible pneumonia\". Which reasoning style is this?","x":"","o":["Backward chaining (goal-driven)","Forward chaining (data-driven)","Gradient descent","Random search"],"c":[1],"m":false,"n":""},{"s":"sai","t":"3.1 Introduction, History and How Symbolic AI Works","q":"What is the \"knowledge acquisition bottleneck\"?","x":"","o":["Computers cannot store more than 1,000 rules","Humans must write every rule by hand, which is slow and expensive","Neural networks need too much data","Rules cannot be edited after deployment"],"c":[1],"m":false,"n":""},{"s":"sai","t":"3.1 Introduction, History and How Symbolic AI Works","q":"Which are typical limitations of symbolic AI?","x":"","o":["It fails when a needed rule is missing (incomplete knowledge)","Thousands of interacting rules become slow and hard to maintain","It has difficulty with vague input such as \"kind of tired\"","Its decisions cannot be traced to any rule","It cannot learn new rules on its own"],"c":[0,1,2,4],"m":true,"n":""},{"s":"sai","t":"3.2 Propositional Logic","q":"Both p and q are false. What are the values of p → q and p ↔ q?","x":"","o":["p → q is True and p ↔ q is True","p → q is False and p ↔ q is False","p → q is True and p ↔ q is False","p → q is False and p ↔ q is True"],"c":[0],"m":false,"n":""},{"s":"sai","t":"3.2 Propositional Logic","q":"Which expression is equivalent to ¬(rain ∧ windy) (\"it is not both raining and windy\")?","x":"","o":["¬rain ∧ ¬windy","¬rain ∨ ¬windy","rain ∨ windy","rain ∧ ¬windy"],"c":[1],"m":false,"n":""},{"s":"sai","t":"3.2 Propositional Logic","q":"Premises: \"If the alarm is armed, then the door is locked.\" and \"The door is not locked.\" Which conclusion is valid?","x":"","o":["The alarm is armed","The alarm is not armed","Nothing can be concluded","The door will lock itself"],"c":[1],"m":false,"n":"modus tollens"},{"s":"sai","t":"3.2 Propositional Logic","q":"Which of the following is not a proposition?","x":"","o":["2 + 2 = 4","The sky is blue","Close the door","It is raining"],"c":[2],"m":false,"n":""},{"s":"sai","t":"3.2 Propositional Logic","q":"Which pairs are logically equivalent?","x":"","o":["¬(¬p) and p","¬(p ∨ q) and ¬p ∧ ¬q","p → q and q → p","¬(p ∧ q) and ¬p ∨ ¬q","p ∧ q and p ∨ q"],"c":[0,1,3],"m":true,"n":""},{"s":"sai","t":"3.3 Predicate Logic","q":"Which formula translates \"Some birds can fly\"?","x":"","o":["∃y (Bird(y) ∧ CanFly(y))","∀y (Bird(y) → CanFly(y))","∃y (Bird(y) → CanFly(y))","∀y (Bird(y) ∧ CanFly(y))"],"c":[0],"m":false,"n":""},{"s":"sai","t":"3.3 Predicate Logic","q":"Given ∀x (Human(x) → Mortal(x)) and ¬Mortal(Zeus), what follows?","x":"","o":["Human(Zeus)","¬Human(Zeus)","Mortal(Zeus)","Nothing follows"],"c":[1],"m":false,"n":""},{"s":"sai","t":"3.3 Predicate Logic","q":"Which pair of rules is always safe, with no extra condition?","x":"","o":["Universal instantiation and universal generalization","Universal instantiation and existential generalization","Existential instantiation and universal generalization","Existential instantiation and existential generalization"],"c":[1],"m":false,"n":""},{"s":"sai","t":"3.3 Predicate Logic","q":"In the domain of integers, which statement is well formed but false?","x":"","o":["∃x (Even(x) ∧ Prime(x))","∀n Even(n)","∃x Even(x)","∃x (x > 10)"],"c":[1],"m":false,"n":"for example, 3 is not even"},{"s":"sai","t":"3.3 Predicate Logic","q":"Which statements are correct?","x":"","o":["Propositional logic has no quantifiers","Predicate (first-order) logic is more expressive than propositional logic","Predicate logic is simpler and easier to automate than propositional logic","First-order logic is the basis of Prolog","Propositional logic can say \"all cats are mammals\" in general form"],"c":[0,1,3],"m":true,"n":""},{"s":"sai","t":"3.4 Knowledge Representation","q":"A semantic network states: Cat is a Mammal; Mammal is an Animal; Mammal has Vertebra. What can be inferred by following the links?","x":"","o":["A cat is an animal and has a vertebra","A cat is a fish","An animal is a cat","Nothing, because links cannot be followed"],"c":[0],"m":false,"n":""},{"s":"sai","t":"3.4 Knowledge Representation","q":"\"Going to a restaurant: reservation → ordering → paying the bill\" is an example of:","x":"","o":["A script (a sequence of frames)","A propositional formula","A production rule","An ontology of diseases"],"c":[0],"m":false,"n":""},{"s":"sai","t":"3.4 Knowledge Representation","q":"Which approach is best for giving a whole organization one consistent vocabulary of \"disease\", \"symptom\" and \"treatment\"?","x":"","o":["Ontology","Propositional logic","Hill climbing","Bubble sort"],"c":[0],"m":false,"n":""},{"s":"sai","t":"3.4 Knowledge Representation","q":"Which representation has \"the meaning of links can be vague\" as its main weakness?","x":"","o":["Propositional logic","Semantic networks","Frames","Ontologies"],"c":[1],"m":false,"n":""},{"s":"sai","t":"3.4 Knowledge Representation","q":"Which are qualities of a good knowledge representation?","x":"","o":["Expressive: it captures what matters","Inferable: new facts can be derived","Efficient","Understandable to humans","Readable only by machines"],"c":[0,1,2,3],"m":true,"n":""},{"s":"sai","t":"3.5 Rule-Based Systems and Expert Systems","q":"Rule 1: IF engine won't start AND lights are dim THEN battery is weak. Rule 2: IF battery is weak THEN recommend charging or replacing it. Facts: engine won't start, lights are dim. What does forward chaining do?","x":"","o":["Rule 2 fires first, then Rule 1","Rule 1 fires and adds \"battery weak\"; then Rule 2 fires and gives the recommendation","Neither rule fires","Only Rule 1 fires and the system stops"],"c":[1],"m":false,"n":""},{"s":"sai","t":"3.5 Rule-Based Systems and Expert Systems","q":"A doctor suspects flu, then checks the patient's symptoms one by one to see whether they support that hypothesis. Which reasoning style is this?","x":"","o":["Forward chaining","Backward chaining","Random restart","Minimax"],"c":[1],"m":false,"n":""},{"s":"sai","t":"3.5 Rule-Based Systems and Expert Systems","q":"Which system worked out organic molecule structures from mass spectrometer data and is often called the first expert system?","x":"","o":["DENDRAL","XCON","ELIZA","SHRDLU"],"c":[0],"m":false,"n":""},{"s":"sai","t":"3.5 Rule-Based Systems and Expert Systems","q":"Who turns a human expert's knowledge into the knowledge base of an expert system?","x":"","o":["The end user","The knowledge engineer","The compiler","The working memory"],"c":[1],"m":false,"n":""},{"s":"sai","t":"3.5 Rule-Based Systems and Expert Systems","q":"Which are weaknesses of rule-based and expert systems?","x":"","o":["Brittle: they fail outside their narrow domain","They cannot learn on their own","Large rule sets are hard to maintain","Their decisions are not explainable","Building the knowledge base is expensive"],"c":[0,1,2,4],"m":true,"n":""},{"s":"sai","t":"3.6 Problem Formulation and Uninformed Search","q":"A tree: A has children B and C; B has children D and E; C has child F. The goal is F. Children are visited left to right. In which order does depth-first search expand nodes until it reaches F?","x":"","o":["A, B, C, D, E, F","A, B, D, E, C, F","A, C, F","F, C, A"],"c":[1],"m":false,"n":""},{"s":"sai","t":"3.6 Problem Formulation and Uninformed Search","q":"With branching factor b = 10 and a machine that checks 10⁶ nodes per second, about how long does a search to depth 8 (about 10⁸ nodes) take?","x":"","o":["About 1 second","About 100 seconds","About 2.8 hours","About 11.6 days"],"c":[1],"m":false,"n":"10⁸ ÷ 10⁶ = 100 s"},{"s":"sai","t":"3.6 Problem Formulation and Uninformed Search","q":"Which strategy keeps the frontier in a priority queue ordered by the path cost g(n) paid so far?","x":"","o":["Breadth-first search","Depth-first search","Uniform-cost search","Greedy best-first search"],"c":[2],"m":false,"n":""},{"s":"sai","t":"3.6 Problem Formulation and Uninformed Search","q":"Which uninformed strategy uses small memory, O(b·m), but is not optimal?","x":"","o":["Breadth-first search","Depth-first search","Uniform-cost search","Iterative deepening"],"c":[1],"m":false,"n":""},{"s":"sai","t":"3.6 Problem Formulation and Uninformed Search","q":"Which statements about breadth-first search are correct?","x":"","o":["It is complete when the branching factor is finite","It is optimal when all step costs are equal","Its time and space are both O(b^d)","Its memory use is small, only O(b·d)","It expands the shallowest unexpanded node first"],"c":[0,1,2,4],"m":true,"n":""},{"s":"sai","t":"3.7 Informed, Adversarial and Local Search","q":"MAX has three moves. After each, MIN picks a reply. Leaf scores: move A → 3, 12, 8; move B → 2, 4, 6; move C → 14, 5, 2. Which move does MAX choose, and what is the game value?","x":"","o":["Move A, value 3","Move B, value 2","Move C, value 14","Move A, value 12"],"c":[0],"m":false,"n":"MIN values: A = 3, B = 2, C = 2; MAX takes 3"},{"s":"sai","t":"3.7 Informed, Adversarial and Local Search","q":"For the same tree, with leaves examined left to right, how many of the 9 leaves does alpha-beta pruning evaluate?","x":"The tree from the minimax question: MAX has three moves.\nMove A → leaves 3, 12, 8\nMove B → leaves 2, 4, 6\nMove C → leaves 14, 5, 2","o":["9","7","5","3"],"c":[1],"m":false,"n":"move A: 3 leaves, α = 3; move B: leaf 2 ≤ 3, prune after 1 leaf; move C: 14, 5, 2 all needed = 3 leaves; 3 + 1 + 3 = 7"},{"s":"sai","t":"3.7 Informed, Adversarial and Local Search","q":"Edge costs: S→A = 1, S→B = 4, A→B = 2, A→G = 6, B→G = 3. Heuristic: h(S) = 5, h(A) = 4, h(B) = 3, h(G) = 0. What is the cost of the optimal path from S to G found by A*?","x":"","o":["6","7","8","10"],"c":[0],"m":false,"n":"S → A → B → G = 1 + 2 + 3"},{"s":"sai","t":"3.7 Informed, Adversarial and Local Search","q":"What does simulated annealing do at a high temperature T?","x":"","o":["It accepts many worse moves, so it explores widely and can escape local maxima","It never accepts a worse move","It behaves exactly like hill climbing","It stops immediately"],"c":[0],"m":false,"n":""},{"s":"sai","t":"3.7 Informed, Adversarial and Local Search","q":"Which statements are correct?","x":"","o":["The number of misplaced tiles (h1) is admissible","The Manhattan distance (h2) dominates h1","h2 usually expands more nodes than h1","The Manhattan distance is admissible","A consistent heuristic is also admissible"],"c":[0,1,3,4],"m":true,"n":""},{"s":"sai","t":"3.8 Planning (STRIPS) and Constraint Satisfaction","q":"Which plan reaches the goal?","x":"Blocks world actions\nPickup(x)   pre: Clear(x), OnTable(x), HandEmpty\n            delete: OnTable(x), Clear(x), HandEmpty\n            add: Holding(x)\nStack(x,y)  pre: Holding(x), Clear(y)\n            delete: Holding(x), Clear(y)\n            add: On(x,y), Clear(x), HandEmpty\n\nInitial state: OnTable(A), OnTable(B), Clear(A), Clear(B), HandEmpty\nGoal: On(A,B)","o":["Stack(A,B), then Pickup(A)","Pickup(A), then Stack(A,B)","Pickup(B), then Stack(A,B)","Stack(A,B) only"],"c":[1],"m":false,"n":""},{"s":"sai","t":"3.8 Planning (STRIPS) and Constraint Satisfaction","q":"Which fact is in the state right after Pickup(A) has been applied?","x":"Blocks world actions\nPickup(x)   pre: Clear(x), OnTable(x), HandEmpty\n            delete: OnTable(x), Clear(x), HandEmpty\n            add: Holding(x)\nStack(x,y)  pre: Holding(x), Clear(y)\n            delete: Holding(x), Clear(y)\n            add: On(x,y), Clear(x), HandEmpty\n\nInitial state: OnTable(A), OnTable(B), Clear(A), Clear(B), HandEmpty\nGoal: On(A,B)","o":["HandEmpty","Holding(A)","Clear(A)","OnTable(A)"],"c":[1],"m":false,"n":""},{"s":"sai","t":"3.8 Planning (STRIPS) and Constraint Satisfaction","q":"Which problem is described by \"moving a box also moves everything that is on it\"?","x":"","o":["The frame problem","The qualification problem","The ramification problem","The halting problem"],"c":[2],"m":false,"n":""},{"s":"sai","t":"3.8 Planning (STRIPS) and Constraint Satisfaction","q":"In a map-colouring CSP with domain {red, green, blue} for every region, regions X and Y are neighbors. X is assigned red. After forward checking, what is the domain of Y?","x":"","o":["{red, green, blue}","{green, blue}","{red}","{}"],"c":[1],"m":false,"n":""},{"s":"sai","t":"3.8 Planning (STRIPS) and Constraint Satisfaction","q":"Which are assumptions of classical planning?","x":"","o":["Actions are deterministic","The state is fully observable","The world is static (it changes only when the agent acts)","Several agents act at the same time","States and time are discrete"],"c":[0,1,2,4],"m":true,"n":""},{"s":"sai","t":"3.9 Symbolic Natural Language Processing","q":"Which stage of the pipeline builds a representation such as Chase(cat, mouse) for \"The cat chased the mouse\"?","x":"","o":["Tokenization","Part-of-speech tagging","Semantic interpretation","Morphological analysis"],"c":[2],"m":false,"n":""},{"s":"sai","t":"3.9 Symbolic Natural Language Processing","q":"Grammar: S → NP VP; NP → Det N; VP → V NP; Det → the; N → cat | mouse; V → chased. Which sentence can this grammar generate?","x":"","o":["the cat chased the mouse","chased the cat the mouse","the mouse the cat chased","cat the chased mouse"],"c":[0],"m":false,"n":""},{"s":"sai","t":"3.9 Symbolic Natural Language Processing","q":"Lexicon: good = +2, bad = −2. \"very\" multiplies the score by 1.5. \"not\" flips the sign. What is the score of \"The food was not very good\"?","x":"","o":["+3","−2","−3","+1"],"c":[2],"m":false,"n":"very good = 2 × 1.5 = +3; not flips it to −3"},{"s":"sai","t":"3.9 Symbolic Natural Language Processing","q":"Facts: parent(alice, bob). parent(alice, carol). parent(bob, dave). Rule: grandparent(X, Z) :- parent(X, Y), parent(Y, Z). What does the query grandparent(alice, W) return?","x":"","o":["W = bob","W = carol","W = dave","false"],"c":[2],"m":false,"n":""},{"s":"sai","t":"3.9 Symbolic Natural Language Processing","q":"Which are typical weaknesses of symbolic NLP?","x":"","o":["Ambiguity: many valid parses and word senses","Brittleness to slang, misspellings and new words","Heavy manual effort to write grammars, lexicons and ontologies","It needs very large training data sets","Limited coverage, because language is open-ended"],"c":[0,1,2,4],"m":true,"n":""}];
+
+const PLAN = {quick:[3,2,2,1,2,2], standard:[6,4,3,2,3,3], long:[10,7,6,3,5,5]};
+const LENS = [["quick","Quick","12 questions"],["standard","Standard","21 questions"],["long","Long","36 questions"]];
+const STEPS = [
+  {key:"os",stage:0,pool:"sw",station:"laptop",where:"Laptop",title:"Designing the OS",doing:"Coding the robot's operating system",done:"OS designed",next:"Move to the PC"},
+  {key:"model",stage:1,pool:"ads",station:"pc",where:"PC",title:"3D modeling the looks",doing:"Designing the robot's body on the PC",done:"3D model finished",next:"Send it to the 3D printer"},
+  {key:"print",stage:1,pool:"ads",station:"printer",where:"PC + 3D printer",title:"3D printing",doing:"Printing the body layer by layer",done:"Print finished",next:"Open the printer"},
+  {key:"takeout",stage:2,pool:"sai",station:"bench",where:"Workbench",title:"Taking out the print",doing:"Lifting the print onto the workbench",done:"Print is on the bench",next:"Start the wiring"},
+  {key:"wiring",stage:2,pool:"sai",station:"bench",where:"Workbench",title:"Adding the wiring",doing:"Running wires through the body",done:"Wiring done",next:"Add the motherboard"},
+  {key:"board",stage:2,pool:"sai",station:"bench",where:"Workbench",title:"Adding the motherboard",doing:"Fitting the motherboard",done:"Motherboard fitted",next:"Power it on"}
+];
+const STAGES = ["OS","3D print","Assembly"];
+const SECTION = {sw:"Software",ads:"Algorithm and Data Structure",sai:"Symbolic AI"};
+
+const LINES = {
+  correct:[["You're killing it!","excited"],["Good job!","excited"],["Well done!","excited"],["Amazing!","excited"],["Excellent!","excited"],["Marvellous!","excited"]],
+  envy:[["I could've done that too!","frowning, a bit envious"],["Pfft. I totally knew that one too...","frowning, a bit envious"]],
+  streak:[["Three in a row! You're on fire! The good kind of fire!","hyped"]],
+  wrong:[["Uh oh...","sad"],["You can try again!","sad, gentle"],["Nooo, the build's on hold now...","sad"]],
+  intro:{
+    os:["Welcome to the garage! First we code the robot's OS on the laptop. Let's gooo!","hyped"],
+    model:["OS is done! Over to the PC. Time to design how this thing looks!","excited"],
+    print:["That model is clean! Sending the 3D files to the printer!","excited"],
+    takeout:["Ding! Printing's done! Careful, it's still warm.","excited"],
+    wiring:["Wiring time. Red to red, blue to blue. Don't zap me!","nervous but excited"],
+    board:["Last part. The motherboard is the robot's heart. Focus up!","serious, focused"]
+  },
+  donePass:{
+    os:["OS installed! That code is CLEAN!","proud"],
+    model:["Look at him! He's beautiful!","excited"],
+    print:["Print finished! Look at those layers!","excited"],
+    takeout:["Got him out in one piece!","relieved"],
+    wiring:["All wired up! No sparks... yet.","excited"],
+    board:["Motherboard is in. Moment of truth...","nervous"]
+  },
+  doneFail:{
+    os:["It compiles... mostly. I'm sure that's fine. Probably.","nervous"],
+    model:["Uhh... why is his head crooked? And that arm?!","confused, awkward"],
+    board:["Hmm. That board went in a little crooked...","worried"]
+  }
+};
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pick = a => a[Math.floor(Math.random()*a.length)];
+const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
+const lerp = (a,b,k) => a+(b-a)*k;
+const ease = k => 1-Math.pow(1-k,3);
+const RM = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+let lenChoice = "standard";
+let G = null;
+let V = freshV();
+function freshV(){return {paused:false,anim:null,dk:0,dkAnim:null,eyes:false,glitch:false,fire:0,burnt:false,explode:0,highfive:0,nozzleX:250,lastLive:0,finale:false}}
+
+/* ---------- co-builder ---------- */
+function emoKey(e){e=e.toLowerCase();
+  if(e.includes("envi")||e.includes("frown"))return "envious";
+  if(e.includes("scared"))return "scared";
+  if(e.includes("sad"))return "sad";
+  if(e.includes("worr")||e.includes("nervous"))return "worried";
+  if(e.includes("awkward")||e.includes("confused"))return "awkward";
+  if(e.includes("serious")||e.includes("focus"))return "focused";
+  if(e.includes("proud")||e.includes("relieved"))return "proud";
+  return "excited";}
+function face(k){
+  const ink='var(--face-ink)';const L=`stroke="${ink}" stroke-width="3" stroke-linecap="round" fill="none"`;
+  let f="";
+  if(k==="excited") f=`<path d="M33 37 L44 33 M56 33 L67 37" ${L}/><path d="M35 49 Q40 42 45 49 M55 49 Q60 42 65 49" ${L}/><path d="M37 58 Q50 76 63 58 Z" fill="#3b1714"/><path d="M44 66 Q50 72 56 66 Q50 63 44 66Z" fill="#e2675d"/>`;
+  else if(k==="envious") f=`<path d="M33 37 L45 41 M55 41 L67 37" ${L}/><path d="M34 47 H46 M54 47 H66" ${L}/><circle cx="37" cy="51" r="3" fill="${ink}"/><circle cx="57" cy="51" r="3" fill="${ink}"/><path d="M40 66 Q48 59 61 64" ${L}/>`;
+  else if(k==="sad") f=`<path d="M33 41 L45 36 M55 36 L67 41" ${L}/><circle cx="40" cy="50" r="3.2" fill="${ink}"/><circle cx="60" cy="50" r="3.2" fill="${ink}"/><path d="M40 67 Q50 58 60 67" ${L}/><path d="M64 55 Q61 61 64 63 Q67 61 64 55Z" fill="var(--tear)"/>`;
+  else if(k==="scared") f=`<path d="M32 34 Q38 28 45 33 M55 33 Q62 28 68 34" ${L}/><circle cx="40" cy="48" r="7" fill="#fff" stroke="${ink}" stroke-width="2"/><circle cx="60" cy="48" r="7" fill="#fff" stroke="${ink}" stroke-width="2"/><circle cx="40" cy="48" r="2.2" fill="${ink}"/><circle cx="60" cy="48" r="2.2" fill="${ink}"/><ellipse cx="50" cy="65" rx="6.5" ry="8.5" fill="#3b1714"/><path d="M75 34 Q72 40 75 42 Q78 40 75 34Z" fill="var(--tear)"/>`;
+  else if(k==="worried") f=`<path d="M33 40 L45 36 M55 36 L67 40" ${L}/><circle cx="40" cy="50" r="3.2" fill="${ink}"/><circle cx="60" cy="50" r="3.2" fill="${ink}"/><path d="M39 64 Q44 59 50 64 Q56 69 61 64" ${L}/>`;
+  else if(k==="awkward") f=`<path d="M33 36 L45 34 M55 38 L67 38" ${L}/><circle cx="43" cy="50" r="3.2" fill="${ink}"/><circle cx="63" cy="50" r="3.2" fill="${ink}"/><path d="M39 63 Q50 67 61 61" ${L}/><path d="M73 36 Q70 42 73 44 Q76 42 73 36Z" fill="var(--tear)"/>`;
+  else if(k==="focused") f=`<path d="M33 39 L45 41 M55 41 L67 39" ${L}/><circle cx="40" cy="50" r="3.2" fill="${ink}"/><circle cx="60" cy="50" r="3.2" fill="${ink}"/><path d="M42 64 H58" ${L}/>`;
+  else f=`<path d="M33 36 L44 34 M56 34 L67 36" ${L}/><path d="M35 50 Q40 45 45 50 M55 50 Q60 45 65 50" ${L}/><path d="M38 60 Q50 71 62 60" ${L}/>`;
+  return `<svg viewBox="0 0 100 100"><path d="M8 104 Q50 70 92 104Z" fill="var(--hood)"/><rect x="43" y="72" width="14" height="10" fill="var(--skin)"/>
+  <circle cx="22" cy="52" r="6" fill="var(--skin)"/><circle cx="78" cy="52" r="6" fill="var(--skin)"/>
+  <circle cx="50" cy="51" r="28" fill="var(--skin)"/>
+  <path d="M21 44 Q22 18 50 17 Q78 18 79 44 Q50 36 21 44Z" fill="var(--cap)"/><path d="M22 41 Q10 40 5 47 L23 47Z" fill="var(--cap2)"/><circle cx="50" cy="18" r="3" fill="var(--cap2)"/>
+  <rect x="14" y="44" width="10" height="17" rx="4" fill="var(--headset)"/><rect x="76" y="44" width="10" height="17" rx="4" fill="var(--headset)"/>
+  <path d="M82 60 Q82 75 66 74" stroke="var(--headset)" stroke-width="3" fill="none"/><circle cx="65" cy="74" r="3" fill="var(--headset)"/>
+  ${f}</svg>`;}
+function say(text,emo){
+  const k=emoKey(emo);
+  $("avatar").innerHTML=face(k);
+  $("emo").textContent="("+emo+")";
+  $("line").textContent=text;
+  const b=$("buddy");b.className="buddy";void b.offsetWidth;b.className="buddy emo-"+k;
+}
+
+/* ---------- robot drawing ---------- */
+const WIRES=[["var(--w1)","M-10 -92 C-10 -86 -12 -82 -11 -77"],["var(--w2)","M10 -92 C10 -86 12 -82 11 -77"],["var(--w3)","M-16 -64 C-24 -64 -30 -70 -36 -77"],["var(--w4)","M16 -64 C24 -64 30 -70 36 -77"],["var(--w2)","M-8 -53 C-10 -47 -14 -44 -15 -38"],["var(--w3)","M8 -53 C10 -47 14 -44 15 -38"]];
+let clipN=0;
+function robot(o){
+  const k=o.dk||0, wire=o.mode==="wire", t=o.t||0;
+  const body=o.burnt?"var(--burnt)":"var(--rb)", dark=o.burnt?"var(--burnt)":"var(--rb-dark)";
+  const st=wire?`fill="none" stroke="var(--bp-ink)" stroke-width="1.6"`:`fill="${body}" stroke="var(--rb-edge)" stroke-width="2"`;
+  const jt=wire?st:`fill="${dark}" stroke="var(--rb-edge)" stroke-width="2"`;
+  const rv=i=>wire?clamp((o.parts??1)*6-i,0,1):1;
+  const eyeFill=wire?"none":(o.eyes&&!o.burnt?"var(--eye-on)":"var(--eye-off)");
+  const eyeSt=wire?`stroke="var(--bp-ink)" stroke-width="1.4"`:"";
+  const sh=36*0.28*k;
+  let chest="";
+  if(!wire){
+    if(o.chest==="open"){
+      chest+=`<rect x="-17" y="-81" width="34" height="29" rx="3" fill="var(--metal2)" stroke="var(--rb-edge)" stroke-width="1.5"/>`;
+      const w=o.wires??0;
+      WIRES.forEach(([c,d])=>{ if(w>0) chest+=`<path d="${d}" pathLength="1" stroke-dasharray="1" stroke-dashoffset="${(1-w).toFixed(3)}" stroke="${c}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`;});
+      const b=o.board??0;
+      if(b>0){
+        const ch=o.chips??0;
+        chest+=`<g transform="translate(${((1-b)*95).toFixed(1)},0)"><rect x="-14" y="-78" width="28" height="22" rx="2" fill="var(--pcb)" stroke="var(--rb-edge)" stroke-width="1"/>
+        <path d="M-10 -60 H10 M-12 -66 H-4 M6 -66 H12" stroke="#bfe6c9" stroke-width=".7"/>
+        <rect x="-10" y="-75" width="8" height="7" rx="1" fill="${ch>0.2?"var(--chip-on)":"var(--chip)"}"/>
+        <rect x="2" y="-75" width="8" height="7" rx="1" fill="${ch>0.55?"var(--chip-on)":"var(--chip)"}"/>
+        <rect x="-4" y="-66" width="8" height="4" rx="1" fill="${ch>0.9?"var(--chip-on)":"var(--chip)"}"/></g>`;
+      }
+    } else {
+      chest+=`<rect x="-16" y="-80" width="32" height="26" rx="3" fill="${dark}" stroke="var(--rb-edge)" stroke-width="1.5"/><circle cx="-12" cy="-76" r="1.4" fill="var(--rb-edge)"/><circle cx="12" cy="-76" r="1.4" fill="var(--rb-edge)"/><circle cx="-12" cy="-58" r="1.4" fill="var(--rb-edge)"/><circle cx="12" cy="-58" r="1.4" fill="var(--rb-edge)"/>`;
+    }
+  } else {
+    chest+=`<rect x="-16" y="-80" width="32" height="26" rx="3" ${st} stroke-dasharray="3 2"/>`;
+  }
+  let fire="";
+  if(o.fire){
+    const f=o.fire;
+    [[-9,26,0],[2,36,1.7],[11,24,3.1]].forEach(([x,h,ph])=>{
+      const hh=h*f*(1+(RM?0:0.14*Math.sin(t/170+ph)));
+      fire+=`<path d="M${x-8} -62 Q${x-11} ${-62-hh*0.6} ${x} ${-62-hh} Q${x+11} ${-62-hh*0.6} ${x+8} -62Z" fill="var(--flame1)" opacity=".95"/>`;
+      fire+=`<path d="M${x-4} -62 Q${x-5} ${-62-hh*0.4} ${x} ${-62-hh*0.65} Q${x+5} ${-62-hh*0.4} ${x+4} -62Z" fill="var(--flame2)"/>`;
+    });
+  }
+  let smoke="";
+  if(o.smoke){for(let i=0;i<4;i++){const ph=((t/1600)+i/4)%1;smoke+=`<circle cx="${(Math.sin(i*2.1+ph*3)*8).toFixed(1)}" cy="${(-110-ph*70).toFixed(1)}" r="${(6+ph*12).toFixed(1)}" fill="var(--smoke)" opacity="${(0.55*(1-ph)).toFixed(2)}"/>`;}}
+  let clip="",clipAttr="";
+  if(o.clip!=null){const id="pc"+(++clipN);const c=clamp(o.clip,0,1);clip=`<clipPath id="${id}"><rect x="-80" y="${(-152*c).toFixed(1)}" width="160" height="${(152*c+2).toFixed(1)}"/></clipPath>`;clipAttr=`clip-path="url(#${id})"`;}
+  const g=`
+  <g opacity="${rv(2)}">
+    <g transform="translate(-38,-86) scale(1,${(1+0.5*k).toFixed(3)}) translate(38,86)"><rect x="-44" y="-86" width="12" height="40" rx="5" ${jt}/><circle cx="-38" cy="-42" r="6.5" ${st}/></g>
+    <g transform="rotate(${(32*k).toFixed(2)} 38 -86)"><rect x="32" y="-86" width="12" height="40" rx="5" ${jt}/><circle cx="38" cy="-42" r="6.5" ${st}/></g>
+  </g>
+  <g opacity="${rv(0)}">
+    <rect x="-22" y="-40" width="14" height="34" rx="3" ${jt}/><rect x="-28" y="-8" width="22" height="8" rx="2.5" ${st}/>
+    <g transform="translate(15,-40) scale(1,${(1-0.28*k).toFixed(3)}) translate(-15,40)"><rect x="8" y="-40" width="14" height="34" rx="3" ${jt}/></g>
+    <rect x="6" y="${(-8-sh).toFixed(1)}" width="22" height="8" rx="2.5" ${st}/>
+  </g>
+  <g opacity="${rv(1)}" transform="translate(0,-40) skewX(${(-9*k).toFixed(2)}) translate(0,40)">
+    <rect x="-30" y="-91" width="60" height="52" rx="9" ${st}/>${chest}
+  </g>
+  <g transform="rotate(${(-18*k).toFixed(2)} 0 -94) translate(${(4*k).toFixed(2)},0)">
+    <g opacity="${rv(3)}"><rect x="-6" y="-98" width="12" height="9" ${jt}/><rect x="-29" y="-120" width="6" height="13" rx="2" ${jt}/><rect x="23" y="-120" width="6" height="13" rx="2" ${jt}/><rect x="-25" y="-129" width="50" height="33" rx="10" ${st}/></g>
+    <g opacity="${rv(4)}"><circle cx="-10" cy="-113" r="${(5+3*k).toFixed(2)}" fill="${eyeFill}" ${eyeSt}/><circle cx="10" cy="-113" r="5" fill="${eyeFill}" ${eyeSt}/><rect x="-9" y="-104" width="18" height="3" rx="1.5" ${wire?st:'fill="var(--rb-edge)"'}/></g>
+    <g opacity="${rv(5)}"><path d="M0 -129 V-140" stroke="${wire?"var(--bp-ink)":"var(--rb-edge)"}" stroke-width="2"/><circle cx="0" cy="-143" r="4" ${wire?st:'fill="var(--accent)" stroke="var(--rb-edge)" stroke-width="1.5"'}/></g>
+  </g>${fire}${smoke}`;
+  return `<g transform="translate(${o.x.toFixed(1)},${o.y.toFixed(1)}) rotate(${(o.rot||0).toFixed(2)}) scale(${o.s})">${clip}<g ${clipAttr}>${g}</g></g>`;
+}
+
+/* ---------- garage scenes ---------- */
+function backdrop(){
+  return `<defs><pattern id="peg" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="1.4" fill="var(--peg)"/></pattern>
+  <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M10 0 H0 V10" fill="none" stroke="var(--bp-line)" stroke-width=".6"/></pattern></defs>
+  <rect width="400" height="230" fill="var(--wall)"/>
+  <rect x="0" y="0" width="34" height="180" fill="var(--metal)"/>${[20,44,68,92,116,140,164].map(y=>`<rect x="0" y="${y}" width="34" height="3" fill="var(--metal2)"/>`).join("")}
+  <rect x="70" y="16" width="260" height="78" rx="3" fill="var(--board)"/><rect x="70" y="16" width="260" height="78" rx="3" fill="url(#peg)"/>
+  <path d="M96 30 l10 0 l-2 30 l-6 0Z" fill="var(--metal)"/><path d="M128 28 h6 v26 h4 v8 h-14 v-8 h4Z" fill="var(--metal2)"/>
+  <circle cx="300" cy="44" r="12" fill="none" stroke="var(--w1)" stroke-width="4"/><circle cx="300" cy="44" r="5" fill="var(--metal2)"/>
+  <rect x="268" y="66" width="44" height="6" rx="2" fill="var(--wood2)"/>
+  <rect x="0" y="180" width="400" height="50" fill="var(--floor)"/><rect x="0" y="180" width="400" height="4" fill="var(--floor2)"/>
+  <path d="M0 214 H400" stroke="var(--floor2)" stroke-width="2"/>`;
+}
+function desk(x1,x2){return `<rect x="${x1}" y="150" width="${x2-x1}" height="10" rx="2" fill="var(--wood)"/><rect x="${x1+8}" y="160" width="8" height="38" fill="var(--wood2)"/><rect x="${x2-16}" y="160" width="8" height="38" fill="var(--wood2)"/>`}
+const CODE=[[0,62],[8,46],[8,72],[16,40],[16,58],[8,32],[0,22],[0,66],[8,50]];
+function sceneLaptop(p,t,live,gone){
+  let s=desk(80,320)+`<rect x="290" y="132" width="14" height="18" rx="3" fill="var(--accent)"/><path d="M304 137 q7 0 7 6 q0 6 -7 6" stroke="var(--accent)" stroke-width="3" fill="none"/>
+  <rect x="96" y="104" width="34" height="38" fill="#f6e27a" transform="rotate(-6 113 123)"/>
+  <g transform="rotate(-6 113 123)"><rect x="106" y="112" width="14" height="10" rx="2" fill="none" stroke="#5a4b14"/><rect x="104" y="124" width="18" height="12" rx="2" fill="none" stroke="#5a4b14"/><path d="M113 112 v-4" stroke="#5a4b14"/></g>`;
+  if(gone) return s;
+  s+=`<path d="M128 150 L272 150 L262 141 L138 141Z" fill="var(--metal)"/><rect x="140" y="62" width="120" height="80" rx="5" fill="var(--metal2)"/><rect x="146" y="68" width="108" height="68" rx="2" fill="var(--screen)"/>
+  <text x="151" y="77" font-size="6" fill="var(--code2)" style="font-family:var(--font-m)">bot-os / kernel.c</text>`;
+  const n=Math.floor(p*CODE.length+1e-6);
+  const cols=["var(--code1)","var(--code3)","var(--code2)"];
+  for(let i=0;i<Math.min(n,CODE.length);i++){const [ind,w]=CODE[i];s+=`<rect x="${151+ind}" y="${82+i*5.6}" width="${w}" height="2.8" rx="1.4" fill="${cols[i%3]}" opacity=".9"/>`;}
+  if(p<1){const cy=82+Math.min(n,CODE.length-1)*5.6;const blink=live&&(Math.floor(t/450)%2===0);s+=`<rect x="${n<CODE.length?151+CODE[n][0]:151}" y="${cy-0.5}" width="4" height="4" fill="var(--code3)" opacity="${live?(blink?1:0):0.5}"/>`;}
+  else s+=`<rect x="146" y="118" width="108" height="18" fill="var(--good)"/><text x="200" y="130" text-anchor="middle" font-size="8" fill="#fff" style="font-family:var(--font-m);font-weight:600">BOT-OS 1.0 READY</text>`;
+  return s;
+}
+function scenePC(p,dk,t,live,gone){
+  let s=desk(70,330)+`<rect x="292" y="96" width="30" height="54" rx="3" fill="var(--metal2)"/><circle cx="307" cy="106" r="2.5" fill="${live?"var(--code3)":"var(--eye-off)"}"/>`;
+  if(gone) return s;
+  s+=`<rect x="190" y="138" width="20" height="12" fill="var(--metal)"/><rect x="170" y="146" width="60" height="5" rx="2" fill="var(--metal)"/>
+  <rect x="104" y="36" width="192" height="104" rx="5" fill="var(--metal2)"/><rect x="110" y="42" width="180" height="92" fill="var(--bp)"/><rect x="110" y="42" width="180" height="92" fill="url(#grid)"/>
+  <text x="115" y="51" font-size="6" fill="var(--bp-ink)" style="font-family:var(--font-m)">robot_shell.stl</text>
+  <text x="285" y="51" text-anchor="end" font-size="6" fill="var(--bp-ink)" style="font-family:var(--font-m)">${Math.round(p*100)}%</text>`;
+  s+=robot({x:200,y:131,s:0.56,mode:"wire",parts:p,dk,t});
+  s+=`<rect x="120" y="152" width="40" height="5" rx="2" fill="var(--metal)"/><ellipse cx="250" cy="154" rx="7" ry="4" fill="var(--metal)"/>`;
+  return s;
+}
+function printer(x,y,w,h,inner){return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6" fill="var(--metal2)"/><rect x="${x+6}" y="${y+6}" width="${w-12}" height="${h-12}" rx="3" fill="var(--screen)" opacity=".55"/>${inner||""}`}
+function scenePrint(p,dk,t,live,gone){
+  let s=desk(40,180)+`<rect x="70" y="90" width="90" height="56" rx="4" fill="var(--metal2)"/><rect x="75" y="95" width="80" height="46" fill="var(--screen)"/>
+  <text x="80" y="106" font-size="6" fill="var(--code1)" style="font-family:var(--font-m)">sending model.stl</text>
+  <rect x="80" y="112" width="70" height="5" rx="2.5" fill="var(--metal)"/><rect x="80" y="112" width="${70*p}" height="5" rx="2.5" fill="var(--code3)"/>
+  <text x="80" y="128" font-size="6" fill="var(--code2)" style="font-family:var(--font-m)">printing ${Math.round(p*100)}%</text>
+  <rect x="108" y="146" width="14" height="5" fill="var(--metal)"/>`;
+  s+=`<rect x="196" y="176" width="190" height="6" fill="var(--wood2)"/>`;
+  s+=printer(200,24,180,152);
+  s+=`<circle cx="370" cy="16" r="11" fill="var(--w4)" stroke="var(--metal2)" stroke-width="3"/><path d="M360 18 Q330 30 ${V.nozzleX} 40" stroke="var(--w4)" stroke-width="1.2" fill="none"/>`;
+  s+=`<rect x="215" y="160" width="150" height="6" rx="2" fill="var(--metal)"/>`;
+  if(!gone) s+=robot({x:290,y:160,s:0.72,mode:"solid",clip:p,dk,t});
+  if(live&&p<1) V.nozzleX=lerp(232,348,0.5+0.5*Math.sin(t/330));
+  const ny=160-0.72*148*p-6;
+  s+=`<rect x="210" y="${(ny-22).toFixed(1)}" width="160" height="6" rx="2" fill="var(--metal)"/>
+  <g transform="translate(${V.nozzleX.toFixed(1)},${(ny-16).toFixed(1)})"><rect x="-9" y="0" width="18" height="12" rx="2" fill="var(--accent)"/><path d="M-3 12 L3 12 L0 17Z" fill="var(--metal2)"/>${live&&p<1?`<circle cx="0" cy="18" r="1.8" fill="var(--flame2)"/>`:""}</g>`;
+  return s;
+}
+function benchRobotPos(){
+  const sk=G?G.si:0;const tk=G?G.steps[3]:null;
+  if(G && G.steps[3] && sk===3){const p=ease(clamp(tk.vis,0,1));return {x:lerp(70,262,p),y:lerp(162,150,p)-46*Math.sin(Math.PI*p),s:lerp(0.58,0.8,p)};}
+  return {x:262,y:150,s:0.8};
+}
+function sceneBench(t,live,gone){
+  let s=desk(150,384);
+  s+=printer(14,52,112,128,`<rect x="22" y="160" width="96" height="5" fill="var(--metal)"/>`);
+  s+=`<rect x="40" y="194" width="60" height="22" rx="3" fill="var(--w1)"/><rect x="58" y="188" width="24" height="8" rx="2" fill="none" stroke="var(--metal2)" stroke-width="3"/>
+  <circle cx="180" cy="140" r="9" fill="var(--w3)"/><circle cx="180" cy="140" r="3" fill="var(--metal2)"/>`;
+  if(gone) return s;
+  const ps=benchRobotPos();
+  const st=G?G.steps:null;
+  const wiresP=st?(G.si>4||G.finished?1:(G.si===4?st[4].vis:0)):0;
+  const boardP=st?(G.finished?1:(G.si===5?st[5].vis:0)):0;
+  const chestOpen=G&&(G.si>=4||G.finished);
+  let x=ps.x,y=ps.y,rot=0;
+  if(V.glitch&&!V.burnt){const tick=RM?Math.floor(t/220):Math.floor(t/45);const r=Math.sin(tick*12.9898)*43758.5453;const fr=r-Math.floor(r);const r2=Math.sin(tick*78.233)*12345.678;const fr2=r2-Math.floor(r2);x+=(fr-0.5)*5;rot=(fr2-0.5)*9;}
+  else if(V.eyes&&!V.fire&&!V.burnt&&!RM){y-=Math.abs(Math.sin(t/260))*5;}
+  if(V.burnt){rot=24;y+=4;}
+  s+=robot({x,y,s:ps.s,rot,mode:"solid",dk:V.dk,t,chest:chestOpen?"open":"closed",wires:wiresP,board:boardP,chips:boardP*(boardP>=1?1:0.85),eyes:V.eyes,fire:V.fire,burnt:V.burnt,smoke:V.burnt||V.fire>0.4});
+  if(live&&G&&G.si===4&&!V.paused&&wiresP<1){const a=t/90;s+=`<g transform="translate(${x+14},${y-70})"><path d="M0 0 l${(Math.cos(a)*6).toFixed(1)} ${(Math.sin(a)*6).toFixed(1)}" stroke="var(--flame2)" stroke-width="1.5"/></g>`;}
+  return s;
+}
+function highFive(t){
+  const k=clamp((t-V.highfive)/900,0,1),e=ease(k);
+  const hand=(fill,flip)=>`<g transform="scale(${flip?-1:1},1)"><rect x="-14" y="-12" width="26" height="30" rx="8" fill="${fill}" stroke="var(--rb-edge)" stroke-width="1.5"/>${[-12,-5,2].map((fx,i)=>`<rect x="${fx}" y="${-30+(i===1?-3:0)}" width="6" height="22" rx="3" fill="${fill}" stroke="var(--rb-edge)" stroke-width="1.2"/>`).join("")}<rect x="8" y="-26" width="6" height="18" rx="3" fill="${fill}" stroke="var(--rb-edge)" stroke-width="1.2"/><rect x="10" y="-2" width="14" height="7" rx="3.5" fill="${fill}" stroke="var(--rb-edge)" stroke-width="1.2" transform="rotate(-30 10 0)"/></g>`;
+  let s=`<g transform="translate(${lerp(-40,135,e).toFixed(1)},70) rotate(${lerp(-30,12,e).toFixed(1)})">${hand("var(--skin2)",false)}</g>
+  <g transform="translate(${lerp(440,171,e).toFixed(1)},70) rotate(${lerp(30,-12,e).toFixed(1)})">${hand("var(--cap)",true)}</g>`;
+  if(k>=1){const b=clamp((t-V.highfive-900)/500,0,1);const r=12+26*ease(b);
+    let pts="";for(let i=0;i<16;i++){const a=i*Math.PI/8;const rr=i%2?r*0.55:r;pts+=`${(153+Math.cos(a)*rr).toFixed(1)},${(52+Math.sin(a)*rr).toFixed(1)} `;}
+    s=`<polygon points="${pts}" fill="var(--flame2)" opacity="${(1-b*0.3).toFixed(2)}"/>`+s+`<text x="153" y="124" text-anchor="middle" font-size="15" fill="var(--accent)" stroke="var(--panel)" stroke-width="3" paint-order="stroke" style="font-family:var(--font-d)" opacity="${b.toFixed(2)}">HIGH FIVE!</text>`;}
+  return s;
+}
+function boom(t,cx,cy){
+  const k=clamp((t-V.explode)/1300,0,1);let s="";
+  if(k<1){s+=`<circle cx="${cx}" cy="${cy}" r="${(16+150*ease(k)).toFixed(1)}" fill="var(--boom1)" opacity="${(0.9*(1-k)).toFixed(2)}"/><circle cx="${cx}" cy="${cy}" r="${(10+80*ease(k)).toFixed(1)}" fill="var(--boom2)" opacity="${(1-k).toFixed(2)}"/>`;}
+  for(let i=0;i<12;i++){const a=i/12*Math.PI*2+0.3;const d=20+150*ease(k);let px=cx+Math.cos(a)*d;let py=cy+Math.sin(a)*d*0.7+90*k*k;py=Math.min(py,206);px=clamp(px,6,394);
+    s+=`<rect x="${(px-4).toFixed(1)}" y="${(py-3).toFixed(1)}" width="${i%3?8:12}" height="6" rx="1" fill="${i%2?"var(--rb)":"var(--rb-dark)"}" stroke="var(--rb-edge)" stroke-width="1" transform="rotate(${(i*47+360*k).toFixed(0)} ${px.toFixed(1)} ${py.toFixed(1)})"/>`;}
+  if(k>=0.35){s=`<ellipse cx="${cx}" cy="206" rx="70" ry="9" fill="var(--burnt)" opacity=".7"/>`+s;
+    for(let i=0;i<5;i++){const ph=((t/1800)+i/5)%1;s+=`<circle cx="${(cx-40+i*20+Math.sin(ph*6+i)*6).toFixed(1)}" cy="${(190-ph*150).toFixed(1)}" r="${(8+ph*18).toFixed(1)}" fill="var(--smoke)" opacity="${(0.5*(1-ph)*clamp((k-0.35)*3,0,1)).toFixed(2)}"/>`;}}
+  if(k<0.8)s+=`<text x="${cx}" y="${cy-30-30*k}" text-anchor="middle" font-size="${(16+30*ease(k)).toFixed(1)}" fill="var(--bad)" stroke="var(--panel)" stroke-width="3" paint-order="stroke" style="font-family:var(--font-d)" opacity="${(1-k).toFixed(2)}">BOOM!</text>`;
+  return s;
+}
+
+/* ---------- render loop ---------- */
+function currentStation(){if(!G)return "laptop";if(G.finished)return "bench";return STEPS[Math.min(G.si,5)].station}
+function liveNow(){return !!G&&!V.paused&&!V.explode&&!G.ended&&!V.finale}
+let lastFrame=0;
+function frame(now){
+  requestAnimationFrame(frame);
+  const anim=V.anim;let changed=false;
+  if(anim){const k=clamp((now-anim.start)/anim.dur,0,1);anim.step.vis=lerp(anim.from,anim.to,ease(k));changed=true;if(k>=1){V.anim=null;anim.cb&&anim.cb();}}
+  if(V.dkAnim){const k=clamp((now-V.dkAnim.start)/V.dkAnim.dur,0,1);V.dk=ease(k);changed=true;if(k>=1)V.dkAnim=null;}
+  const active=changed||liveNow()||V.explode||V.fire||V.glitch||V.highfive||V.eyes||V.burnt;
+  if(!active&&!V.dirty)return;
+  if(now-lastFrame<(RM&&!changed?200:33)&&!V.dirty)return;
+  lastFrame=now;V.dirty=false;drawScene(now);
+}
+function drawScene(t){
+  const st=currentStation(), live=liveNow(), gone=!!V.explode&&(t-V.explode)>180;
+  const s=G?G.steps:null;
+  let body=backdrop();
+  if(st==="laptop")body+=sceneLaptop(s?s[0].vis:0,t,live,gone);
+  else if(st==="pc")body+=scenePC(s[1].vis,V.dk,t,live,gone);
+  else if(st==="printer")body+=scenePrint(s[2].vis,V.dk,t,live,gone);
+  else body+=sceneBench(t,live,gone);
+  if(V.highfive)body+=highFive(t);
+  if(V.explode){const ps=benchRobotPos();const c={laptop:[200,104],pc:[200,92],printer:[290,112],bench:[ps.x,ps.y-60]}[st];body+=boom(t,c[0],c[1]);}
+  let shake="";
+  if(V.explode&&!RM){const k=(t-V.explode)/600;if(k<1){shake=` transform="translate(${(Math.sin(t/20)*6*(1-k)).toFixed(1)},${(Math.cos(t/23)*4*(1-k)).toFixed(1)})"`;}}
+  $("scene").innerHTML=`<g${shake}>${body}</g>`;
+}
+
+/* ---------- HUD ---------- */
+function updateHUD(){
+  let h="";
+  STAGES.forEach((name,si)=>{
+    const idx=STEPS.map((s,i)=>s.stage===si?i:-1).filter(i=>i>=0);
+    const on=G&&!G.ended&&!G.finished&&STEPS[Math.min(G.si,5)].stage===si;
+    const dots=idx.map(i=>{if(!G)return '<span class="dot"></span>';const s=G.steps[i];
+      if(i<G.si||(G.finished)){const fail=s.n&&s.correct/s.n<0.5;return `<span class="dot ${fail&&["os","model","board"].includes(s.key)?(s.key==="board"?"bad":"flaw"):"ok"}"></span>`;}
+      if(i===G.si&&!G.ended)return '<span class="dot act"></span>';return '<span class="dot"></span>';}).join("");
+    h+=`<div class="stg${on?" on":""}"><span class="n">${si+1}</span>${name}<span class="dots">${dots}</span></div>`;
+  });
+  $("tracker").innerHTML=h;
+  const station=$("station"),chip=$("capChip");
+  $("stamp").hidden=!(G&&V.paused&&!G.ended&&!V.explode&&!V.finale);
+  if(!G){station.textContent="Garage";$("capTitle").textContent="Ready to build";chip.className="chip";chip.textContent="Waiting";$("capBar").style.width="0";$("capSub").textContent="Pick a build length and start.";return;}
+  if(G.finished||G.si>5){const dead=G.flags.boardFail;station.textContent="Workbench";$("capTitle").textContent=dead?"Robot destroyed":"Robot assembled";$("capBar").style.width="100%";chip.className=dead?"chip paused":"chip done";chip.textContent=dead?"Destroyed":"Done";$("capSub").textContent=`${G.correct} of ${G.N} answered right`;return;}
+  const s=G.steps[G.si];
+  station.textContent=s.where;
+  $("capTitle").textContent=`Stage ${s.stage+1} · ${s.title}`;
+  $("capBar").style.width=Math.round(clamp(s.vis,0,1)*100)+"%";
+  if(V.explode){chip.className="chip paused";chip.textContent="Destroyed";}
+  else if(G.phase==="stepdone"&&s.vis>=1){chip.className="chip done";chip.textContent="Done";}
+  else if(V.paused){chip.className="chip paused";chip.textContent="Postponed";}
+  else {chip.className="chip work";chip.textContent="Working";}
+  $("capSub").textContent=G.catching?"Catching up on the postponed work...":(V.paused?"A wrong answer put this on hold. Get the next one right to restart the work.":`${s.doing} · part ${Math.min(G.qi+1,s.n)} of ${s.n}`);
+}
+function meterHTML(){
+  const need=Math.ceil(G.N/2);
+  return `<div class="meter"><div class="meterrow"><span>Right ${G.correct} · Wrong ${G.wrong}</span><span>Need ${need} of ${G.N} right or the robot explodes</span></div>
+  <div class="meterbar"><i style="width:${(G.correct/G.N*100).toFixed(1)}%"></i><span class="half" title="50%"></span></div></div>`;
+}
+
+/* ---------- game flow ---------- */
+function startScreen(){
+  G=null;V=freshV();V.dirty=true;
+  say("Yo! You ready to build a robot with me? Let's GOOO!","hyped");
+  $("card").innerHTML=`<h1 class="h1">Build a robot with Turbo</h1>
+  <p class="lede">You and Turbo are in the garage. Every right answer builds a little more of the robot. The questions come from your Cangcut test bank (multiple choice only).</p>
+  <ol class="steps">
+    <li><span class="num">1</span><div><b>Design the OS</b><span>Code the robot's operating system on the laptop. Software questions.</span></div></li>
+    <li><span class="num">2</span><div><b>3D print the body</b><span>Model its looks on the PC, then print it. Algorithm and Data Structure questions.</span></div></li>
+    <li><span class="num">3</span><div><b>Assemble it</b><span>Take out the print, add the wiring and the motherboard. Symbolic AI questions.</span></div></li>
+  </ol>
+  <div class="rules">
+    <p><b>Wrong answer:</b> the work is postponed until you get one right.</p>
+    <p><b>Under half right overall:</b> the robot explodes, whatever stage you are in.</p>
+    <p><b>Under half right in a part:</b> 3D modeling gives a deformed body, the OS gives the robot a seizure fit, and the motherboard catches fire.</p>
+  </div>
+  <div><div class="label" id="lenLabel">Build length</div>
+  <div class="seg" role="group" aria-labelledby="lenLabel">${LENS.map(([k,n,d])=>`<button id="len-${k}" aria-pressed="${k===lenChoice}" data-len="${k}">${n}<small>${d}</small></button>`).join("")}</div></div>
+  <div class="row"><button class="btn" id="startBtn">Start building</button></div>`;
+  document.querySelectorAll("[data-len]").forEach(b=>b.onclick=()=>{lenChoice=b.dataset.len;document.querySelectorAll("[data-len]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.len===lenChoice))});
+  $("startBtn").onclick=()=>newGame(lenChoice);
+  updateHUD();
+}
+function newGame(len){
+  const plan=PLAN[len];
+  const pools={};["sw","ads","sai"].forEach(k=>pools[k]=shuffle(DATA.map((q,i)=>q.s===k?i:-1).filter(i=>i>=0)));
+  G={len,si:0,qi:0,correct:0,wrong:0,answered:0,streak:0,missed:[],phase:"answer",ended:false,finished:false,catching:false,flags:{osFail:false,deformed:false,boardFail:false},
+     steps:STEPS.map((s,i)=>({...s,n:plan[i],qs:pools[s.pool].splice(0,plan[i]),correct:0,wrong:0,vis:0}))};
+  G.N=plan.reduce((a,b)=>a+b,0);
+  V=freshV();V.dirty=true;
+  say(...LINES.intro.os);
+  showQuestion();
+}
+function qNumber(){let n=0;for(let i=0;i<G.si;i++)n+=G.steps[i].n;return n+G.qi+1}
+function showQuestion(){
+  const s=G.steps[G.si],q=DATA[s.qs[G.qi]];
+  G.phase="answer";G.sel=new Set();
+  const ctx=q.x?`<pre class="ctx${/^(def |while|from )|^\s/.test(q.x)||q.x.includes("\n    ")||q.x.includes("  /")?"":" plain"}">${esc(q.x)}</pre>`:"";
+  $("card").innerHTML=`${meterHTML()}
+  <div class="qhead"><span class="pill acc">Q ${qNumber()} of ${G.N}</span><span class="pill">${esc(SECTION[q.s])} · ${esc(q.t)}</span><span class="pill">${q.m?"Pick all that apply":"Pick one"}</span></div>
+  <h2 class="qtext">${esc(q.q)}</h2>${ctx}
+  <div class="opts" role="group" aria-label="Answer options">${q.o.map((o,i)=>`<button class="opt" id="opt-${i}" data-i="${i}"><span class="k">${"ABCDE"[i]}</span><span class="t">${esc(o)}</span></button>`).join("")}</div>
+  ${q.m?`<div class="row"><button class="btn" id="lockBtn" disabled>Lock in answer</button><p class="hint">Choose every correct option, then lock it in.</p></div>`:""}
+  <div id="fb"></div>`;
+  document.querySelectorAll(".opt").forEach(b=>b.onclick=()=>choose(+b.dataset.i));
+  if(q.m)$("lockBtn").onclick=()=>submit([...G.sel]);
+  updateHUD();V.dirty=true;
+}
+function choose(i){
+  if(!G||G.phase!=="answer")return;
+  const q=DATA[G.steps[G.si].qs[G.qi]];
+  if(q.m){G.sel.has(i)?G.sel.delete(i):G.sel.add(i);$("opt-"+i).classList.toggle("sel",G.sel.has(i));$("lockBtn").disabled=G.sel.size===0;}
+  else submit([i]);
+}
+function submit(sel){
+  if(G.phase!=="answer")return;
+  const s=G.steps[G.si],q=DATA[s.qs[G.qi]];
+  const right=sel.length===q.c.length&&sel.every(i=>q.c.includes(i));
+  G.phase="feedback";G.answered++;
+  q.o.forEach((_,i)=>{const b=$("opt-"+i);b.disabled=true;b.classList.remove("sel");if(q.c.includes(i))b.classList.add("right");else if(sel.includes(i))b.classList.add("wrong");});
+  if($("lockBtn"))$("lockBtn").hidden=true;
+  const ansTxt=q.c.map(i=>"ABCDE"[i]+". "+q.o[i]).join(" · ");
+  let nextDelay;
+  if(right){
+    G.correct++;s.correct++;G.streak++;V.paused=false;
+    const dur=clamp(2200-s.n*120,1100,2000);
+    V.anim={step:s,from:s.vis,to:s.correct/s.n,start:performance.now(),dur,cb:()=>{const b=$("nextBtn");if(b)b.disabled=false;updateHUD();}};
+    if(G.streak===3)say(...LINES.streak[0]);else if(G.streak>=2&&Math.random()<0.3)say(...pick(LINES.envy));else say(...pick(LINES.correct));
+    nextDelay=dur;
+  } else {
+    G.wrong++;s.wrong++;G.streak=0;V.paused=true;G.missed.push({q,sel});
+    say(...pick(LINES.wrong));nextDelay=500;
+  }
+  const remaining=G.N-G.answered;
+  const doomed=(G.correct+remaining)<G.N/2;
+  $("fb").innerHTML=`<div class="fb ${right?"ok":"no"}"><h3>${right?"Correct! The build moves forward.":"Not quite. The build is postponed."}</h3>
+    ${right?"":`<p>Correct answer: <b>${esc(ansTxt)}</b></p>`}${q.n?`<p>${esc(q.n)}</p>`:""}</div>
+    ${doomed?`<p class="hint" style="color:var(--bad);font-weight:700">Half right is out of reach now...</p>`:`<div class="row" style="margin-top:12px"><button class="btn" id="nextBtn" ${right?"disabled":""}>${G.qi+1>=s.n?"Finish this part":"Next question"}</button></div>`}`;
+  updateHUD();
+  if(doomed){setTimeout(explode,1600);return;}
+  const nb=$("nextBtn");nb.onclick=next;
+  if(!right)setTimeout(()=>{if($("nextBtn"))$("nextBtn").disabled=false},nextDelay);
+}
+function next(){
+  const s=G.steps[G.si];G.qi++;
+  if(G.qi<s.n){showQuestion();return;}
+  finishStep();
+}
+function finishStep(){
+  const s=G.steps[G.si];G.phase="stepdone";
+  $("card").innerHTML=`${meterHTML()}<h2 class="qtext">Wrapping up: ${esc(s.title.toLowerCase())}...</h2>`;
+  const after=()=>{G.catching=false;
+    const fail=s.correct/s.n<0.5;
+    if(s.key==="os")G.flags.osFail=fail;
+    if(s.key==="model"&&fail){G.flags.deformed=true;V.dkAnim={start:performance.now(),dur:1400};}
+    if(s.key==="board")G.flags.boardFail=fail;
+    const line=(fail&&LINES.doneFail[s.key])||LINES.donePass[s.key];say(...line);
+    let note="";
+    if(fail&&s.key==="model")note="You got under half of the 3D modeling questions right, so the model came out deformed.";
+    else if(fail&&s.key==="os")note="You got under half of the OS questions right. Something in that code might be off...";
+    else if(fail&&s.key==="board")note="You got under half of the motherboard questions right. Fingers crossed...";
+    $("card").innerHTML=`${meterHTML()}<div class="label">Stage ${s.stage+1} · ${esc(s.where)}</div><h2 class="h1">${esc(s.done)}</h2>
+      <p class="lede">${s.correct} of ${s.n} right on the first try${s.wrong?`, ${s.wrong} postponed ${s.wrong===1?"piece":"pieces"} caught up`:""}.</p>
+      ${note?`<div class="rules"><p>${esc(note)}</p></div>`:""}
+      <div class="row"><button class="btn" id="goBtn">${esc(s.next)}</button></div>`;
+    $("goBtn").onclick=advance;updateHUD();V.dirty=true;};
+  if(s.vis<0.999){G.catching=true;V.paused=false;V.anim={step:s,from:s.vis,to:1,start:performance.now(),dur:1500,cb:after};updateHUD();}
+  else after();
+}
+function advance(){
+  G.si++;G.qi=0;
+  if(G.si>=STEPS.length){finale();return;}
+  say(...LINES.intro[STEPS[G.si].key]);showQuestion();
+}
+function finale(){
+  G.finished=true;V.finale=true;G.phase="finale";V.dirty=true;
+  $("card").innerHTML=`${meterHTML()}<h2 class="h1">Powering on...</h2><p class="lede">Turbo flips the switch.</p>`;
+  updateHUD();
+  if(G.flags.boardFail){
+    V.fire=0.01;const st=performance.now();
+    const grow=()=>{const k=clamp((performance.now()-st)/700,0,1);V.fire=Math.max(0.01,ease(k));if(k<1)requestAnimationFrame(grow)};grow();
+    say("AAAAAHHH! The motherboard's on FIRE!","scared");
+    setTimeout(()=>{V.burnt=true;V.fire=0.35;say("...He's gone. The fire took the whole robot.","sad");},2800);
+    setTimeout(()=>{V.fire=0;endGame("fire")},4200);
+    return;
+  }
+  V.eyes=true;
+  if(G.flags.osFail){V.glitch=true;say("Uh... is he okay?! Why is he shaking like that?!","worried");setTimeout(doHighFive,2800);}
+  else if(G.flags.deformed){say("He's alive! A little lopsided, but he's OUR lopsided robot!","awkward, happy");setTimeout(doHighFive,2200);}
+  else {say("HE'S ALIVE! Look at his eyes!","excited");setTimeout(doHighFive,1600);}
+}
+function doHighFive(){
+  V.highfive=performance.now();
+  const flawed=G.flags.osFail||G.flags.deformed;
+  say(flawed?"Up top anyway! We still built a robot together!":"UP TOP! We built a robot! You're a legend, congrats!",flawed?"excited, laughing":"overjoyed");
+  setTimeout(()=>endGame(G.flags.osFail&&G.flags.deformed?"both":G.flags.osFail?"glitch":G.flags.deformed?"deformed":"perfect"),1500);
+}
+function explode(){
+  G.ended=true;V.explode=performance.now();V.paused=false;V.dirty=true;
+  say("AAAAAAHHHHH!","scared");updateHUD();
+  setTimeout(()=>{say("The whole robot just blew up... We needed at least half right.","sad");endGame("explode")},2600);
+}
+function endGame(kind){
+  G.ended=true;G.phase="end";updateHUD();
+  const T={explode:["The robot exploded","You could no longer reach half the questions right, so the build blew up."],
+    fire:["The motherboard caught fire","Under half right on the motherboard questions set the board on fire and destroyed the robot."],
+    perfect:["Robot complete!","A clean OS, a solid body and a working motherboard. High five!"],
+    deformed:["Robot complete, but deformed","The 3D modeling went wrong, so the body came out crooked."],
+    glitch:["Robot complete, but it has a seizure fit","The OS code had problems, so the finished robot shakes uncontrollably."],
+    both:["Robot complete, deformed and glitching","Both the 3D model and the OS had problems."]}[kind];
+  const pct=G.answered?Math.round(G.correct/G.answered*100):0;
+  const rows=G.steps.map((s,i)=>{
+    const ans=s.correct+s.wrong;
+    if(!ans)return `<tr><td>${esc(s.title)}</td><td>-</td><td><span class="tag na">Not reached</span></td></tr>`;
+    const done=i<G.si||G.finished;
+    const fail=done&&s.correct/s.n<0.5;
+    let tag=done?'<span class="tag ok">Done</span>':'<span class="tag bad">Blew up here</span>';
+    if(fail&&s.key==="model")tag='<span class="tag flaw">Deformed</span>';
+    if(fail&&s.key==="os")tag='<span class="tag flaw">Glitchy OS</span>';
+    if(fail&&s.key==="board")tag='<span class="tag bad">Fire</span>';
+    return `<tr><td>${esc(s.title)}</td><td>${s.correct}/${ans}</td><td>${tag}</td></tr>`;}).join("");
+  const miss=G.missed.map(m=>`<div class="miss"><span>${esc(m.q.q)}</span><span class="a">${esc(m.q.c.map(i=>"ABCDE"[i]+". "+m.q.o[i]).join(" · "))}</span></div>`).join("");
+  $("card").innerHTML=`<div class="label">Result</div><h2 class="h1">${esc(T[0])}</h2><p class="lede">${esc(T[1])}</p>
+  <div class="row" style="gap:18px;align-items:flex-end"><div><div class="big">${pct}%</div><div class="hint">${G.correct} of ${G.answered} answered right${G.answered<G.N?` (${G.N} planned)`:""}</div></div></div>
+  <table class="report"><tbody>${rows}</tbody></table>
+  ${G.missed.length?`<details><summary>Review the ${G.missed.length} question${G.missed.length>1?"s":""} you missed</summary>${miss}</details>`:""}
+  <div class="row"><button class="btn" id="againBtn">Build another robot</button><button class="btn ghost" id="menuBtn">Change length</button></div>`;
+  $("againBtn").onclick=()=>newGame(G.len);$("menuBtn").onclick=startScreen;
+}
+document.addEventListener("keydown",e=>{
+  if(!G||G.phase!=="answer"||e.metaKey||e.ctrlKey||e.altKey)return;
+  const i="abcde".indexOf(e.key.toLowerCase());
+  const q=DATA[G.steps[G.si].qs[G.qi]];
+  if(i>=0&&i<q.o.length){e.preventDefault();choose(i);}
+  else if(e.key==="Enter"&&q.m&&G.sel.size){e.preventDefault();submit([...G.sel]);}
+});
+startScreen();
+requestAnimationFrame(frame);
+</script>
+
+</body></html>
