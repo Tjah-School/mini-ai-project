@@ -1,3 +1,3 @@
 ** AI Use Evidence **
-()[https://imgur.com/a/aLrNZte]
+[](https://imgur.com/a/aLrNZte)
 <br>
