@@ -1,5 +1,5 @@
 ## AI USE EVIDENCE :
-# Model Used : ChatGPT 6-thinking
+# Model Used : ChatGPT 
 # AI Used during 6 November 2026
 ![](https://i.imgur.com/viXYCns.png)
 <br>
