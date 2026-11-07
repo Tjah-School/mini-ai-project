@@ -1,0 +1,19 @@
+## ** AI USE EVIDENCE :**
+![](https://i.imgur.com/wl4Nu6i.png)
+<br>
+![](https://i.imgur.com/qw4yagN.png)
+<br>
+![](https://i.imgur.com/FTH4mKa.png)
+<br>
+![](https://i.imgur.com/Rdea74c.png)
+<br>
+![](https://i.imgur.com/80q0uhb.png)
+<br>
+![](https://i.imgur.com/lvixynp.png)
+<br>
+![](https://i.imgur.com/qXyiPuc.png)
+<br>
+![](https://i.imgur.com/Po1cRh0.png)
+<br>
+![](https://i.imgur.com/KcANC0J.png)
+<br>
