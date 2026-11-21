@@ -1,3 +1,198 @@
+# Software
+
+## Numbers
+
+**32-Bit Signed Integer:** A signed integer format using 32 bits, capable of representing values up to `2,147,483,647` ($2^{31} - 1$).
+**4GL (Fourth-Generation Language):** Higher-level languages built for specific domains (such as database querying with SQL) that specify desired outcomes with less procedural boilerplate.
+
+## A
+
+**Abstraction:** Reducing complexity by hiding underlying implementation details and exposing only relevant concepts or interfaces.
+**Acceptance Test:** Validation testing to confirm the software meets business or customer requirements before sign-off.
+**ACID Properties:** Atomicity, Consistency, Isolation, and Durability—properties that ensure reliable database transaction processing.
+**Agile:** An iterative, collaborative approach to software development emphasizing short release cycles, adaptability, and frequent feedback.
+**Application Software:** Programs designed to perform specific tasks for end users, such as web browsers, word processors, media players, and video games, relying on system software to execute.
+**ASCII:** A character encoding standard that maps characters (such as letters, digits, and punctuation) to numeric values and binary representations. **Assembler:** A program that translates assembly language mnemonics into machine code.
+**Assembly Language:** A low-level programming language closely tied to a processor's architecture that uses symbolic instructions instead of raw binary.
+**Atomicity:** The transaction property ensuring all operations in a transaction succeed together or none take effect.
+
+## B
+
+**Batch System:** An early operating system model where jobs are grouped and run sequentially without interactive user input during execution.
+**Binary:** A base-2 numeral system using `0` and `1`, corresponding to two electrical states (`OFF` and `ON`) in digital hardware.
+**Bit:** A single binary digit (`0` or `1`), representing the basic unit of digital information.
+**Black-Box Testing:** Testing software based on inputs and expected outputs without examining internal code structure.
+**Branch:** An independent line of development in version control that allows isolated changes before merging.
+**Bytecode:** An intermediate, lower-level representation of code designed to be executed efficiently by a virtual machine or runtime engine rather than directly by physical hardware.
+
+## C
+
+**Column (Attribute):** A named field in a table representing a specific property or data element of each record.
+**Commit:** A recorded snapshot of changes saved to a version control history along with metadata such as a message.
+**Compiled Binaries:** Executable files produced by compiling source code, distributed without exposing the underlying human-readable source.
+**Compiler:** A translator that converts an entire source program into target code (often machine code or bytecode) prior to execution.
+**Context Switch:** The process of saving the execution state of a running process and loading the saved state of another process so the CPU can switch tasks.
+**Control Structures:** Constructs—such as conditional branching and loops—that determine the order in which instructions execute.
+**Copyleft Licence (e.g., GPL):** A licensing approach requiring derivative or distributed works to remain under the same (or compatible) open license terms.
+**CPU (Central Processing Unit):** The primary processor that executes program instructions and performs arithmetic and logical operations.
+
+## D
+
+**Data Types:** Classifications that define what kind of values a piece of data can hold and what operations are valid on it.
+**Database:** A structured collection of organized data stored for efficient retrieval and management.
+**DBMS (Database Management System):** Software that creates, stores, queries, updates, and administers databases while enforcing access and integrity rules.
+**Declarative / Logic Programming:** A paradigm where programs express *what* result or relationship is desired rather than detailing explicit control flow.
+**Deploy:** Pushing built software to target environments or servers so users can access or run it.
+**Derivative Works:** Software created by adapting, modifying, or building upon existing software.
+**Device Driver:** System software that enables the operating system to communicate with and control specific hardware peripherals, such as a graphics card or storage device.
+**Distributed System:** A collection of independent computers connected over a network that coordinate to function as a cohesive system.
+
+## E
+
+**Encapsulation:** Bundling data and related methods within an object while restricting direct external access to internal state.
+
+## F
+
+**Foreign Key (FK):** A column or set of columns in one table that references the primary key of another table to link records across tables.
+**Fork:** Creating an independent copy of a codebase to pursue a separate development path.
+**Freeware:** Software distributed at no monetary cost, though not necessarily open source or accompanied by source code rights.
+**Functional Programming:** A paradigm emphasizing pure functions and immutable data while minimizing side effects and mutable state.
+## G
+**Git:** A widely used distributed version control system created for Linux kernel development.
+**GPU (Graphics Processing Unit):** Specialized hardware designed to accelerate graphics rendering, image processing, and parallel computations.
+
+## H
+
+**Hardware:** The physical components of a computing system, such as processors, memory chips, storage drives, and input/output devices.
+**High Cohesion:** A design quality where elements within a module belong together and serve a single, well-defined responsibility.
+**High-Level Code:** Human-readable programming code written with structured syntax and abstractions (such as Python, C++, or Java) rather than raw hardware instructions.
+**Hybrid Cloud:** A deployment model combining two or more distinct cloud infrastructures (such as private and public) while preserving data and application portability.
+
+## I
+
+**IaaS (Infrastructure as a Service):** A cloud service model providing fundamental compute, storage, and network resources on demand.
+**If/Else (Selection):** Conditional branching that chooses which code path to execute based on whether a condition evaluates to true or false.
+**Imperative / Procedural Programming:** A paradigm focused on explicit step-by-step statements and procedures that change program state over time.
+**Information Hiding:** Concealing internal module details behind a defined interface so external components do not depend on internal implementation.
+**Inheritance:** An OOP mechanism allowing a class or object to derive attributes and behaviors from an existing parent class.
+**Intangible:** Existing as digital information or rules rather than a physical object that can be touched.
+**Integration Test:** Testing combined modules to verify their interactions and data exchange work as expected.
+**Interpreter:** A translator that reads, analyzes, and executes source code step-by-step or line-by-line during runtime.
+**Iterative / Incremental:** Developing a system in repeated cycles and/or progressive increments that add functionality over time.
+
+## J
+
+**JIT (Just-In-Time Compilation):** Compiling portions of bytecode or interpreted code into native machine code during execution to improve runtime performance.
+**JOIN:** A relational/SQL operation that combines rows from two or more tables based on related columns, typically keys.
+
+## L
+
+**Lexical Analysis (Tokens):** The initial compilation phase that scans source text and groups characters into meaningful units called tokens.
+**Linux Kernel:** The central core of a Linux operating system that manages hardware resources, memory, and processes.
+**Loops (Iteration):** Repeating a block of instructions while a condition holds or across a collection of items.
+**Low Coupling:** A design quality where modules have minimal dependencies on one another, reducing ripple effects when changes occur.
+
+## M
+
+**Machine Code:** Low-level binary instructions directly executed by a CPU's hardware circuitry.
+**Measured Service:** Monitoring, controlling, and reporting resource usage to provide transparency and usage-based billing.
+**Memory Allocation:** Assigning regions of main memory to running processes.
+**Memory Protection:** Hardware and OS enforcement preventing one process from reading or writing memory belonging to another process or the OS.
+**Merge:** Integrating changes from one branch into another.
+**Mnemonics:** Short symbolic names or abbreviations (such as `MOV` or `ADD`) representing low-level instructions in assembly language.
+**Modularity:** Dividing a software system into distinct modules with clear boundaries to improve maintainability and parallel development.
+**Multiprogramming / Multitasking:** Techniques that allow multiple programs to reside in memory and advance concurrently by rapidly switching execution across them.
+
+## N
+
+**Normalisation:** Structuring relational tables to minimize data redundancy and prevent update anomalies.
+**NoSQL:** Non-relational database approaches designed for flexible schemas, distributed scale, or specialized data models beyond traditional tabular relations.
+
+## O
+
+**Object-Oriented Programming (OOP):** A paradigm that organizes software around objects encapsulating state (data/attributes) and behavior (methods).
+**Open-Source Software:** Software whose source code is made available under terms meeting open-source criteria, allowing inspection, modification, and redistribution.
+**Operating System (OS):** Core system software that coordinates hardware resources, manages processes and memory, and provides an interface for users and applications.
+**Overflow:** A condition occurring when a calculation produces a value outside the representable range of a fixed-size numeric type, potentially causing wrap-around or errors.
+
+## P
+
+**PaaS (Platform as a Service):** A cloud service model providing a managed platform and runtime environment where developers deploy and run their own applications.
+**Page Fault:** An event triggered when a program accesses a memory page that is not currently loaded in physical RAM, requiring the OS to retrieve it from disk.
+**Paging / Page:** Dividing virtual and physical memory into fixed-size blocks (pages) so memory can be mapped and swapped between RAM and disk.
+**Paradigm:** A foundational style or methodology for structuring and writing programs (such as imperative, object-oriented, functional, or logic).
+**Parsing (Syntax Tree):** The compilation phase that analyzes token structure against grammar rules, typically building a syntax tree.
+**Permissive Licence (e.g., MIT):** A software license with minimal restrictions on reuse and modification, generally permitting inclusion in proprietary works.
+**Polymorphism:** The ability for different entities or types to respond to the same interface or operation in type-specific ways.
+**Primary Key (PK):** A column or set of columns that uniquely identifies each row in a table.
+**Process:** A program currently in execution, along with its runtime state and allocated resources.
+**Proprietary (Closed-Source) Software:** Software whose source code remains privately owned and restricted by a vendor or organization, typically distributed as compiled binaries under a license.
+**Pseudocode:** An informal, structured outline of an algorithm written in plain language mixed with code-like conventions.
+
+## Q
+
+**Quantum:** The fixed time slice allocated to a process in round-robin scheduling before it yields or moves to the back of the ready queue.
+**Query:** A request or statement issued to a database to retrieve, insert, update, or delete data.
+
+## R
+
+**RAM (Random Access Memory):** Fast, volatile main memory used to hold active programs and data currently being processed by the CPU.
+**Rapid Elasticity:** The ability to scale computing resources up or down quickly—often automatically—to match changing demand.
+**Recursion:** A technique in which a function calls itself to solve a problem by breaking it down into smaller subproblems.
+**Redundancy:** Duplicating the same data across multiple places in a database.
+**Relational Model / Relational Database:** A data model organizing information into tables (relations) of rows and columns with relationships established via keys.
+**Repository (Repo):** A storage location (local or remote) containing a project's files and version history.
+**Resource Pooling:** Sharing provider computing resources across multiple consumers dynamically assigned and reassigned according to demand.
+**Round Robin:** A CPU scheduling policy that assigns each ready process a fixed time slice in cyclic order.
+**Row (Tuple):** A single record within a table representing one instance of the entity.
+
+## S
+
+**SaaS (Software as a Service):** A cloud service model where providers host and run applications centrally, and users access them via a client such as a web browser.
+**Scheduler:** The OS component that selects which ready process is assigned to the CPU next.
+**Schema:** The formal structure or blueprint defining tables, columns, data types, keys, and relationships in a database.
+**SDLC (Software Development Life Cycle):** The structured lifecycle for planning, designing, coding, testing, releasing, and maintaining software.
+**Semantic Checks:** Verification stages that check logical validity and type/meaning rules beyond basic grammatical structure.
+**Server:** A dedicated computer system that provides data, services, or hosted applications to other computers (clients) over a network.
+**Software:** Intangible sets of digital instructions, rules, and data stored on hardware that direct how physical components operate.
+**Software Licence:** Legal terms governing how software may be used, modified, distributed, or commercialized.
+**Source Code / Source Text:** The original human-written code files before translation or compilation into executable form.
+**Spiral Model:** A risk-driven process model that cycles through planning, risk analysis, engineering, and evaluation.
+**SQL (Structured Query Language):** A declarative language used to define, query, and manipulate data in relational databases.
+**Synchronisation (Sync):** Keeping data consistent across multiple devices or locations automatically.
+**Syntax:** The formal rules governing the structure and valid arrangement of symbols and keywords in a programming language.
+**System Architecture:** The high-level structural design defining a system's components, interfaces, data flow, and interactions.
+**System Software:** Foundational software positioned between hardware and applications that manages core resources (such as memory, processor time, and storage) and provides a user interface.
+**System Test:** End-to-end testing of the complete, integrated software system against specifications.
+
+## T
+
+**Table (Relation):** A structured set of data organized into rows and columns representing an entity or relationship.
+**The Cloud:** Pooled, remote computing resources—such as servers, storage, and networking—delivered over the internet.
+**Time-Sharing:** A multi-user computing model where multiple users interact with a system simultaneously by sharing CPU time via rapid switching.
+**Transaction:** A sequence of database operations executed as a single logical unit of work that either completes entirely or rolls back.
+**Transistor:** A semiconductor switch inside a processor that toggles electrical states to represent and process binary signals.
+
+## U
+
+**Unit Test:** Automated or targeted testing of an individual function or smallest testable unit in isolation.
+**UNIX:** A foundational multi-user, multitasking operating system that heavily influenced modern operating systems.
+**Update Anomalies:** Inconsistencies or errors that arise during inserts, updates, or deletes when redundant data is not updated uniformly.
+**User Interface (UI):** The visual or interactive layer—such as windows, icons, menus, and controls—through which users interact with software.
+
+## V
+
+**Variables:** Named storage references in a program that hold values which can be read or updated during execution.
+**Vendor Lock-In:** Dependency on a single provider's proprietary tools, formats, or ecosystem that makes switching providers costly or difficult.
+**Version Control:** A system that tracks revisions to files over time, enabling history inspection, branching, and rollback.
+**Virtual Machine (VM):** A software-based execution environment that emulates a computer or runs bytecode independently of underlying hardware specifics.
+**Virtual Memory:** A memory management technique that decouples logical address space from physical RAM, allowing programs to use more address space than physical RAM by storing inactive data on disk.
+
+## W
+
+**Waterfall Model:** A sequential software development model where each phase is completed before moving to the next.
+**White-Box Testing:** Testing software with visibility into internal code paths, logic, and structure.
+
 # Symbolic AI
 
 ## A
