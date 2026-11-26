@@ -1,14 +1,10 @@
 ## AI USE EVIDENCE :
-# Model Used : ChatGPT 
+# Model Used : ChatGPT and Claude
 # AI Used during 6 November 2026
-![](https://i.imgur.com/viXYCns.png)
+<img width="1059" height="727" alt="image" src="https://github.com/user-attachments/assets/d8713215-b1f8-47be-8fec-f38dde8fb25d" />
 <br>
-![](https://i.imgur.com/jU0yHcu.png)
+<img width="1054" height="720" alt="image" src="https://github.com/user-attachments/assets/d0941763-a253-40cc-be0a-fbe3bc965ab8" />
 <br>
-![](https://i.imgur.com/2zYT29f.png)
-<br>
-![](https://i.imgur.com/cCGxI9c.png)
-<br>
-![](https://i.imgur.com/vpwum6Z.png)
-<br>
+<img width="1014" height="578" alt="image" src="https://github.com/user-attachments/assets/240ab684-8a03-4180-8c53-ceeabee3c722" />
+
 
