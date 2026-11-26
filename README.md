@@ -15,13 +15,13 @@ Beginner learners with basic computer literacy and little or no prior knowledge 
 
 ## 3. Team Members and Responsibilities
 
-| Role | Team Member | Student ID | Primary Responsibility |
-|---|---|---|---|
-| CEO / Coordinator | Alexander Valentino Lukman (吕孙鸿) | 1820262032 | Project coordination, timeline tracking, task delegation, and communication |
-| CIO / Repository & Submission Lead | Victor Charlie (李东财) | 1820262066 | GitHub repository, Markdown workflow, version management, and submission |
-| Quality Lead | Valiant Lim (林盛旺) | 1820262320 | Peer review, accuracy checking, proofreading, and rubric compliance |
-| Visual Design & Video Lead | Said Aliyev (李叶) | 1820262028 | Presentation design, video production, audio editing, and visual assets |
-| Content Lead | Rafael Tjahjono (李文明) | 1820262082 | Research, core content drafting, Study Guide layout, and scriptwriting |
+| Role | Team Member | Student ID | GitHub Username | Primary Responsibility |
+|---|---|---|---|---|
+| CEO / Coordinator | Alexander Valentino Lukman (吕孙鸿) | 1820262032 | alexlukman | Project coordination, timeline tracking, task delegation, and communication |
+| CIO / Repository & Submission Lead | Victor Charlie (李东财) | 1820262066 | Victor-Charlie1004 | GitHub repository, Markdown workflow, version management, and submission |
+| Quality Lead | Valiant Lim (林盛旺) | 1820262320 | Diddybohou | Peer review, accuracy checking, proofreading, and rubric compliance |
+| Visual Design & Video Lead | Said Aliyev (李叶) | 1820262028 |  | Presentation design, video production, audio editing, and visual assets |
+| Content Lead | Rafael Tjahjono (李文明) | 1820262082 | Tjah-School | Research, core content drafting, Study Guide layout, and scriptwriting |
 
 All members are expected to contribute substantively to the shared learning materials.
 
@@ -56,20 +56,36 @@ By the end of this module, learners should be able to:
 
 ## 5. Topic Sequence
 
-**1: Software**  
+**1. Software**  
 1.1 Software foundations and abstraction layers  
 1.2 Operating systems: processes and memory  
 1.3 Programming languages and how code runs  
+1.4 Programming languages and program logic  
+1.5 How software is built: software engineering, the SDLC and version control  
+1.6 Cloud software and Software as a Service (SaaS)  
+1.7 Open source versus proprietary software  
+1.8 Databases and SQL  
+
 
 **2. Algorithms and Data Structure**  
 2.1 Algorithms: features, representation and efficiency  
 2.2 Iteration and recursion  
 2.3 Sorting and searching  
+2.4 Algorithm design strategies and limits  
+2.5 Data structures: overview, arrays and records  
+2.6 Linked lists  
+2.7 Stacks and queues  
+2.8 Trees and binary trees  
+2.9 Graphs  
+2.10 Choosing a data structure, practice and summary  
 
 **3. Symbolic AI**  
-3.1 What is Symbolic AI? Concepts and history  
-3.2 Propositional logic  
-3.3 Predicate (first-order) logic
+3.1 Introduction to Symbolic AI  
+3.2 Logic and reasoning  
+3.3 Knowledge representation  
+3.4 Rule-based systems and expert systems  
+3.5 Planning and problem solving  
+3.6 Natural language processing (NLP) in symbolic AI  
 
 ## 6. Repository Structure
 
@@ -81,6 +97,8 @@ Software-and-Symbolic-AI/
 │   ├── 1. Software.md
 │   ├── 2. Algorithm and Data Structure.md
 │   ├── 3. Symbolic AI.md
+│   ├── Glossary.md
+│   ├── Test Bank.md
 │   └── Assets/
 ├── Project Plan/
 ├── Study Plan/
