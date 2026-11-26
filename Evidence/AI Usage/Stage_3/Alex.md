@@ -39,7 +39,28 @@
 <img width="764" height="423" alt="image" src="https://github.com/user-attachments/assets/c647c6b0-1f35-410d-8be6-77d612bde272" />
 <img width="770" height="499" alt="image" src="https://github.com/user-attachments/assets/6bb23782-62eb-4a21-a99b-74d479f9a585" />
 <img width="767" height="295" alt="image" src="https://github.com/user-attachments/assets/7898bc2f-014c-4a28-b0ec-9db288d8371a" />
+---
 
+**25 November 2026**
+---
+### Discussing with AI about the improvement for study guide ###
+---
+<img width="772" height="499" alt="image" src="https://github.com/user-attachments/assets/ac3325ad-15b6-484f-92a2-b5e7012ebeb0" />
+<img width="763" height="370" alt="image" src="https://github.com/user-attachments/assets/d6b1a0e6-a93e-4b99-85fe-f01e38771474" />
+<img width="769" height="502" alt="image" src="https://github.com/user-attachments/assets/ef85fdcf-5158-4914-ae6b-4a25a94eaa07" />
+<img width="757" height="353" alt="image" src="https://github.com/user-attachments/assets/fc8431b8-b205-45b7-9b67-5c7782f4e3fa" />
+<img width="761" height="366" alt="image" src="https://github.com/user-attachments/assets/7764ed6c-0a50-4505-9f6c-a612b870fe6f" />
+<img width="763" height="425" alt="image" src="https://github.com/user-attachments/assets/158f0a0d-0514-46f8-9d35-0439f25f8b43" />
+<img width="758" height="348" alt="image" src="https://github.com/user-attachments/assets/440b1bcb-1f66-4008-8e2c-b8f6cb513d6d" />
+---
+
+**26 November 2026**
+---
+### Improving the study guide , remaking the video tutorial
+---
+<img width="765" height="370" alt="image" src="https://github.com/user-attachments/assets/651d99df-ecf6-4d83-b177-4a4d4b3588ef" />
+<img width="677" height="484" alt="image" src="https://github.com/user-attachments/assets/4822bfd9-3ac8-4a84-b8f6-28f57e2626be" />
+<img width="679" height="500" alt="image" src="https://github.com/user-attachments/assets/badb7860-ca14-4341-aafb-7871d86ffcc1" />
 
 
 
