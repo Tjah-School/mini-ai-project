@@ -75,18 +75,44 @@ By the end of this module, learners should be able to:
 
 ```text
 Software-and-Symbolic-AI/
+├── Evidence/AI Usage
+|   ├── Stage_2
+|   |   ├── Alex.md
+|   |   ├── Garage Bot Build.html
+|   |   ├── Rafael.md
+|   |   ├── Said.md
+|   |   ├── Speed_Bot_3D.html
+|   |   ├── Valiant.md
+|   |   ├── Victor.md
+|   ├── Stage_3
+|   |   ├── Alex.md
+|   |   ├── Rafael.md
+|   |   ├── Said.md
+|   |   ├── Valiant.md
+|   |   ├── Victor.md
 ├── README.md
 ├── Markdown Content/
+│   ├── 0. Module Outline.md
+│   ├── 1. The Foundation of Software.md
+│   ├── 2. The Birth of Symbolic AI (Good Old Fashioned AI).md
+│   ├── 3. How It Works: Mechanicals & Examples.md
+|   ├── 4. Symbolic AI vs. Modern Machine Learning.md
+|   ├── 5. The Modern Revival: Hybrid AI (Neuro-Symbolic AI).md 
+│   └── Assets/
+├── Markdown_Content_v2
 │   ├── 0. Module Outline.md
 │   ├── 1. Software.md
 │   ├── 2. Algorithm and Data Structure.md
 │   ├── 3. Symbolic AI.md
-│   └── Assets/
-├── Project Plan/
-├── Study Plan/
-├── Presentation/
+│   ├── Assets/
+|   ├── Glossary/
+|   ├── Test Bank v1.md
 ├── Video Tutorials/
-└── Evidence/
+|   ├── Video Planning.md
+├── Presentation/
+├──  Project Plan.md
+├── README.md
+└── Study Guide
 ```
 
 ## 7. Quality Assurance
