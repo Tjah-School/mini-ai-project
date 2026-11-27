@@ -79,12 +79,12 @@ By the end of this module, learners should be able to:
 2.10 Choosing a data structure, practice and summary  
 
 **3. Symbolic AI**  
-3.1 Introduction to Symbolic AI
-3.2 Logic and reasoning
-3.3 Knowledge representation
-3.4 Rule-based systems and expert systems
-3.5 Planning and problem solving
-3.6 Natural language processing (NLP) in symbolic AI
+3.1 Introduction to Symbolic AI  
+3.2 Logic and reasoning  
+3.3 Knowledge representation  
+3.4 Rule-based systems and expert systems  
+3.5 Planning and problem solving  
+3.6 Natural language processing (NLP) in symbolic AI  
 
 ## 6. Repository Structure
 
