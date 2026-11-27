@@ -109,7 +109,7 @@ Software-and-Symbolic-AI/
 |   |   ├── Valiant.md
 |   |   ├── Victor.md
 ├── README.md
-├── Markdown Content_v3/
+├── Markdown Content_v1/
 │   ├── 0. Module Outline.md
 │   ├── 1. The Foundation of Software.md
 │   ├── 2. The Birth of Symbolic AI (Good Old Fashioned AI).md
