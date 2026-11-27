@@ -116,7 +116,7 @@ Software-and-Symbolic-AI/
 │   ├── 3. How It Works: Mechanicals & Examples.md
 |   ├── 4. Symbolic AI vs. Modern Machine Learning.md
 |   ├── 5. The Modern Revival: Hybrid AI (Neuro-Symbolic AI).md 
-│   └── Assets/
+│   └── Assets.md
 ├── Markdown_Content_v2
 │   ├── 0. Module Outline.md
 │   ├── 1. Software.md
