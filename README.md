@@ -161,10 +161,10 @@ Narration, visual demonstrations, step-by-step explanations, and recap questions
 
 **Recommended reading order:**
 1. `README.md` (this file): project purpose, audience, and team
-2. `Markdown Content/0. Module Outline.md`: module overview and learning outcomes
-3. `Markdown Content/1. Software.md`: foundations needed for the later chapters
-4. `Markdown Content/2. Algorithm and Data Structure.md`: builds on the Software chapter
-5. `Markdown Content/3. Symbolic AI.md`: builds on logic and algorithms from the earlier chapters
+2. `Markdown Content_v2/0. Module Outline.md`: module overview and learning outcomes
+3. `Markdown Content_v2/1. Software.md`: foundations needed for the later chapters
+4. `Markdown Content_v2/2. Algorithm and Data Structure.md`: builds on the Software chapter
+5. `Markdown Content_v2/3. Symbolic AI.md`: builds on logic and algorithms from the earlier chapters
 
 After the Markdown content, the other deliverables can be viewed in any order:
 - `Study Plan/`: Study Guide
