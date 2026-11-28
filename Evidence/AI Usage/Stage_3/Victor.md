@@ -52,5 +52,48 @@
 
 <img width="800" height="781" alt="image" src="https://github.com/user-attachments/assets/ea9564ee-bb11-49b0-a380-5f68aee57629" />
 
+## 26-27 Novemeber 2026
 
+### Generating Image for Markdwon Content
+<img width="997" height="786" alt="image" src="https://github.com/user-attachments/assets/3bf9d845-9fd6-4a12-966e-0789c36e50f6" />
+
+<img width="947" height="770" alt="image" src="https://github.com/user-attachments/assets/ebe33deb-8e96-4ca9-8b2c-4a98adbd8d5b" />
+
+<img width="930" height="772" alt="image" src="https://github.com/user-attachments/assets/292d0ad8-c434-4e64-855c-7999feb8e1d6" />
+
+<img width="926" height="846" alt="image" src="https://github.com/user-attachments/assets/62995bee-f373-4387-b5ca-36a447f3513f" />
+
+(Do it for all topic in the markdown content and until the image for each markdown content is enough)
+
+### Understanding how to resize and align image in markdown
+
+<img width="678" height="855" alt="image" src="https://github.com/user-attachments/assets/e3ae5d0b-7d15-4921-b895-a73f514b6356" />
+
+<img width="632" height="845" alt="image" src="https://github.com/user-attachments/assets/789ae26e-9fe2-4f29-9063-7a1dda0763ed" />
+
+<img width="628" height="825" alt="image" src="https://github.com/user-attachments/assets/6a0ae371-d6eb-4c9d-b8ec-47d455ce9274" />
+
+<img width="501" height="861" alt="image" src="https://github.com/user-attachments/assets/c7df455d-266c-43f3-aaf9-1443bb6aa0ef" />
+
+<img width="497" height="692" alt="image" src="https://github.com/user-attachments/assets/0005739b-e775-49fa-b304-fd35db17857a" />
+
+### Putting the images to asset
+
+I ask the AI to verify the number of images, to doudle check whether I put the images correctly or not, then ask AI to list the images in markdown file
+
+<img width="881" height="806" alt="image" src="https://github.com/user-attachments/assets/8bea6356-d1fa-4e06-9e7b-6385e838af5b" />
+
+<img width="861" height="603" alt="image" src="https://github.com/user-attachments/assets/cbd95ee8-91c6-4595-984c-6f8f09c3fd79" />
+
+<img width="862" height="615" alt="image" src="https://github.com/user-attachments/assets/6ab4d18f-b545-4f24-9c64-82d1bbedb3bc" />
+
+<img width="891" height="810" alt="image" src="https://github.com/user-attachments/assets/d94541f9-28e4-42cd-a850-2b4e089ee671" />
+
+<img width="867" height="588" alt="image" src="https://github.com/user-attachments/assets/781a04d5-20b7-4499-bcb8-a62d56805739" />
+
+<img width="871" height="418" alt="image" src="https://github.com/user-attachments/assets/e3629724-bca5-433c-8d56-1d724c78f55f" />
+
+<img width="857" height="712" alt="image" src="https://github.com/user-attachments/assets/518f74d7-2a23-48ce-a78b-c78921f53e2a" />
+
+<img width="871" height="461" alt="image" src="https://github.com/user-attachments/assets/387462b5-cbe3-4247-814b-5185f1b4a994" />
 
